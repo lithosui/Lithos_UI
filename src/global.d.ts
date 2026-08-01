@@ -1,8 +1,4 @@
-
-declare module '*.css' {
-  const content: string
-  export default content
-}
+/// <reference types="vite/client" />
 
 declare namespace React {
   namespace JSX {
