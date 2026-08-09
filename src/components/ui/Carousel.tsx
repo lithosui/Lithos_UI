@@ -1,324 +1,253 @@
-import { forwardRef, useEffect, useRef, useState, Children, type ComponentPropsWithoutRef, type KeyboardEvent } from 'react'
-import { Button } from './Button'
+import {
+  useEffect,
+  useRef,
+  useState,
+  Children,
+  cloneElement,
+  type ComponentPropsWithRef,
+  type KeyboardEvent,
+  type ReactElement,
+  isValidElement
+} from 'react'
 import { cn } from '../../utils/cn'
+import { scrollTo } from '../../utils/scrollTo'
+import { CarouselNext, CarouselPrev } from './carousel/CarouselButton'
+import { CarouselProvider, type SliderSelector, type ScrollFuncProp } from './carousel/CarouselContext'
+import { CarouselControls } from './carousel/CarouselControls'
+import { CarouselPagination } from './carousel/CarouselPagination'
+import { CarouselSlide } from './carousel/CarouselSlide'
+import { useCarouselDrag } from './carousel/useCarouselDrag'
+import type { ClassValue, ClassArray } from "clsx"
 
-export type SliderSelector = 'dots' | 'numbers'
-export type CarouselSlideDirection = 'prev' | 'next' | number
-export type ScrollFunc = (val: CarouselSlideDirection) => void
-
-export interface CarouselProps extends ComponentPropsWithoutRef<'div'> {
-  controlsPosition?: 'top' | 'bottom' | undefined
-  title?: string | undefined
-  hideExtras?: boolean | undefined
-  hideControls?: boolean | undefined
-  extras?: {
-    slidersSelector?: SliderSelector | undefined
-    currentSlider?: boolean | undefined
-  } | undefined
-  playInfinite?: boolean | undefined
-  playInterval?: number | undefined
+export interface CarouselProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+  controlsPosition?: 'top' | 'bottom'
+  title?: string
+  hidePagination?: boolean
+  hideControls?: boolean
+  slideSelector?: SliderSelector
+  showCounter?: boolean
+  playInfinite?: boolean
+  playInterval?: number
   playDirection?: 'right' | 'left'
-  stopOnHover?: boolean | undefined
+  stopOnHover?: boolean
+  className?: ClassValue | ClassArray
 }
 
-// used on the dots svg
-const iconClass = {
-  default: 'w-2 h-2',
-  visible: 'w-3 h-3',
-  selected: 'w-4 h-4'
-}
+export const Carousel = ({
+  controlsPosition = 'top',
+  title,
+  children,
+  className,
+  hidePagination = false,
+  hideControls = false,
+  slideSelector = 'dots',
+  showCounter = true,
+  playInfinite = false,
+  playInterval = 5000,
+  playDirection = 'right',
+  stopOnHover = true,
+  ref,
+  ...rest
+}: CarouselProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [index, setIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
-interface ControlsProps {
-  title?: string | undefined
-  scroll: ScrollFunc
-  bottomPositioned?: boolean | undefined
-}
+  const totalSlides = Children.toArray(children).filter(
+    (child) => isValidElement(child) && child.type === CarouselSlide
+  ).length
+  const normalizedSlides = totalSlides - 1 // we use a 0 indexed list
+  const isTop = controlsPosition === 'top'
 
-const CarouselControls = forwardRef<HTMLDivElement, ControlsProps>(
-  ({ title, scroll, bottomPositioned = false, ...rest }, ref) => {
-    return (
-      <div
-        className={`${bottomPositioned ? 'mt-3' : 'mb-3'} flex flex-col sm:flex-row items-center justify-between border-t-4 border-(--lithos-border) pt-2`}
-        ref={ref}
-        {...rest}
-      >
-        <h3 className='text-center sm:text-start mb-2 sm:mb-0'>{title}</h3>
-        <div className='flex items-center'>
-          <Button className='mr-4' aria-label='Previous slide' onClick={() => scroll('prev')}>
-            <svg className='w-6 h-6 lg:w-8 lg:h-8' width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g><path d="M6 12H18M6 12L11 7M6 12L11 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></g>
-            </svg>
-          </Button>
-          <Button aria-label='Next slide' onClick={() => scroll('next')}>
-            <svg className='w-6 h-6 lg:w-8 lg:h-8' width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g><path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></g>
-            </svg>
-          </Button>
-        </div>
-      </div>
-    )
-  }
-)
+  // ensure the carousel always resets to slide 0 when mounting
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollLeft = 0
+    }
+  }, [])
 
-interface CarouselExtrasProps {
-  index: number
-  slides: number
-  scroll: ScrollFunc
-  sliderSelector: SliderSelector
-  currentSlider: boolean
-  bottomControls: boolean
-}
+  // realigns the exact scroll if the window is resized
+  useEffect(() => {
+    const carousel = containerRef.current
 
-const CarouselExtras = forwardRef<HTMLDivElement, CarouselExtrasProps>(
-  ({ index, slides, scroll, sliderSelector = 'dots', currentSlider = false, bottomControls = false }, ref) => {
-    const slidersSelector = []
+    if (!carousel) return
 
-    for (let i = 0; i < slides; i++) {
-      const isLast = i === slides - 1
-      const isSelected = i === index
-      const extraVisible = i === index - 1 || i === index + 1
-      const shouldHide = i < index - 2 || i > index + 2
-
-      const classes = [
-        isLast ? 'mr-0' : 'mr-4',
-        extraVisible ? 'opacity-85' : 'opacity-60',
-        shouldHide && 'absolute invisible opacity-0',
-        isSelected && 'opacity-100'
-      ]
-
-      const dotSize = isSelected ? iconClass['selected'] : iconClass[extraVisible ? 'visible' : 'default']
-
-      slidersSelector.push(
-        <Button
-          className={classes}
-          intent={isSelected ? 'primary' : 'text'}
-          onClick={() => scroll(i)}
-          key={`slider-selector-${i}`}
-          aria-label={`Move to the ${i + 1} slide`}
-          aria-hidden={shouldHide}
-        >
-          {sliderSelector === 'dots' && (
-            <svg
-              className={dotSize}
-              width="100"
-              height="100"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-            >
-              <g><path fill="currentColor" d="M8 3a5 5 0 100 10A5 5 0 008 3z"></path></g>
-            </svg>
-          )}
-          {sliderSelector === 'numbers' && i + 1}
-        </Button>
-      )
+    const handleResize = () => {
+      const amount = carousel.clientWidth
+      scrollTo({ element: carousel, amount: index * amount })
     }
 
-    return (
-      <div className={`${bottomControls ? 'mb-4' : 'mt-2'} flex items-center justify-center`} ref={ref}>
-        <div className={`flex ml-auto ${!currentSlider ? 'mx-auto' : ''}`}>
-          {slidersSelector}
-        </div>
-        {currentSlider && (
-          <span className='ml-auto'>{index + 1}/{slides}</span>
-        )}
-      </div>
-    )
-  }
-)
+    const observer = new ResizeObserver(handleResize)
+    observer.observe(carousel)
 
-export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
-  ({
-    controlsPosition = 'top',
-    title,
-    children,
-    className,
-    hideExtras = false,
-    hideControls = false,
-    extras,
-    playInfinite = false,
-    playInterval = 5000,
-    playDirection = 'right',
-    stopOnHover = true,
-    ...rest
-  }, ref) => {
-    const containerRef = useRef<HTMLDivElement | null>(null)
-    const [index, setIndex] = useState(0)
-    const [isPaused, setIsPaused] = useState(false)
+    return () => observer.disconnect()
+  }, [index])
 
-    const defaultConfig = {
-      slidersSelector: 'dots',
-      currentSlider: true
-    }
-    const extrasConfig = Object.assign(defaultConfig, extras)
+  const scroll = (direction: ScrollFuncProp) => {
+    const carousel = containerRef.current
 
-    const slides = Children.count(children)
-    const normalizedSlides = slides - 1 // we use a 0 indexed list
-    const isTop = controlsPosition === 'top'
+    if (!carousel || !totalSlides) return
 
-    // ensure the carousel always resets to slide 0 when mounting
-    useEffect(() => {
-      if (containerRef.current) {
-        containerRef.current.scrollLeft = 0
+    const amount = carousel.clientWidth
+    const isNext = direction === 'next'
+    let newIndex: number | undefined
+
+    // allow moving to a specific slide
+    if (typeof direction === 'number') {
+      const slideExists = direction >= 0 && direction <= normalizedSlides
+
+      if (!slideExists) return
+
+      scrollTo({ element: carousel, amount: direction * amount })
+      newIndex = direction
+    } else {
+      const moveToFirst = index === normalizedSlides && isNext
+      const moveToLast = index === 0 && !isNext
+
+      const getMoveTo = () => {
+        if (moveToFirst) return 0 // initial slide
+        if (moveToLast) return amount * normalizedSlides // last slide
+
+        if (isNext) return amount * (index + 1) // next/prev slide
+        return amount * (index - 1)
       }
-    }, [])
 
-    // realigns the exact scroll if the window is resized
-    useEffect(() => {
+      scrollTo({ element: carousel, amount: getMoveTo() })
+
+      if (isNext) { newIndex = index + 1 }
+      else { newIndex = index - 1 }
+
+      // Infinite scroll
+      if (moveToFirst) { newIndex = 0 }
+      if (moveToLast) { newIndex = normalizedSlides }
+    }
+
+    setIndex(newIndex)
+  }
+
+  useEffect(() => {
+    if (!playInfinite || isPaused || totalSlides <= 1) return
+
+    const timer = setInterval(() => {
       const carousel = containerRef.current
 
       if (!carousel) return
 
-      const handleResize = () => {
-        carousel.scrollTo({ left: index * carousel.clientWidth, behavior: 'instant' })
-      }
+      setIndex((prevIndex) => {
+        let nextIndex = prevIndex + (playDirection === 'right' ? 1 : -1)
 
-      const observer = new ResizeObserver(handleResize)
-      observer.observe(carousel)
+        if (nextIndex < 0) { nextIndex = normalizedSlides }
+        if (nextIndex > normalizedSlides) { nextIndex = 0 }
 
-      return () => observer.disconnect()
-    }, [index])
+        const amount = carousel.clientWidth
+        scrollTo({ element: carousel, amount: index * amount })
 
-    const scroll = (direction: CarouselSlideDirection) => {
-      const carousel = containerRef.current
+        return nextIndex
+      })
+    }, playInterval)
 
-      if (!carousel || !slides) return
+    return () => clearInterval(timer)
+  }, [playInfinite, isPaused, playInterval, playDirection, normalizedSlides, totalSlides])
 
-      const amount = carousel.clientWidth
-      const isNext = direction === 'next'
+  const dragHandlers = useCarouselDrag({ containerRef, scroll })
 
-      let newIndex
+  const classes = cn(
+    'w-full border-4 border-(--lithos-border) bg-(--lithos-surface) p-2 sm:p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)]',
+    className
+  )
 
-      // allow moving to a specific slide
-      if (typeof direction === 'number') {
-        carousel.scrollTo({ left: direction * amount, behavior: 'instant' })
-        newIndex = direction
-      } else {
-        const moveToFirst = index === normalizedSlides && isNext
-        const moveToLast = index === 0 && !isNext
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const prevKey = 'ArrowLeft'
+    const nextKey = 'ArrowRight'
 
-        const getMoveTo = () => {
-          if (moveToFirst) return 0 // initial slide
-          if (moveToLast) return amount * normalizedSlides // last slide
-          if (isNext) return amount * (index + 1) // next/prev slide
+    if (e.key === prevKey) scroll('prev')
+    if (e.key === nextKey) scroll('next')
+  }
 
-          return amount * (index - 1)
-        }
+  const pauseRotation = () => stopOnHover && setIsPaused(true)
+  const continueRotation = () => stopOnHover && setIsPaused(false)
 
-        carousel.scrollTo({ left: getMoveTo(), behavior: 'instant' })
+  const Controls = !hideControls && (
+    <CarouselControls title={title} bottomPositioned={!isTop} />
+  )
 
-        if (isNext) { newIndex = index + 1 }
-        else { newIndex = index - 1 }
+  const Extras = !hidePagination && (
+    <CarouselPagination
+      index={index}
+      slides={totalSlides}
+      scroll={scroll}
+      sliderSelector={slideSelector}
+      showCounter={showCounter}
+      bottomControls={!isTop}
+    />
+  )
 
-        // Infinite scroll
-        if (moveToFirst) { newIndex = 0 }
-        if (moveToLast) { newIndex = normalizedSlides }
-      }
+  let slideIndex = 0
 
-      setIndex(newIndex)
+  // this allow the consumer to create custom controls elements inside the
+  // Carousel without counting them as Sliders
+  const renderedChildren = Children.map(children, (child) => {
+    if (!isValidElement(child)) return child
+
+    // if is a Carousel.Slide, assign it's slide indice
+    if (child.type === CarouselSlide) {
+      const slide = cloneElement(child as ReactElement<any>, {
+        index: slideIndex,
+      })
+
+      slideIndex++;
+      return slide
     }
 
-    useEffect(() => {
-      if (!playInfinite || isPaused || slides <= 1) return
+    return child
+  })
 
-      const timer = setInterval(() => {
-        const carousel = containerRef.current
+  const liveRegionPoliteness = playInfinite && !isPaused ? 'off' : 'polite'
 
-        if (!carousel) return
-
-        setIndex((prevIndex) => {
-          const amount = carousel.clientWidth
-          let nextIndex = prevIndex + (playDirection === 'right' ? 1 : -1)
-
-          if (nextIndex < 0) { nextIndex = normalizedSlides }
-          if (nextIndex > normalizedSlides) { nextIndex = 0 }
-
-          carousel.scrollTo({ left: nextIndex * amount, behavior: 'instant' })
-          return nextIndex
-        })
-      }, playInterval)
-
-      return () => clearInterval(timer)
-    }, [playInfinite, isPaused, playInterval, playDirection, normalizedSlides, slides])
-
-    const classes = cn(
-      'w-full border-4 border-(--lithos-border) bg-(--lithos-surface) p-2 sm:p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)]',
-      className
-    )
-
-    const carouselExtrasProps = {
-      index,
-      slides,
-      scroll,
-      sliderSelector: extrasConfig.slidersSelector,
-      currentSlider: extrasConfig.currentSlider,
-      bottomControls: !isTop
-    }
-
-
-    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'ArrowLeft') scroll('prev')
-      if (e.key === 'ArrowRight') scroll('next')
-    }
-
-    const handleMouseEnter = () => stopOnHover && setIsPaused(true)
-    const handleMouseLeave = () => stopOnHover && setIsPaused(false)
-    const handleFocus = () => stopOnHover && setIsPaused(true)
-    const handleBlur = () => stopOnHover && setIsPaused(false)
-
-    return (
+  return (
+    <CarouselProvider scroll={scroll} currentIndex={index} totalSlides={totalSlides}>
       <div
         className={classes}
         ref={ref}
         tabIndex={0}
         onKeyDown={handleKeyDown}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onMouseEnter={pauseRotation}
+        onMouseLeave={continueRotation}
+        onFocus={pauseRotation}
+        onBlur={continueRotation}
         role='region'
         aria-roledescription='carousel'
         aria-label={title || 'Carousel'}
         {...rest}
       >
-        {!isTop && !hideExtras && <CarouselExtras {...carouselExtrasProps} />}
-        {isTop && !hideControls && <CarouselControls title={title} scroll={scroll} bottomPositioned={!isTop} />}
+        {!isTop && Extras}
+        {isTop && Controls}
 
         {/* Hard-Snap horizontal slab */}
-        <div ref={containerRef} className='flex overflow-x-hidden snap-x snap-mandatory'>
-          {children}
+
+        <div className='w-full'>
+          <div
+            ref={containerRef}
+            className='flex no-scrollbar select-none cursor-pointer w-full flex-row overflow-x-auto snap-x touch-pan-y'
+            {...dragHandlers}
+          >
+            {renderedChildren}
+          </div>
         </div>
 
-        <div className='sr-only' aria-live='polite' aria-atomic='true'>
-          {`Slide ${index + 1} of ${slides}`}
+        <div className='sr-only' aria-live={liveRegionPoliteness} aria-atomic='true'>
+          {`Slide ${index + 1} of ${totalSlides}`}
         </div>
 
-        {isTop && !hideExtras && <CarouselExtras {...carouselExtrasProps} />}
-        {!isTop && !hideControls && <CarouselControls title={title} scroll={scroll} bottomPositioned={!isTop} />}
+        {isTop && Extras}
+        {!isTop && Controls}
       </div>
-    )
-  }
-)
+    </CarouselProvider>
+  )
+}
 
-Carousel.displayName = 'Carousel'
-
-export const CarouselSlide = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'>>(
-  ({ className, children, ...rest }, ref) => {
-    const classes = cn(
-      'snap-start shrink-0 w-full border-2 border-(--lithos-border) px-2',
-      className
-    )
-
-    return <div
-      className={classes}
-      ref={ref}
-      {...rest}
-      role='group'
-      aria-roledescription='slide'
-    >
-      {children}
-    </div>
-  }
-)
-
-CarouselSlide.displayName = 'CarouselSlide'
+Carousel.NextButton = CarouselNext
+Carousel.PrevButton = CarouselPrev
+Carousel.Pagination = CarouselPagination
+Carousel.Controls = CarouselControls
+Carousel.Slide = CarouselSlide
