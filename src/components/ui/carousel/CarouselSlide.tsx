@@ -1,7 +1,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from '../../../utils/cn'
 import type { ClassArray, ClassValue } from 'clsx'
-import { useCarousel } from './CarouselContext'
+import { useCarousel } from "./useCarousel"
 
 export interface CarouselSlideProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
   index?: number

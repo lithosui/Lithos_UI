@@ -1,6 +1,7 @@
 import { type ComponentPropsWithRef, type MouseEvent } from "react"
 import { Button } from '../Button'
-import { useCarousel, type CarouselDirection } from './CarouselContext'
+import { type CarouselDirection } from './CarouselContext'
+import { useCarousel } from "./useCarousel"
 import type { ClassValue, ClassArray } from "clsx"
 import { IconArrowLeft } from "../icons/IconArrowLeft"
 import { IconArrowRight } from "../icons/IconArrowRight"
