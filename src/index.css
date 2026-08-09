@@ -133,3 +133,15 @@ body {
     @apply inline-flex items-center justify-center font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75 shadow-[2px_2px_0px_0px_var(--lithos-shadow)] hover:shadow-[4px_4px_0px_0px_var(--lithos-shadow)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 p-2;
   }
 }
+
+@layer utilities {
+  /* Chrome, Safari & Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE & Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
