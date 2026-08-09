@@ -15,7 +15,7 @@ import { CarouselNext, CarouselPrev } from './carousel/CarouselButton'
 import { CarouselProvider, type SliderSelector, type ScrollFuncProp } from './carousel/CarouselContext'
 import { CarouselControls } from './carousel/CarouselControls'
 import { CarouselPagination } from './carousel/CarouselPagination'
-import { CarouselSlide } from './carousel/CarouselSlide'
+import { CarouselSlide, type CarouselSlideProps } from './carousel/CarouselSlide'
 import { useCarouselDrag } from './carousel/useCarouselDrag'
 import type { ClassValue, ClassArray } from "clsx"
 
@@ -140,7 +140,7 @@ export const Carousel = ({
         if (nextIndex > normalizedSlides) { nextIndex = 0 }
 
         const amount = carousel.clientWidth
-        scrollTo({ element: carousel, amount: index * amount })
+        scrollTo({ element: carousel, amount: nextIndex * amount })
 
         return nextIndex
       })
@@ -191,7 +191,7 @@ export const Carousel = ({
 
     // if is a Carousel.Slide, assign it's slide indice
     if (child.type === CarouselSlide) {
-      const slide = cloneElement(child as ReactElement<any>, {
+      const slide = cloneElement(child as ReactElement<CarouselSlideProps>, {
         index: slideIndex,
       })
 
