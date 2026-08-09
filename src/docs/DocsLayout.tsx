@@ -107,6 +107,7 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#no-current-slider', label: 'Without current slider', level: 2 },
     { id: '#no-controls', label: 'Without controls', level: 2 },
     { id: '#play-infinite', label: 'Play infinitely', level: 2 },
+    { id: '#api', label: 'API Reference', level: 1 },
   ],
 }
 
