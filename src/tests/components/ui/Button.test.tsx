@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { describe, it, expect, vi } from 'vitest'
-import { Button } from '../../../components/ui/Button'
+import { Button, ButtonGroup } from '../../../components/ui/Button'
 
 describe('Button', () => {
   it('renders with children', () => {
@@ -50,6 +50,69 @@ describe('Button', () => {
 
   it.each(['primary', 'secondary', 'text'] as const)('has no accessibility violations — %s intent', async (intent) => {
     const { container } = render(<Button intent={intent}>Accessible</Button>)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+  })
+
+  it('renders iconLeft before children', () => {
+    render(
+      <Button iconLeft={<span data-testid="icon-left">L</span>}>Click me</Button>
+    )
+    const button = screen.getByRole('button')
+    const icon = screen.getByTestId('icon-left')
+    expect(button).toContainElement(icon)
+    expect(button.textContent).toBe('LClick me')
+  })
+
+  it('renders iconRight after children', () => {
+    render(
+      <Button iconRight={<span data-testid="icon-right">R</span>}>Click me</Button>
+    )
+    const button = screen.getByRole('button')
+    const icon = screen.getByTestId('icon-right')
+    expect(button).toContainElement(icon)
+    expect(button.textContent).toBe('Click meR')
+  })
+})
+
+describe('ButtonGroup', () => {
+  it('renders children buttons', () => {
+    render(
+      <ButtonGroup>
+        <Button>One</Button>
+        <Button>Two</Button>
+      </ButtonGroup>
+    )
+    expect(screen.getByRole('button', { name: 'One' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Two' })).toBeInTheDocument()
+  })
+
+  it('exposes a group role', () => {
+    render(
+      <ButtonGroup>
+        <Button>One</Button>
+      </ButtonGroup>
+    )
+    expect(screen.getByRole('group')).toBeInTheDocument()
+  })
+
+  it.each(['horizontal', 'vertical'] as const)('applies %s orientation layout', (orientation) => {
+    render(
+      <ButtonGroup orientation={orientation}>
+        <Button>One</Button>
+      </ButtonGroup>
+    )
+    const group = screen.getByRole('group')
+    expect(group.className).toContain(orientation === 'vertical' ? 'flex-col' : 'flex-row')
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(
+      <ButtonGroup>
+        <Button>One</Button>
+        <Button>Two</Button>
+      </ButtonGroup>
+    )
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
