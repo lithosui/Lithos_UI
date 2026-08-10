@@ -31,13 +31,13 @@ describe('Badge Component', () => {
   })
 
   it('renders different size styles correctly', () => {
-    const { rerender } = render(<Badge size="small">Small</Badge>)
+    const { rerender } = render(<Badge size="sm">Small</Badge>)
     expect(screen.getByText('Small')).toHaveClass('text-[0.65rem]', 'px-1.5')
 
-    rerender(<Badge size="medium">Medium</Badge>)
+    rerender(<Badge size="md">Medium</Badge>)
     expect(screen.getByText('Medium')).toHaveClass('text-sm', 'px-2')
 
-    rerender(<Badge size="large">Large</Badge>)
+    rerender(<Badge size="lg">Large</Badge>)
     expect(screen.getByText('Large')).toHaveClass('text-lg', 'px-3')
   })
 
