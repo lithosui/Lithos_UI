@@ -4,6 +4,51 @@ import { useRef, useState } from 'react'
 import { colors } from '../../utils/colors'
 import { isHexColor } from '../../core/types'
 import { Button } from '../../components/ui/Button'
+import { type PropItem, PropsAccordion } from '../../components/ui/PropsTable'
+
+const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Badge.tsx'
+
+const badgeProps: PropItem[] = [
+  {
+    name: 'children',
+    type: 'ReactNode',
+    required: false,
+    description: 'The content to be rendered inside the badge.'
+  },
+  {
+    name: 'className',
+    type: 'string',
+    defaultValue: '""',
+    required: false,
+    description: 'Additional CSS classes to apply custom styles.'
+  },
+  {
+    name: 'size',
+    type: '"small" | "default" | "medium" | "large"',
+    defaultValue: '"default"',
+    required: false,
+    description: 'Defines the overall scale and padding of the badge.'
+  },
+  {
+    name: 'variant',
+    type: '"default" | "accent" | "success" | "error" | "warning" | "info"',
+    defaultValue: '"default"',
+    required: false,
+    description: 'Controls the visual style and semantic status of the badge.'
+  },
+  {
+    name: 'color',
+    type: 'HexColor | string',
+    required: false,
+    description: 'Sets a custom background or accent color value.'
+  },
+  {
+    name: 'ref',
+    type: 'Ref<HTMLDivElement>',
+    required: false,
+    description: 'Ref forwarded to the root div element.'
+  }
+]
 
 export const BadgeDoc = () => {
   const [customColor, setCustomColor] = useState('#FF00FF')
@@ -95,10 +140,7 @@ export const CustomizedBadge = () => {
       </h3>
 
       <div className="mt-8 mb-16">
-        <PreviewBlock
-          code={variantsCode}
-          githubUrl="https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Badge.tsx"
-        >
+        <PreviewBlock code={variantsCode} githubUrl={githubUrl}>
           <div className='flex flex-col items-center text-center flex-wrap'>
             <Badge className='mb-4'>Default</Badge>
             <Badge className='mb-4' variant='accent'>Accent</Badge>
@@ -115,10 +157,7 @@ export const CustomizedBadge = () => {
       </h3>
 
       <div className="mt-8 mb-16">
-        <PreviewBlock
-          code={sizesCode}
-          githubUrl="https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Badge.tsx"
-        >
+        <PreviewBlock code={sizesCode} githubUrl={githubUrl}>
           <div className='flex flex-col items-center text-center'>
             <Badge>Default</Badge>
             <Badge className='mt-4' size='small'>Small</Badge>
@@ -133,10 +172,7 @@ export const CustomizedBadge = () => {
       </h3>
 
       <div className="mt-8 mb-16">
-        <PreviewBlock
-          code={customCode}
-          githubUrl="https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Badge.tsx"
-        >
+        <PreviewBlock code={customCode} githubUrl={githubUrl}>
           <div className='flex flex-col items-center text-center'>
             <Badge color={customColor} size='medium'>Custom Color</Badge>
 
@@ -149,6 +185,31 @@ export const CustomizedBadge = () => {
           </div>
         </PreviewBlock>
       </div>
+
+      <h2 id="requires" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+        Requires
+      </h2>
+      <ul className="list-disc pl-6 mb-12 text-lg font-body text-(--lithos-text)">
+        <li><code>clsx</code> and <code>tailwind-merge</code> for class merging utility.</li>
+      </ul>
+
+      <section className="mb-12">
+        <h2 id="accessibility" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+          Accessibility
+        </h2>
+        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
+          <li>Non-interactive by default; excluded from the focus order to keep keyboard navigation seamless.</li>
+          <li>Maintains readable text contrast ratios across all status variants.</li>
+        </ul>
+      </section>
+
+      <section className='mb-12'>
+        <h2 id='api' className='mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)'>
+          API Reference
+        </h2>
+
+        <PropsAccordion title='Badge Props' data={badgeProps} />
+      </section>
     </div>
   )
 }

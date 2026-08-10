@@ -62,6 +62,9 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#variants', label: 'Variants', level: 2 },
     { id: '#sizes', label: 'Sizes', level: 2 },
     { id: '#custom-color', label: 'Custom color', level: 2 },
+    { id: '#requires', label: 'Requires', level: 1 },
+    { id: '#accessibility', label: 'Accessibility', level: 1 },
+    { id: '#api', label: 'API Reference', level: 1 },
   ],
   '/docs/breadcrumb': [
     { id: '#examples', label: 'Breadcrumb Types', level: 1 },
