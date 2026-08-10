@@ -4,12 +4,13 @@
  * - Uses explicit margins and fixed positioning to keep the stack predictable.
  * - Applies per-toast contrast and heavy borders so alerts read as hard objects.
  */
-import { useState, useCallback, useEffect, type ReactNode } from 'react'
+import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
 import { getContrastText } from '../../utils/yiq'
 import { ToastContext } from '../../core/hooks/useToast'
 import type { ToastProps } from '../../core/types'
 import { colors } from '../../utils/colors'
 import { Button } from './Button'
+import { IconClose } from './icons/IconClose'
 
 type IdentifiedToastProps = ToastProps & { id: string }
 
@@ -51,11 +52,31 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 export const ToastItem = ({ toast, onRemove }: ToastItemType) => {
   const { id, message, type = 'default', color, title } = toast
   const [isHovered, setIsHovered] = useState(false)
+  const toastRef = useRef<HTMLDivElement | null>(null)
+
+  const isError = type === 'error'
+
+  useEffect(() => {
+    if (!isError || !toastRef.current) return
+
+    // save previously focused element to restore it later
+    const previousFocus = document.activeElement as HTMLElement | null
+
+    // move focus to toast tile
+    toastRef.current.focus()
+
+    return () => {
+      // restore focus when toast unmounts if it's still inside document
+      if (previousFocus && typeof previousFocus.focus === 'function') {
+        previousFocus.focus()
+      }
+    }
+  }, [isError])
 
   // Toast persists on hover; auto-dismiss timer pauses while hovered
   useEffect(() => {
     if (isHovered) return
-    const timer = setTimeout(onRemove, 5000)
+    const timer = setTimeout(onRemove, isError ? 8000 : 5000)
     return () => clearTimeout(timer)
   }, [isHovered, onRemove])
 
@@ -63,6 +84,9 @@ export const ToastItem = ({ toast, onRemove }: ToastItemType) => {
   const textColor = getContrastText(bgColor)
 
   const label = 'Close notification'
+
+  const livePriority = isError ? 'assertive' : 'polite'
+  const role = isError ? 'alert' : 'status'
 
   return (
     <>
@@ -78,7 +102,10 @@ export const ToastItem = ({ toast, onRemove }: ToastItemType) => {
 
       {/* - Stack spacing uses explicit margins so each toast keeps its own exit path. */}
       <div
-        role="alert"
+        ref={toastRef}
+        role={role}
+        aria-live={livePriority}
+        tabIndex={isError ? -1 : undefined}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`toast-override-${id} pointer-events-auto border-2 p-3 sm:p-4 mb-4 w-full flex flex-row items-start shadow-[4px_4px_0_0_var(--lithos-shadow)] animate-[slide-up_0.3s_ease-out_forwards]`}
@@ -95,18 +122,7 @@ export const ToastItem = ({ toast, onRemove }: ToastItemType) => {
           aria-label={label}
           style={{ borderColor: textColor }}
         >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke={textColor}
-            strokeWidth="4"
-            className="block"
-          >
-            <title>{label}</title>
-            <path d="M2 2L14 14M14 2L2 14" />
-          </svg>
+          <IconClose aria-hidden='true' />
         </Button>
       </div>
     </>
