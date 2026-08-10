@@ -3,7 +3,7 @@
  * - Dynamic contrast text resolution based on YIQ color space calculated from custom HEX or preset variant backgrounds.
  * - Integrates theme-aware accentColor fallback with hard-edged neo-brutalist border and shadow geometry.
  */
-import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithRef } from "react";
 import { getContrastText } from "../../utils/yiq";
 import { colors } from "../../utils/colors";
 import { useTheme } from "../../core/useTheme";
@@ -13,7 +13,7 @@ import { cn } from "../../utils/cn";
 type BadgeSizes = 'small' | 'default' | 'medium' | 'large'
 type BadgeVariants = 'default' | 'accent' | 'success' | 'error' | 'warning' | 'info'
 
-export interface BadgeProps extends ComponentPropsWithoutRef<'div'> {
+export interface BadgeProps extends ComponentPropsWithRef<'div'> {
   variant?: BadgeVariants
   className?: string
   size?: BadgeSizes
@@ -27,25 +27,29 @@ const sizeStyles = {
   large: 'text-lg px-3'
 }
 
-export const Badge = forwardRef<HTMLDivElement, BadgeProps>(
-  ({ children, className = '', size = 'default', variant = 'default', color, ...props }, ref) => {
-    const { accentColor } = useTheme()
+export const Badge = ({
+  children,
+  className = '',
+  size = 'default',
+  variant = 'default',
+  color,
+  ref,
+  ...props
+}: BadgeProps) => {
+  const { accentColor } = useTheme()
 
-    const bgColor = color || (variant === 'accent' ? accentColor : colors[variant])
-    const contrastedColor = getContrastText(bgColor)
+  const bgColor = color || (variant === 'accent' ? accentColor : colors[variant])
+  const contrastedColor = getContrastText(bgColor)
 
-    const classes = cn(
-      'uppercase font-(--font-sans) font-bold border-2 border-(--lithos-border) shadow-[1px_1px_0_0_var(--lithos-border)] py-1 w-max',
-      sizeStyles[size],
-      className
-    )
+  const classes = cn(
+    'uppercase font-(--font-sans) font-bold border-2 border-(--lithos-border) shadow-[1px_1px_0_0_var(--lithos-border)] py-1 w-max',
+    sizeStyles[size],
+    className
+  )
 
-    return (
-      <div ref={ref} className={classes} style={{ backgroundColor: bgColor, color: contrastedColor }} {...props}>
-        {children}
-      </div>
-    )
-  }
-)
-
-Badge.displayName = 'Badge'
+  return (
+    <div ref={ref} className={classes} style={{ backgroundColor: bgColor, color: contrastedColor }} {...props}>
+      {children}
+    </div>
+  )
+}
