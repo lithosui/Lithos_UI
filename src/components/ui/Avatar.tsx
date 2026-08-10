@@ -91,3 +91,33 @@ export const AvatarGroupCount = forwardRef<HTMLDivElement, AvatarGroupCountProps
 )
 
 AvatarGroupCount.displayName = 'AvatarGroupCount'
+
+export interface AvatarGroupItem {
+  src?: string | undefined
+  alt: string
+}
+
+export interface AvatarGroupProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+  items: AvatarGroupItem[]
+  max?: number
+  size?: AvatarSizes
+  className?: string
+}
+
+export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
+  ({ items, max = 4, size = 'md', className = '', ...props }, ref) => {
+    const visible = items.slice(0, max)
+    const overflow = items.length - max
+
+    return (
+      <div ref={ref} className={cn('flex -space-x-3', className)} {...props}>
+        {visible.map((item, index) => (
+          <Avatar key={`${item.alt}-${index}`} src={item.src} alt={item.alt} size={size} />
+        ))}
+        {overflow > 0 && <AvatarGroupCount count={overflow} size={size} />}
+      </div>
+    )
+  }
+)
+
+AvatarGroup.displayName = 'AvatarGroup'

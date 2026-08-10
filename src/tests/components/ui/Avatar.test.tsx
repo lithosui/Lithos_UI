@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import { describe, it, expect } from 'vitest'
-import { Avatar, AvatarGroupCount } from '../../../components/ui/Avatar'
+import { Avatar, AvatarGroupCount, AvatarGroup } from '../../../components/ui/Avatar'
 
 describe('Avatar', () => {
   it('renders an image when src is provided', () => {
@@ -55,6 +55,34 @@ describe('AvatarGroupCount', () => {
 
   it('has no accessibility violations', async () => {
     const { container } = render(<AvatarGroupCount count={3} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+  })
+})
+
+describe('AvatarGroup', () => {
+  const users = (n: number) => Array.from({ length: n }, (_, i) => ({ alt: `User ${i + 1}` }))
+
+  it('renders every item when count is at or below max', () => {
+    render(<AvatarGroup items={users(3)} max={4} />)
+    expect(screen.getAllByText(/^U\d?$/).length).toBe(3)
+    expect(screen.queryByText(/^\+/)).not.toBeInTheDocument()
+  })
+
+  it('shows 10 users as 4 avatars plus a +6 count', () => {
+    render(<AvatarGroup items={users(10)} max={4} />)
+    expect(screen.getAllByText(/^U\d?$/).length).toBe(4)
+    expect(screen.getByText('+6')).toBeInTheDocument()
+  })
+
+  it('shows 14 users as 4 avatars plus a +10 count', () => {
+    render(<AvatarGroup items={users(14)} max={4} />)
+    expect(screen.getAllByText(/^U\d?$/).length).toBe(4)
+    expect(screen.getByText('+10')).toBeInTheDocument()
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<AvatarGroup items={users(10)} max={4} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
