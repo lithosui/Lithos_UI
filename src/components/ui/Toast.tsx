@@ -78,7 +78,7 @@ export const ToastItem = ({ toast, onRemove }: ToastItemType) => {
     if (isHovered) return
     const timer = setTimeout(onRemove, isError ? 8000 : 5000)
     return () => clearTimeout(timer)
-  }, [isHovered, onRemove])
+  }, [isHovered, onRemove, isError])
 
   const bgColor = color || colors[type] || colors.default
   const textColor = getContrastText(bgColor)
