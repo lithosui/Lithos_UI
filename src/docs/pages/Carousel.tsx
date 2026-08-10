@@ -312,7 +312,7 @@ export const AppCarousel = () => {
       </div>
 
       <h3 id='no-current-slider' className='mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)'>
-        Without current slider
+        No current slider
       </h3>
       <p className='mb-4 text-sm font-body opacity-70 text-(--lithos-text)'>
         Hides the current slider position and total count indicator.
@@ -333,7 +333,7 @@ export const AppCarousel = () => {
       </div>
 
       <h3 id='no-controls' className='mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)'>
-        Without controls
+        No controls
       </h3>
       <p className='mb-4 text-sm font-body opacity-70 text-(--lithos-text)'>
         Hides the primary direction arrow controls.

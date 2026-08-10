@@ -1,3 +1,7 @@
+/**
+ * CarouselSlide.tsx
+ * Wrapper component for an individual slide. Wraps the content that the user wants to display.
+ */
 import type { ComponentPropsWithRef } from 'react'
 import { cn } from '../../../utils/cn'
 import type { ClassArray, ClassValue } from 'clsx'

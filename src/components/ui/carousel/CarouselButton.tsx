@@ -1,3 +1,7 @@
+/**
+ * CarouselButton.tsx
+ * Renders the Previous and Next arrow buttons used to navigate slides.
+ */
 import { type ComponentPropsWithRef, type MouseEvent } from "react"
 import { Button } from '../Button'
 import { type CarouselDirection } from './CarouselContext'

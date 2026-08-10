@@ -1,3 +1,7 @@
+/**
+ * useCarousel.tsx
+ * A simple custom hook to consume the CarouselContext within child components.
+ */
 import { useContext } from "react"
 import { type CarouselContextValue, CarouselContext } from "./CarouselContext"
 

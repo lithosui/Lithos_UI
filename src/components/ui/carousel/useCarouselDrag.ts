@@ -1,3 +1,7 @@
+/**
+ * useCarouselDrag.ts
+ * Custom hook that handles the pointer events (mouse drag/touch swipe) logic for the carousel.
+ */
 import { useRef, useState, type PointerEvent } from 'react'
 import { scrollTo } from '../../../utils/scrollTo'
 import type { ScrollFunc } from './CarouselContext'
@@ -56,6 +60,7 @@ export const useCarouselDrag = ({ containerRef, scroll }: UseCarouselDragOptions
   }
 
   return {
+    isDragging,
     onPointerDown,
     onPointerMove,
     onPointerUp,

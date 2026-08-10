@@ -1,3 +1,7 @@
+/**
+ * CarouselControls.tsx
+ * Wrapper container that holds the Carousel's title and the Prev/Next navigation buttons.
+ */
 import type { ComponentPropsWithoutRef } from 'react'
 import { cn } from '../../../utils/cn'
 import { CarouselNext, CarouselPrev } from './CarouselButton'
@@ -25,7 +29,7 @@ export const CarouselControls = ({
       {...rest}
     >
       {title && (
-        <h3 className='text-center sm:text-start mb-2 sm:mb-0 font-sans font-bold sm:text-lg lg:text-2xl'>
+        <h3 className='text-center sm:text-start mb-2 sm:mb-0 font-body sm:text-sm lg:text-xl'>
           {title}
         </h3>
       )}

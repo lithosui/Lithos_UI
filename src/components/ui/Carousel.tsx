@@ -7,7 +7,8 @@ import {
   type ComponentPropsWithRef,
   type KeyboardEvent,
   type ReactElement,
-  isValidElement
+  isValidElement,
+  type UIEvent
 } from 'react'
 import { cn } from '../../utils/cn'
 import { scrollTo } from '../../utils/scrollTo'
@@ -149,10 +150,22 @@ export const Carousel = ({
     return () => clearInterval(timer)
   }, [playInfinite, isPaused, playInterval, playDirection, normalizedSlides, totalSlides])
 
-  const dragHandlers = useCarouselDrag({ containerRef, scroll })
+  const { isDragging, ...dragHandlers } = useCarouselDrag({ containerRef, scroll })
+
+  const handleScroll = (e: UIEvent<HTMLDivElement>) => {
+    if (isDragging) return
+
+    const carousel = e.currentTarget
+    if (!carousel.clientWidth) return
+
+    const newIndex = Math.round(carousel.scrollLeft / carousel.clientWidth)
+    if (newIndex !== index) {
+      setIndex(newIndex)
+    }
+  }
 
   const classes = cn(
-    'w-full border-4 border-(--lithos-border) bg-(--lithos-surface) p-2 sm:p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)]',
+    'w-full border-2 border-(--lithos-border) bg-(--lithos-surface) p-2 sm:p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)]',
     className
   )
 
@@ -229,6 +242,7 @@ export const Carousel = ({
           <div
             ref={containerRef}
             className='flex no-scrollbar select-none cursor-pointer w-full flex-row overflow-x-auto snap-x touch-pan-y'
+            onScroll={handleScroll}
             {...dragHandlers}
           >
             {renderedChildren}

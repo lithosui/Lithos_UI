@@ -1,3 +1,7 @@
+/**
+ * CarouselPagination.tsx
+ * Renders the slide selector (the dots or numbers design) usually located at the middle top or bottom.
+ */
 import type { ComponentPropsWithoutRef } from 'react'
 import { Button } from '../Button'
 import { cn } from '../../../utils/cn'
@@ -71,7 +75,7 @@ export const CarouselPagination = ({
   const selectorsContainerClass = cn('flex ml-auto', !showCounter && 'mx-auto')
   const containerClass = cn(
     'flex items-center justify-center',
-    !bottomControls && 'mt-3',
+    'my-3',
     className
   )
 
