@@ -6,6 +6,7 @@
 import { useId, createContext, useContext, useState, forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { Button } from "./Button";
 import { cn } from "../../utils/cn";
+import { IconChevronUp } from "./icons/IconChevronUp";
 
 interface AccordionContextType {
   toggleItem: (item: string) => void
@@ -131,14 +132,7 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
               {title}
             </span>
             <div className='ml-2 w-4 min-w-4'>
-              <svg className={`max-w-full h-auto ${iconRotation}`} width="100" height="100" viewBox="0 -0.75 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                <g>
-                  <title>{label}</title>
-                  <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <path d="M15.812,9.896 C15.587,9.896 15.361,9.834 15.162,9.699 L8.932,5.543 L2.895,9.74 C2.354,10.099 1.625,9.953 1.266,9.412 C0.905,8.873 1.051,8.142 1.592,7.783 L8.28,3.152 C8.673,2.888 9.188,2.888 9.583,3.15 L16.464,7.74 C17.005,8.099 17.152,8.832 16.792,9.371 C16.564,9.713 16.191,9.896 15.812,9.896 L15.812,9.896 Z" fill="currentColor"></path>
-                  </g>
-                </g>
-              </svg>
+              <IconChevronUp className={`max-w-full h-auto ${iconRotation}`} title={label} />
             </div>
           </Button>
         </h3>
