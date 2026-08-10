@@ -1,5 +1,63 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { Avatar, AvatarGroupCount } from '../../components/ui/Avatar'
+import { type PropItem, PropsAccordion } from '../../components/ui/PropsTable'
+
+const avatarPropsData: PropItem[] = [
+  {
+    name: 'src',
+    type: 'string',
+    required: false,
+    description: 'Image URL. Falls back to initials when missing or when the image fails to load.',
+  },
+  {
+    name: 'alt',
+    type: 'string',
+    required: false,
+    description: "Accessible label and initials source — one word yields one letter, two or more yield the first two words' initials.",
+  },
+  {
+    name: 'variant',
+    type: "'default' | 'solid'",
+    defaultValue: "'default'",
+    required: false,
+    description: 'default uses the neutral surface color; solid fills with the theme accent color with computed contrast text.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    defaultValue: "'md'",
+    required: false,
+    description: 'Scales the circle diameter and initials font size.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    description: 'Additional CSS classes.',
+  },
+]
+
+const avatarGroupCountPropsData: PropItem[] = [
+  {
+    name: 'count',
+    type: 'number',
+    required: true,
+    description: 'Number rendered as "+N", typically the overflow count at the end of an avatar stack.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    defaultValue: "'md'",
+    required: false,
+    description: 'Scales the circle diameter and font size to match adjacent Avatars.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    description: 'Additional CSS classes.',
+  },
+]
 
 export const AvatarDoc = () => {
   const variantsCode = `import { Avatar } from '../../components/ui/Avatar'
@@ -75,6 +133,10 @@ export const AvatarGroup = () => {
       <h3 id="variants" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         States
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Image, two-word initials, single-word initial, and the automatic fallback triggered by a broken{' '}
+        <code>src</code> — same markup, no extra prop needed to opt into the fallback.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -93,6 +155,10 @@ export const AvatarGroup = () => {
       <h3 id="sizes" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Sizes
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        <code>size</code> scales the circle diameter and initials font together — <code>sm</code> for dense
+        lists, <code>md</code> (default) for most contexts, <code>lg</code> for a profile header.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -110,6 +176,10 @@ export const AvatarGroup = () => {
       <h3 id="group" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Group
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Negative <code>-space-x</code> overlaps Avatars into a stack; <code>AvatarGroupCount</code> caps it with
+        a matching <code>+N</code> circle for the remaining overflow.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -125,6 +195,35 @@ export const AvatarGroup = () => {
           </div>
         </PreviewBlock>
       </div>
+
+      <h2 id="requires" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+        Requires
+      </h2>
+      <ul className="list-disc pl-6 mb-12 text-lg font-body text-(--lithos-text)">
+        <li><code>clsx</code> and <code>tailwind-merge</code> for class merging utility.</li>
+        <li>The YIQ contrast engine in <code>src/utils/yiq.ts</code> for <code>solid</code> variant text color.</li>
+        <li><code>useTheme</code> from <code>src/core/useTheme.ts</code> for the current accent color.</li>
+      </ul>
+
+      <section className="mb-12">
+        <h2 id="accessibility" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+          Accessibility
+        </h2>
+        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
+          <li>The underlying <code>&lt;img&gt;</code> always carries the <code>alt</code> text passed to Avatar.</li>
+          <li>When falling back to initials, the same <code>alt</code> text is the only accessible label — pass a real name, not decorative text.</li>
+          <li><code>solid</code> variant's text color is computed via the YIQ engine to keep contrast against the accent color.</li>
+          <li><code>AvatarGroupCount</code> renders as plain text (<code>+N</code>), readable by screen readers with no extra markup.</li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 id="api" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+          API Reference
+        </h2>
+        <PropsAccordion title="Avatar Props" data={avatarPropsData} />
+        <PropsAccordion title="AvatarGroupCount Props" data={avatarGroupCountPropsData} />
+      </section>
     </div>
   )
 }
