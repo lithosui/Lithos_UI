@@ -13,6 +13,8 @@ import { colors } from '../../utils/colors'
 import type { HexColor } from '../../core/types'
 import { cn } from '../../utils/cn'
 import { Button } from './Button'
+import { IconUndo } from './icons/IconUndo'
+import { IconClose } from './icons/IconClose'
 
 export type AlertType = 'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'
 export type AlertVariant = 'filled' | 'outlined'
@@ -89,10 +91,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
                     className={cn('shrink-0 bg-transparent', onClose && 'mr-3')}
                     style={{ borderColor: actionColor, color: actionColor, '--lithos-shadow': actionColor } as React.CSSProperties}
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" className="block">
-                      <polyline points="9 14 4 9 9 4" />
-                      <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
-                    </svg>
+                    <IconUndo />
                   </Button>
                 )}
 
@@ -103,9 +102,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
                     className="shrink-0 bg-transparent"
                     style={{ borderColor: actionColor, color: actionColor, '--lithos-shadow': actionColor } as React.CSSProperties}
                   >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="4" className="block">
-                      <path d="M2 2L14 14M14 2L2 14" />
-                    </svg>
+                    <IconClose />
                   </Button>
                 )}
               </div>
