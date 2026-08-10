@@ -24,7 +24,7 @@ const badgeProps: PropItem[] = [
   },
   {
     name: 'size',
-    type: '"small" | "default" | "medium" | "large"',
+    type: '"default" | "sm" | "md" | "lg"',
     defaultValue: '"default"',
     required: false,
     description: 'Defines the overall scale and padding of the badge.'
@@ -77,9 +77,9 @@ export const BadgeVariants = () => {
   return (
     <div className='flex flex-col items-center text-center'>
       <Badge>Default</Badge>
-      <Badge className='mt-4' size='small'>Small</Badge>
-      <Badge className='mt-4' size='medium'>Medium</Badge>
-      <Badge className='mt-4' size='large'>Large</Badge>
+      <Badge className='mt-4' size='sm'>Small</Badge>
+      <Badge className='mt-4' size='md'>Medium</Badge>
+      <Badge className='mt-4' size='lg'>Large</Badge>
     </div>
   )
 }`
@@ -160,9 +160,9 @@ export const CustomizedBadge = () => {
         <PreviewBlock code={sizesCode} githubUrl={githubUrl}>
           <div className='flex flex-col items-center text-center'>
             <Badge>Default</Badge>
-            <Badge className='mt-4' size='small'>Small</Badge>
-            <Badge className='mt-4' size='medium'>Medium</Badge>
-            <Badge className='mt-4' size='large'>Large</Badge>
+            <Badge className='mt-4' size='sm'>Small</Badge>
+            <Badge className='mt-4' size='md'>Medium</Badge>
+            <Badge className='mt-4' size='lg'>Large</Badge>
           </div>
         </PreviewBlock>
       </div>
@@ -174,7 +174,7 @@ export const CustomizedBadge = () => {
       <div className="mt-8 mb-16">
         <PreviewBlock code={customCode} githubUrl={githubUrl}>
           <div className='flex flex-col items-center text-center'>
-            <Badge color={customColor} size='medium'>Custom Color</Badge>
+            <Badge color={customColor} size='md'>Custom Color</Badge>
 
             <div className='mt-4 text-center flex items-center'>
               <input ref={inputRef} type='text' onFocus={handleFocus} defaultValue={customColor} max={7} min={4} className='p-1.5 text-sm outline-none border-2 border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] focus:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] max-w-[7.5rem]' />

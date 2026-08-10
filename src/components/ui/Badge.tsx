@@ -10,7 +10,7 @@ import { useTheme } from "../../core/useTheme";
 import type { HexColor } from "../../core/types";
 import { cn } from "../../utils/cn";
 
-type BadgeSizes = 'small' | 'default' | 'medium' | 'large'
+type BadgeSizes = 'default' | 'sm' | 'md' | 'lg'
 type BadgeVariants = 'default' | 'accent' | 'success' | 'error' | 'warning' | 'info'
 
 export interface BadgeProps extends ComponentPropsWithRef<'div'> {
@@ -21,10 +21,10 @@ export interface BadgeProps extends ComponentPropsWithRef<'div'> {
 }
 
 const sizeStyles = {
-  small: 'text-[0.65rem] px-1.5',
+  sm: 'text-[0.65rem] px-1.5',
   default: 'text-xs px-1.75',
-  medium: 'text-sm px-2',
-  large: 'text-lg px-3'
+  md: 'text-sm px-2',
+  lg: 'text-lg px-3'
 }
 
 export const Badge = ({
