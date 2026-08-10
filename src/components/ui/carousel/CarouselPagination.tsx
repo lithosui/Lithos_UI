@@ -21,7 +21,6 @@ interface CarouselPaginationProps extends Omit<ComponentPropsWithoutRef<'div'>, 
   scroll: ScrollFunc
   sliderSelector?: SliderSelector
   showCounter?: boolean
-  bottomControls?: boolean
   label?: string
   className?: ClassValue | ClassArray
 }
@@ -32,7 +31,6 @@ export const CarouselPagination = ({
   scroll,
   sliderSelector = 'dots',
   showCounter = true,
-  bottomControls = false,
   className,
   label = 'Move to the slide $',
   ...rest

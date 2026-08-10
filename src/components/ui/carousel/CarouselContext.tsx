@@ -2,6 +2,7 @@
  * CarouselContext.tsx
  * Provides the React context and state (like currentIndex) shared across all Carousel sub-components.
  */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useMemo, type ReactNode } from 'react'
 
 export type CarouselDirection = 'prev' | 'next'

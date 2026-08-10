@@ -191,7 +191,6 @@ export const Carousel = ({
       scroll={scroll}
       sliderSelector={slideSelector}
       showCounter={showCounter}
-      bottomControls={!isTop}
     />
   )
 
