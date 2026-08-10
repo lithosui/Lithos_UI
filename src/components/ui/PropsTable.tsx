@@ -39,7 +39,7 @@ export const PropsTable = ({ data }: PropsTableProps) => {
                   </span>
                 )}
               </td>
-              <td className='p-3 font-mono text-xs opacity-80 whitespace-nowrap'>{prop.type}</td>
+              <td className='p-3 font-mono text-xs opacity-80 break-words max-w-[220px]'>{prop.type}</td>
               <td className='p-3 font-mono text-xs opacity-70 whitespace-nowrap'>{prop.defaultValue || '—'}</td>
               <td className='p-3 opacity-90 min-w-[200px]'>{prop.description}</td>
             </tr>

@@ -4,6 +4,67 @@ import { useRef, useState } from 'react'
 import { colors } from '../../utils/colors'
 import { isHexColor } from '../../core/types'
 import { Button } from '../../components/ui/Button'
+import { type PropItem, PropsAccordion } from '../../components/ui/PropsTable'
+
+const alertPropsData: PropItem[] = [
+  {
+    name: 'type',
+    type: "'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
+    defaultValue: "'default'",
+    required: false,
+    description: 'Status color palette drawn from the shared color tokens.',
+  },
+  {
+    name: 'variant',
+    type: "'filled' | 'outlined'",
+    defaultValue: "'filled'",
+    required: false,
+    description: 'Solid fill vs. outline-only border/shadow on the accent color.',
+  },
+  {
+    name: 'size',
+    type: "'sm' | 'md' | 'lg'",
+    defaultValue: "'lg'",
+    required: false,
+    description: 'Scales padding and typography together.',
+  },
+  {
+    name: 'title',
+    type: 'string',
+    required: false,
+    description: 'Optional heading rendered above the message.',
+  },
+  {
+    name: 'color',
+    type: 'HexColor | string',
+    required: false,
+    description: "Overrides type's palette with a custom hex color; contrast text is computed via the YIQ engine.",
+  },
+  {
+    name: 'onClose',
+    type: '() => void',
+    required: false,
+    description: 'Renders a close button in the header when provided. Alert does not remove itself — call site owns the dismissed state.',
+  },
+  {
+    name: 'onUndo',
+    type: '() => void',
+    required: false,
+    description: 'Renders an undo button in the header when provided.',
+  },
+  {
+    name: 'children',
+    type: 'ReactNode',
+    required: true,
+    description: 'Message content rendered below the title.',
+  },
+  {
+    name: 'className',
+    type: 'string',
+    required: false,
+    description: 'Additional CSS classes.',
+  },
+]
 
 export const AlertDoc = () => {
   const [customColor, setCustomColor] = useState('#FF00FF')
@@ -141,6 +202,10 @@ export const CustomizedAlert = () => {
       <h3 id="filled" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Filled
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Solid background variant. Default <code>variant</code> — the accent color fills the whole plaque, so it
+        reads as the strongest visual weight across the six <code>type</code> options.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -161,6 +226,10 @@ export const CustomizedAlert = () => {
       <h3 id="outline" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Outline
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Set <code>variant="outlined"</code> to move border and shadow onto the accent color instead of the fill,
+        keeping the page background visible — a lighter-weight alternative to Filled.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -181,6 +250,10 @@ export const CustomizedAlert = () => {
       <h3 id="sizes" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Sizes
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        <code>size</code> scales padding, title, and message typography together — <code>sm</code> for dense
+        lists, <code>md</code> for most in-flow messaging, <code>lg</code> (default) for a page-level notice.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -198,6 +271,10 @@ export const CustomizedAlert = () => {
       <h3 id="no-title" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         No title
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        <code>title</code> is optional — omit it for a plain message-only plaque, useful when the surrounding
+        context already labels what the alert is about.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -213,6 +290,10 @@ export const CustomizedAlert = () => {
       <h3 id="actions" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Actions
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Pass <code>onClose</code> and/or <code>onUndo</code> to render dismiss/undo buttons in the header. Alert
+        never removes itself — you own the state that controls whether it's still mounted.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -238,6 +319,10 @@ export const CustomizedAlert = () => {
       <h3 id="custom-color" className="mb-4 text-xl font-black uppercase tracking-tight text-(--lithos-text)">
         Custom color
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        The <code>color</code> prop accepts any hex value and overrides <code>type</code>'s palette — contrast
+        text is computed automatically via the YIQ engine so the title/message stay readable.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock
@@ -256,6 +341,34 @@ export const CustomizedAlert = () => {
           </div>
         </PreviewBlock>
       </div>
+
+      <h2 id="requires" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+        Requires
+      </h2>
+      <ul className="list-disc pl-6 mb-12 text-lg font-body text-(--lithos-text)">
+        <li><code>clsx</code> and <code>tailwind-merge</code> for class merging utility.</li>
+        <li>The YIQ contrast engine in <code>src/utils/yiq.ts</code> for computed foreground text color.</li>
+        <li><code>Button</code> for the close/undo header actions.</li>
+      </ul>
+
+      <section className="mb-12">
+        <h2 id="accessibility" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+          Accessibility
+        </h2>
+        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
+          <li>Root element carries <code>role="alert"</code> so assistive tech announces it on mount.</li>
+          <li>Close/undo actions render as native <code>&lt;button&gt;</code>s with <code>aria-label</code> ("Close alert", "Undo") since they're icon-only.</li>
+          <li>Foreground/background contrast is computed through the YIQ engine for both preset and custom colors.</li>
+          <li>Never auto-dismisses, so it doesn't rely on timing that assistive tech users can't control.</li>
+        </ul>
+      </section>
+
+      <section className="mb-12">
+        <h2 id="api" className="mb-4 text-2xl font-black uppercase tracking-tight text-(--lithos-text)">
+          API Reference
+        </h2>
+        <PropsAccordion title="Alert Props" data={alertPropsData} />
+      </section>
     </div>
   )
 }
