@@ -8,5 +8,5 @@ export interface IconProps extends IconBaseProps {
 
 export const iconDefaults = {
   size: 16,
-  strokeWidth: 2,
+  strokeWidth: 4,
 }

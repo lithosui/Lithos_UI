@@ -100,10 +100,14 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#api', label: 'API Reference', level: 1 },
   ],
   '/docs/accordion': [
+    { id: '#installation', label: 'Installation', level: 1 },
     { id: '#examples', label: 'Examples', level: 1 },
     { id: '#default', label: 'Default', level: 2 },
     { id: '#grouped-default', label: 'Grouped default', level: 2 },
     { id: '#grouped-multiple', label: 'Grouped multiple', level: 2 },
+    { id: '#requires', label: 'Requires', level: 1 },
+    { id: '#accessibility', label: 'Accessibility', level: 1 },
+    { id: '#api', label: 'API Reference', level: 1 },
   ],
   '/docs/calendar': [
     { id: '#examples', label: 'Examples', level: 1 },
