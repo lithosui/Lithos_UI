@@ -5,13 +5,17 @@
  */
 import { createContext, useContext, useState, type ComponentPropsWithRef } from 'react'
 import { cn } from '../../utils/cn'
+import { colors } from '../../utils/colors'
+import { getContrastText } from '../../utils/yiq'
 
-export type TabsVariant = 'folder' | 'pill' | 'underline'
+export type TabsVariant = 'outlined' | 'filled' | 'text'
+export type TabsIntent = 'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'
 
 interface TabsContextType {
   value: string
   onValueChange: (value: string) => void
   variant: TabsVariant
+  intent: TabsIntent
 }
 
 const TabsContext = createContext<TabsContextType | null>(null)
@@ -21,9 +25,10 @@ export interface TabsProps extends Omit<ComponentPropsWithRef<'div'>, 'defaultVa
   value?: string
   onValueChange?: (value: string) => void
   variant?: TabsVariant
+  intent?: TabsIntent
 }
 
-export const Tabs = ({ defaultValue = '', value, onValueChange, variant = 'folder', children, className, ref, ...rest }: TabsProps) => {
+export const Tabs = ({ defaultValue = '', value, onValueChange, variant = 'outlined', intent = 'accent', children, className, ref, ...rest }: TabsProps) => {
   const [localValue, setLocalValue] = useState(defaultValue)
 
   const currentValue = value !== undefined ? value : localValue
@@ -36,7 +41,7 @@ export const Tabs = ({ defaultValue = '', value, onValueChange, variant = 'folde
   }
 
   return (
-    <TabsContext.Provider value={{ value: currentValue, onValueChange: handleValueChange, variant }}>
+    <TabsContext.Provider value={{ value: currentValue, onValueChange: handleValueChange, variant, intent }}>
       <div ref={ref} className={cn('w-full', className)} {...rest}>
         {children}
       </div>
@@ -51,9 +56,9 @@ export const TabsList = ({ className, children, ref, ...rest }: TabsListProps) =
   if (!context) throw new Error('TabsList must be used within a Tabs component')
 
   const variantClasses = {
-    folder: 'flex flex-wrap -mb-0.5 z-10 relative',
-    pill: 'flex flex-wrap gap-3 mb-6',
-    underline: 'flex flex-wrap border-b-4 border-(--lithos-border) mb-4',
+    outlined: 'flex flex-wrap -mb-0.5 z-10 relative',
+    filled: 'flex flex-wrap gap-3 mb-6',
+    text: 'flex flex-wrap border-b-4 border-(--lithos-border) mb-4',
   }
 
   return (
@@ -75,10 +80,21 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
   }
 
   const isSelected = context.value === value
-  const variant = context.variant
+  const { variant, intent } = context
+
+  const isAccent = intent === 'accent'
+  const isDefault = intent === 'default'
+  const baseColor = isAccent || isDefault ? '' : colors[intent as keyof typeof colors]
+  
+  const tabColor = isAccent ? 'var(--lithos-accent)' : isDefault ? 'var(--lithos-text)' : baseColor
+  const tabTextColor = isAccent ? 'var(--lithos-accent-text)' : isDefault ? 'var(--lithos-bg)' : getContrastText(baseColor)
+
+  const filledActiveStyle = isSelected ? { backgroundColor: tabColor, color: tabTextColor } : {}
+  const textActiveStyle = isSelected ? { borderColor: tabColor, color: tabColor } : {}
+  const activeStyle = variant === 'filled' ? filledActiveStyle : variant === 'text' ? textActiveStyle : {}
 
   const triggerVariantClasses = {
-    folder: cn(
+    outlined: cn(
       'px-4 py-2 font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75',
       'rounded-t-(--lithos-radius)',
       isSelected
@@ -86,16 +102,16 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
         : 'bg-(--lithos-bg) text-(--lithos-text) border-b-(--lithos-border) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface) z-0 shadow-none',
       'mr-1 last:mr-0'
     ),
-    pill: cn(
+    filled: cn(
       'px-5 py-2.5 font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75 rounded-full',
       isSelected
-        ? 'bg-(--lithos-accent) text-(--lithos-accent-text) shadow-none translate-y-[2px] translate-x-[2px]'
+        ? 'shadow-none translate-y-[2px] translate-x-[2px]'
         : 'bg-(--lithos-bg) text-(--lithos-text) shadow-[2px_2px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:-translate-y-0.5 hover:-translate-x-0.5'
     ),
-    underline: cn(
+    text: cn(
       'px-4 py-3 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 border-b-4 translate-y-[4px] bg-transparent outline-none mr-2 last:mr-0',
       isSelected
-        ? 'border-(--lithos-accent) text-(--lithos-text)'
+        ? ''
         : 'border-transparent text-(--lithos-text) opacity-60 hover:opacity-100 hover:border-(--lithos-border)'
     ),
   }
@@ -108,6 +124,7 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
       aria-selected={isSelected}
       onClick={() => context.onValueChange(value)}
       className={cn(triggerVariantClasses[variant], className)}
+      style={{ ...activeStyle, ...rest.style }}
       {...rest}
     >
       {children}
@@ -133,9 +150,9 @@ export const TabsContent = ({ value, className, children, ref, ...rest }: TabsCo
   }
 
   const contentVariantClasses = {
-    folder: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) rounded-tl-none bg-(--lithos-surface) relative z-0',
-    pill: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0',
-    underline: 'pt-2 font-body text-(--lithos-text) relative z-0',
+    outlined: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) rounded-tl-none bg-(--lithos-surface) relative z-0',
+    filled: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0',
+    text: 'pt-2 font-body text-(--lithos-text) relative z-0',
   }
 
   return (
