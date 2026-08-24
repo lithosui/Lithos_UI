@@ -68,6 +68,9 @@ export const Sidebar = () => {
           <Link to="/docs/popover" className={getLinkClass('/docs/popover')}>
             Popover
           </Link>
+          <Link to="/docs/tabs" className={getLinkClass('/docs/tabs')}>
+            Tabs
+          </Link>
           <Link to="/docs/toast" className={getLinkClass('/docs/toast')}>
             Toast
           </Link>

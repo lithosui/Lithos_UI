@@ -32,6 +32,7 @@ import { Introduction } from './docs/pages/Introduction'
 import { PopoverPage } from './docs/pages/Popover'
 import { NotFound } from './showroom/sections/NotFound'
 import { Showroom } from './showroom/Index'
+import { TabsDoc } from './docs/pages/Tabs'
 import { ToastDoc } from './docs/pages/Toast'
 import { ToggleDoc } from './docs/pages/Toggle'
 import { useEffect } from 'react'
@@ -73,6 +74,7 @@ const renderDocRoutes = (isDarkMode: boolean, toggleObsidian: () => void) => {
     { path: 'dialog', component: DialogDoc },
     { path: 'installation', component: Installation },
     { path: 'popover', component: PopoverPage },
+    { path: 'tabs', component: TabsDoc },
     { path: 'toast', component: ToastDoc },
     { path: 'toggle', component: ToggleDoc },
   ]
