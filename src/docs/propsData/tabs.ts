@@ -9,10 +9,17 @@ export const tabsPropsData: PropItem[] = [
   },
   {
     name: 'variant',
-    type: "'folder' | 'pill' | 'underline'",
-    defaultValue: "'folder'",
+    type: "'outlined' | 'filled' | 'text'",
+    defaultValue: "'outlined'",
     required: false,
     description: 'The visual style variant of the tabs.',
+  },
+  {
+    name: 'intent',
+    type: "'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
+    defaultValue: "'accent'",
+    required: false,
+    description: 'The semantic color intent of the tabs, affecting the active state of filled and text variants.',
   },
   {
     name: 'value',

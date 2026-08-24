@@ -34,9 +34,9 @@ export const TabsDoc = () => {
   }
 
   const pillCode = {
-    body: `export const PillTabs = () => {
+    body: `export const FilledTabs = () => {
   return (
-    <Tabs defaultValue="account" variant="pill">
+    <Tabs defaultValue="account" variant="filled">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -55,9 +55,9 @@ export const TabsDoc = () => {
   }
 
   const underlineCode = {
-    body: `export const UnderlineTabs = () => {
+    body: `export const TextTabs = () => {
   return (
-    <Tabs defaultValue="account" variant="underline">
+    <Tabs defaultValue="account" variant="text">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -151,14 +151,14 @@ export const TabsDoc = () => {
         </PreviewBlock>
       </div>
 
-      <h3 id="pill" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Pill Variant
+      <h3 id="filled" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Filled Variant
       </h3>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={pillCode} githubUrl={githubUrl}>
           <div className="w-full max-w-md">
-            <Tabs defaultValue="account" variant="pill">
+            <Tabs defaultValue="account" variant="filled">
               <TabsList>
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
@@ -174,14 +174,14 @@ export const TabsDoc = () => {
         </PreviewBlock>
       </div>
 
-      <h3 id="underline" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Underline Variant
+      <h3 id="text" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Text Variant
       </h3>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={underlineCode} githubUrl={githubUrl}>
           <div className="w-full max-w-md">
-            <Tabs defaultValue="account" variant="underline">
+            <Tabs defaultValue="account" variant="text">
               <TabsList>
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
