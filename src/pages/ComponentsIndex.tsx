@@ -15,6 +15,7 @@ import { Accordion } from '../components/ui/Accordion'
 import { Breadcrumb } from '../components/ui/Breadcrumb'
 import { Calendar } from '../components/ui/Calendar'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
 
 interface ComponentsIndexProps {
   isDarkMode: boolean
@@ -58,6 +59,25 @@ const CarouselPreview = () => {
       <CarouselSlide className={slideClass}>Slide 2</CarouselSlide>
       <CarouselSlide className={slideClass}>Slide 3</CarouselSlide>
     </Carousel>
+  )
+}
+
+const TabsPreview = () => {
+  return (
+    <div className="w-full scale-[0.65] origin-center pointer-events-none mt-2 flex justify-center">
+      <Tabs defaultValue="1" className="w-50">
+        <TabsList>
+          <TabsTrigger value="1" className="py-1 px-3 text-xs">Tab 1</TabsTrigger>
+          <TabsTrigger value="2" className="py-1 px-3 text-xs">Tab 2</TabsTrigger>
+        </TabsList>
+        <TabsContent value="1" className="p-3">
+          <p className="text-xs m-0">Content 1</p>
+        </TabsContent>
+        <TabsContent value="2" className="p-3">
+          <p className="text-xs m-0">Content 2</p>
+        </TabsContent>
+      </Tabs>
+    </div>
   )
 }
 
@@ -137,6 +157,11 @@ const componentsList = [
     name: 'Carousel',
     to: '/docs/carousel',
     preview: <CarouselPreview />,
+  },
+  {
+    name: 'Tabs',
+    to: '/docs/tabs',
+    preview: <TabsPreview />,
   },
   {
     name: 'Toast',

@@ -42,6 +42,16 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#accessibility', label: 'Accessibility', level: 1 },
     { id: '#api', label: 'API Reference', level: 1 },
   ],
+  '/docs/tabs': [
+    { id: '#installation', label: 'Installation', level: 1 },
+    { id: '#anatomy', label: 'Anatomy', level: 1 },
+    { id: '#examples', label: 'Examples', level: 1 },
+    { id: '#default', label: 'Default', level: 2 },
+    { id: '#pill', label: 'Pill Variant', level: 2 },
+    { id: '#underline', label: 'Underline Variant', level: 2 },
+    { id: '#accessibility', label: 'Accessibility', level: 1 },
+    { id: '#api', label: 'API Reference', level: 1 },
+  ],
   '/docs/toggle': [
     { id: '#installation', label: 'Installation', level: 1 },
     { id: '#examples', label: 'Examples', level: 1 },
