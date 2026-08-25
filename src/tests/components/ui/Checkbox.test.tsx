@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { describe, it, expect, vi } from 'vitest'
-import { Checkbox, PlainCheckbox, CheckboxGroup } from '../../../components/ui/Checkbox'
+import { Checkbox, PlainCheckbox, IconCheckbox, CheckboxGroup } from '../../../components/ui/Checkbox'
 
 describe('Checkbox', () => {
   it('renders unchecked by default', () => {
@@ -65,6 +65,15 @@ describe('Checkbox', () => {
   it('renders PlainCheckbox', () => {
     render(<PlainCheckbox label="Enable dark mode" defaultChecked />)
     expect(screen.getByRole('checkbox', { name: 'Enable dark mode' })).toBeChecked()
+  })
+
+  it('renders IconCheckbox and toggles it', async () => {
+    const user = userEvent.setup()
+    render(<IconCheckbox label="Add to favorites" />)
+    const box = screen.getByRole('checkbox', { name: 'Add to favorites' })
+    expect(box).not.toBeChecked()
+    await user.click(box)
+    expect(box).toBeChecked()
   })
 
   it('applies a custom hex color', () => {

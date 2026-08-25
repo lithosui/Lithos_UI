@@ -56,6 +56,23 @@ export const checkboxPropsData: PropItem[] = [
   },
 ]
 
+export const iconCheckboxPropsData: PropItem[] = [
+  {
+    name: 'icon',
+    type: 'ComponentType<IconProps>',
+    defaultValue: 'IconHeartOutline',
+    required: false,
+    description: 'Icon shown when unchecked.',
+  },
+  {
+    name: 'checkedIcon',
+    type: 'ComponentType<IconProps>',
+    defaultValue: 'IconHeart',
+    required: false,
+    description: 'Icon shown when checked.',
+  },
+]
+
 export const checkboxGroupPropsData: PropItem[] = [
   {
     name: 'value',
@@ -82,7 +99,7 @@ export const checkboxGroupPropsData: PropItem[] = [
     description: 'Helper text rendered below the label.',
   },
   {
-    name: 'orientation',
+    name: 'mode',
     type: "'horizontal' | 'vertical'",
     defaultValue: "'vertical'",
     required: false,

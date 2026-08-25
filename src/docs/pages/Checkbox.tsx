@@ -1,17 +1,21 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { SetupGuide } from '../layout/SetupGuide'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { CodeViewer } from '../../components/ui/CodeViewer'
-import { Checkbox, PlainCheckbox, CheckboxGroup } from '../../components/ui/Checkbox'
-import { checkboxPropsData, checkboxGroupPropsData } from '../propsData/checkbox'
+import { Button } from '../../components/ui/Button'
+import { Checkbox, PlainCheckbox, IconCheckbox, CheckboxGroup } from '../../components/ui/Checkbox'
+import { checkboxPropsData, iconCheckboxPropsData, checkboxGroupPropsData } from '../propsData/checkbox'
+import { colors } from '../../utils/colors'
+import { isHexColor } from '../../core/types'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Checkbox.tsx'
 
-const componentNames = ['Checkbox', 'PlainCheckbox', 'CheckboxGroup']
+const componentNames = ['Checkbox', 'PlainCheckbox', 'IconCheckbox', 'CheckboxGroup']
 const manualPath = {
   Checkbox: '../../components/ui/Checkbox',
   PlainCheckbox: '../../components/ui/Checkbox',
+  IconCheckbox: '../../components/ui/Checkbox',
   CheckboxGroup: '../../components/ui/Checkbox',
 }
 
@@ -25,12 +29,7 @@ const SingleCheckboxDemo = () => {
 
 const PlainCheckboxDemo = () => <PlainCheckbox label="Remember me on this device" defaultChecked />
 
-const CustomColorCheckboxDemo = () => (
-  <div className="flex flex-col [&>*:not(:first-child)]:mt-3">
-    <Checkbox color="#FF0033" label="Subscribe to newsletter" defaultChecked />
-    <PlainCheckbox color="#0055FF" label="Enable dark mode" defaultChecked />
-  </div>
-)
+const IconCheckboxDemo = () => <IconCheckbox label="Add to favorites" defaultChecked />
 
 const IndeterminateCheckboxDemo = () => {
   const options = ['cheese', 'pepperoni', 'olives']
@@ -84,7 +83,7 @@ const HorizontalGroupCheckboxDemo = () => {
   const [value, setValue] = useState<string[]>(['mon', 'wed', 'fri'])
 
   return (
-    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" label="Active days">
+    <CheckboxGroup value={value} onChange={setValue} mode="horizontal" label="Active days">
       <Checkbox value="mon" label="Mon" />
       <Checkbox value="tue" label="Tue" />
       <Checkbox value="wed" label="Wed" />
@@ -95,6 +94,25 @@ const HorizontalGroupCheckboxDemo = () => {
 }
 
 export const CheckboxDoc = () => {
+  const [customColor, setCustomColor] = useState('#FF0033')
+  const [colorError, setColorError] = useState('')
+  const colorInputRef = useRef<null | HTMLInputElement>(null)
+
+  const handleColorFocus = () => setColorError('')
+
+  const handleCustomColor = () => {
+    if (!colorInputRef.current) return
+
+    const value = colorInputRef.current.value
+
+    if (!isHexColor(value)) {
+      setColorError('Please specify a valid HEX color. (Example: #FF00FF)')
+      return
+    }
+
+    setCustomColor(value)
+  }
+
   const singleCode = {
     body: `export const SingleCheckboxDemo = () => {
   const [checked, setChecked] = useState(true)
@@ -117,14 +135,21 @@ export const CheckboxDoc = () => {
     manualPath,
   }
 
+  const iconCode = {
+    body: `export const IconCheckboxDemo = () => <IconCheckbox label="Add to favorites" defaultChecked />`,
+    componentNames: ['IconCheckbox'],
+    manualPath,
+  }
+
   const customColorCode = {
     body: `export const CustomColorCheckboxDemo = () => (
   <>
     <Checkbox color="#FF0033" label="Subscribe to newsletter" defaultChecked />
-    <PlainCheckbox color="#0055FF" label="Enable dark mode" defaultChecked />
+    <PlainCheckbox color="#FF0033" label="Enable dark mode" defaultChecked />
+    <IconCheckbox color="#FF0033" label="Add to favorites" defaultChecked />
   </>
 )`,
-    componentNames: ['Checkbox', 'PlainCheckbox'],
+    componentNames: ['Checkbox', 'PlainCheckbox', 'IconCheckbox'],
     manualPath,
   }
 
@@ -193,7 +218,7 @@ export const CheckboxDoc = () => {
   const [value, setValue] = useState<string[]>(['mon', 'wed', 'fri'])
 
   return (
-    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" label="Active days">
+    <CheckboxGroup value={value} onChange={setValue} mode="horizontal" label="Active days">
       <Checkbox value="mon" label="Mon" />
       <Checkbox value="tue" label="Tue" />
       <Checkbox value="wed" label="Wed" />
@@ -281,15 +306,54 @@ export const CheckboxDoc = () => {
         <PlainCheckboxDemo />
       </PreviewBlock>
 
+      <h3 id="icon" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
+        Icon checkbox
+      </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        <code>IconCheckbox</code> drops the box entirely: an outlined icon toggles to a filled one, for a favorite/like
+        control instead of a form checkbox. Defaults to a heart; pass <code>icon</code>/<code>checkedIcon</code> to use
+        a different pair.
+      </p>
+      <PreviewBlock code={iconCode} githubUrl={githubUrl}>
+        <IconCheckboxDemo />
+      </PreviewBlock>
+
       <h3 id="custom-color" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
         Custom color
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
         Pass any valid hex code to <code>color</code> to override the default theme-accent fill. The YIQ contrast engine
-        picks legible contrast text/icon color automatically.
+        picks legible contrast text/icon color automatically. Try it below.
       </p>
       <PreviewBlock code={customColorCode} githubUrl={githubUrl}>
-        <CustomColorCheckboxDemo />
+        <div className="flex flex-col items-center text-center">
+          <div className="flex flex-col [&>*:not(:first-child)]:mt-3">
+            <Checkbox color={customColor} label="Subscribe to newsletter" defaultChecked />
+            <PlainCheckbox color={customColor} label="Enable dark mode" defaultChecked />
+            <IconCheckbox color={customColor} label="Add to favorites" defaultChecked />
+          </div>
+
+          <div className="mt-6 text-center flex items-center">
+            <input
+              ref={colorInputRef}
+              type="text"
+              onFocus={handleColorFocus}
+              defaultValue={customColor}
+              max={7}
+              min={4}
+              className="p-1.5 text-sm outline-none border-2 border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] focus:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] max-w-[7.5rem]"
+            />
+            <Button variant="primary" className="ml-6 text-sm" onClick={handleCustomColor}>
+              Use color
+            </Button>
+          </div>
+
+          {colorError && (
+            <span className="mt-2 text-xs" style={{ color: colors.error }}>
+              {colorError}
+            </span>
+          )}
+        </div>
       </PreviewBlock>
 
       <h3 id="indeterminate" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
@@ -330,7 +394,7 @@ export const CheckboxDoc = () => {
         Horizontal group
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        Pass <code>orientation=&quot;horizontal&quot;</code> to flow items in a row instead of stacking them.
+        Pass <code>mode=&quot;horizontal&quot;</code> to flow items in a row instead of stacking them.
       </p>
       <PreviewBlock code={horizontalGroupCode} githubUrl={githubUrl}>
         <HorizontalGroupCheckboxDemo />
@@ -361,7 +425,10 @@ export const CheckboxDoc = () => {
         <h2 id="api" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
           API Reference
         </h2>
-        <PropsAccordion title="Checkbox / PlainCheckbox Props" data={checkboxPropsData} />
+        <PropsAccordion title="Checkbox / PlainCheckbox / IconCheckbox Props" data={checkboxPropsData} />
+        <div className="mt-8">
+          <PropsAccordion title="IconCheckbox-only Props" data={iconCheckboxPropsData} />
+        </div>
         <div className="mt-8">
           <PropsAccordion title="CheckboxGroup Props" data={checkboxGroupPropsData} />
         </div>
