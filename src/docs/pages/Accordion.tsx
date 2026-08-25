@@ -117,6 +117,12 @@ export const AccordionDoc = () => {
       <h3 id="default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Default
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to create a single, independently expanding collapsible section for hiding supplementary content. It
+        renders as a bordered block with a chevron icon that rotates upon opening. Clicking the header toggles the
+        content visibility with a smooth expansion. Standard ARIA attributes (<code>aria-expanded</code>,{' '}
+        <code>aria-controls</code>) are automatically managed for screen reader support.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={usageCode} githubUrl={githubUrl}>
@@ -130,6 +136,12 @@ export const AccordionDoc = () => {
       <h3 id="grouped-default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Grouped default
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to manage multiple accordions where only one panel should be open at a time (standard accordion
+        behavior). It wraps multiple accordions to synchronize their states, rendering them as a stacked list. Clicking
+        an unopened panel automatically closes the previously active one. Requires a unique <code>value</code> prop on
+        each child. Keyboard navigation behaves standardly.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={groupedCode} githubUrl={githubUrl}>
@@ -155,6 +167,12 @@ export const AccordionDoc = () => {
       <h3 id="grouped-multiple" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Grouped multiple
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this when users need to compare content across multiple sections simultaneously. It allows multiple panels
+        within the group to remain open at the same time. The visual design is identical to the grouped default, but
+        state synchronization is bypassed by providing the <code>allowMultiple</code> prop. Interaction and
+        accessibility remain fully supported.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={groupedMultipleCode} githubUrl={githubUrl}>

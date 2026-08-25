@@ -148,8 +148,11 @@ export const FourteenUserGroup = () => {
         States
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        Image, two-word initials, single-word initial, and the automatic fallback triggered by a broken <code>src</code>{' '}
-        — same markup, no extra prop needed to opt into the fallback.
+        Use this to represent a user visually via an image or fallback initials. It renders a circular container with a
+        2px border and shadow. If the <code>src</code> image fails to load or is missing, it automatically falls back to
+        rendering initials derived from the <code>alt</code> text (up to two letters). No explicit interaction states
+        exist unless wrapped in a button or link. Ensures accessibility by relying on the <code>alt</code> attribute for
+        screen readers, which must contain the user's real name.
       </p>
 
       <div className="mt-8 mb-16">
@@ -167,8 +170,10 @@ export const FourteenUserGroup = () => {
         Sizes
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        <code>size</code> scales the circle diameter and initials font together — <code>sm</code> for dense lists,{' '}
-        <code>md</code> (default) for most contexts, <code>lg</code> for a profile header.
+        Use the <code>size</code> prop to scale the avatar appropriately for the surrounding layout. It proportionately
+        adjusts the circle diameter and the fallback initials font size (<code>sm</code> for dense lists or table rows,{' '}
+        <code>md</code> for standard UI, <code>lg</code> for profile headers). Visual layout and border widths remain
+        constant. Text limits are identical across sizes. Scaling does not affect structural accessibility.
       </p>
 
       <div className="mt-8 mb-16">
@@ -185,9 +190,11 @@ export const FourteenUserGroup = () => {
         Group
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        <code>AvatarGroup</code> takes the full <code>items</code> list and a <code>max</code> (default 4), renders only
-        the first <code>max</code> Avatars, and appends an <code>AvatarGroupCount</code> for whatever's left — no manual
-        slicing needed.
+        Use <code>AvatarGroup</code> to display a collection of related avatars in a condensed, overlapping stack. It
+        renders up to a specified <code>max</code> number of avatars (default 4), automatically appending an{' '}
+        <code>AvatarGroupCount</code> indicator for any remaining items. Hovering over a grouped avatar slightly
+        elevates it. The overflow count indicator renders as plain text (e.g., <code>+2</code>), readable directly by
+        assistive technologies without manual slicing.
       </p>
 
       <div className="mt-8 mb-8">

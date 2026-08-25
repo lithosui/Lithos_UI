@@ -60,11 +60,27 @@ export const useLithosTheme = () => {
   const toggleObsidian = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode
-      // Save as raw string to match the original architecture
       localStorage.setItem('lithos-theme-mode', newMode ? 'dark' : 'light')
+
+      if (newMode) {
+        document.body.classList.add('obsidian', 'dark')
+      } else {
+        document.body.classList.remove('obsidian', 'dark')
+      }
+
+      window.dispatchEvent(new Event('lithos-theme-mode-changed'))
       return newMode
     })
   }
+
+  // Ensure body receives the initial class on mount
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('obsidian', 'dark')
+    } else {
+      document.body.classList.remove('obsidian', 'dark')
+    }
+  }, [isDarkMode])
 
   const updateAccentColor = (color: HexColor) => {
     setAccentColor(color)

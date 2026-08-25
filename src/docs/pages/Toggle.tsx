@@ -67,6 +67,13 @@ export const ToggleDoc = () => {
       <h3 id="default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Default
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to instantly apply a binary choice, such as turning a specific setting on or off. It renders a
+        prominent switch that clearly indicates its current state via a sliding thumb and color fill. Clicking or
+        pressing Space/Enter toggles the state with a smooth horizontal translation. Ensure the <code>label</code> prop
+        is always provided; even if visually hidden, it provides critical context to screen readers alongside the{' '}
+        <code>aria-pressed</code> attribute.
+      </p>
 
       <PreviewBlock
         code={usageCode}

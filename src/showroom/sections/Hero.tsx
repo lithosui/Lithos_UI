@@ -39,9 +39,12 @@ const Hero = ({ accentColor, updateAccentColor }: HeroProps) => {
             </h2>
 
             <p className="mt-6 text-xl sm:text-2xl font-normal leading-tight text-(--lithos-text) md:text-3xl font-body max-w-2xl mx-auto lg:mx-0">
-              No layout shift. No unreadable text on a bad accent color. No CSS specificity fights. Four systems
-              <ht>built into every component</ht>, working automatically — so the UI you shipped is still standing next
-              quarter.
+              No layout shift. No unreadable text on a bad accent color. No CSS specificity fights. Four systems{' '}
+              {
+                // @ts-expect-error - Custom ht tag
+                <ht>built into every component</ht>
+              }
+              , working automatically — so the UI you shipped is still standing next quarter.
             </p>
 
             <p className="mt-4 text-sm sm:text-base font-bold text-(--lithos-text) opacity-50">
@@ -95,12 +98,12 @@ const Hero = ({ accentColor, updateAccentColor }: HeroProps) => {
                 </div>
 
                 {/* Dimension-line annotation */}
-                <div className="flex-1 flex flex-col items-center justify-center min-w-[1.5rem]">
+                <div className="flex-1 flex flex-col items-center justify-center min-w-6">
                   <span className="text-[9px] font-black uppercase tracking-widest text-(--lithos-text) opacity-50 mb-1 whitespace-nowrap">
                     Site-Wide
                   </span>
                   <div className="w-full border-t-2 border-dashed border-(--lithos-border) relative h-0">
-                    <span className="absolute right-0 -top-[7px] text-(--lithos-border) text-xs leading-none">▶</span>
+                    <span className="absolute right-0 -top-1.75 text-(--lithos-border) text-xs leading-none">▶</span>
                   </div>
                 </div>
 

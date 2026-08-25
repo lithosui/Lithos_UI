@@ -182,6 +182,12 @@ const { addToast } = useToast()
       <h3 id="default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Default
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to provide transient feedback after a user action, such as saving a form or confirming a deletion. It
+        renders a temporary overlay notification in the bottom-right corner. Toasts automatically disappear after a set
+        duration, but hovering pauses the timer. Ensure messages are brief. Inherits <code>role="status"</code> for
+        polite screen reader announcements without stealing focus.
+      </p>
 
       <PreviewBlock code={usageCode} githubUrl={githubUrl}>
         <Button onClick={triggerToast}>Trigger Toast</Button>
@@ -190,6 +196,11 @@ const { addToast } = useToast()
       <h3 id="custom-position" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Custom position
       </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this when the default bottom-right placement obscures critical UI elements on your specific page. It alters
+        the fixed positioning coordinates (e.g., top-left, bottom-center) of the toast container. The structural layout
+        and animations remain identical. Positioning choices do not impact accessibility order or DOM semantics.
+      </p>
 
       <PreviewBlock code={positionedCode} githubUrl={githubUrl}>
         <PositionedToast />

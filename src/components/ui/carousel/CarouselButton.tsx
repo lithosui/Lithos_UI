@@ -29,7 +29,8 @@ export const CarouselButton = ({
   ref,
   ...props
 }: CarouselButtonProps) => {
-  const { scroll, vertical } = useCarousel()
+  const { scroll, mode } = useCarousel()
+  const vertical = mode === 'vertical'
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     scroll(direction)

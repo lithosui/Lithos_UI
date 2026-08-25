@@ -66,23 +66,39 @@ body {
   }
 }
 
-/* - Hover-activated sidebar scrollbar for docs rails. */
-.sidebar-scroll::-webkit-scrollbar {
-  width: 4px;
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* - Global Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
   background-color: transparent;
 }
 
-.sidebar-scroll::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background-color: transparent;
+  border-radius: 9999px;
 }
 
-.sidebar-scroll::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  transition: all 0.2s;
-}
-
-.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: var(--lithos-accent);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--lithos-accent) 80%, var(--lithos-text));
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 @layer base {

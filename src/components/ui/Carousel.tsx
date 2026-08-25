@@ -179,7 +179,7 @@ const Carousel = ({
     return () => clearInterval(timer)
   }, [playInfinite, isPaused, playInterval, playDirection, normalizedSlides, totalSlides, vertical])
 
-  const { isDragging, ...dragHandlers } = useCarouselDrag({ containerRef, scroll })
+  const { isDragging, ...dragHandlers } = useCarouselDrag({ containerRef, scroll, vertical })
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     if (isDragging) return
@@ -222,7 +222,7 @@ const Carousel = ({
       sliderSelector={slideSelector}
       showCounter={showCounter}
       bottomControls={!isTop}
-      vertical={vertical} // created outside the provider we need to pass the prop
+      mode={mode} // created outside the provider we need to pass the prop
     />
   )
 
@@ -254,7 +254,7 @@ const Carousel = ({
   const liveRegionPoliteness = playInfinite && !isPaused ? 'off' : 'polite'
 
   return (
-    <CarouselProvider scroll={scroll} currentIndex={index} totalSlides={totalSlides} vertical={vertical}>
+    <CarouselProvider scroll={scroll} currentIndex={index} totalSlides={totalSlides} mode={mode}>
       <div
         className={classes}
         ref={ref}

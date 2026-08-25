@@ -214,10 +214,8 @@ export const CarouselDoc = () => {
     <CarouselPrev />
     <CarouselNext />
   </CarouselControls>
-
   <CarouselSlide>...</CarouselSlide>
   <CarouselSlide>...</CarouselSlide>
-
   <CarouselPagination />
 </Carousel>`}
         />
@@ -230,8 +228,11 @@ export const CarouselDoc = () => {
       <h3 id="default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Default
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        The default usage <i>(Using only the title prop)</i> adds top navigation controls and dot pagination indicators.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this as the standard presentation for a series of slides. It renders horizontal pagination dots at the top
+        alongside navigation arrows. Focus shifts correctly between slides, and keyboard arrows allow panning. Content
+        within slides can be arbitrary. Fully accessible via live regions that announce the active slide to screen
+        readers.
       </p>
 
       <div className="mt-8 mb-16">
@@ -251,8 +252,10 @@ export const CarouselDoc = () => {
       <h3 id="looping" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Infinite Looping
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Enable continuous navigation so users can scroll seamlessly past the first and last slides.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to allow continuous navigation, ensuring users can seamlessly cycle past the first or last slides
+        without hitting a hard stop. It renders identically to the default but visually wraps the slides in an infinite
+        scrolling track. Does not affect child content limits. Arrow key navigation loops automatically.
       </p>
 
       <div className="mt-8 mb-16">
@@ -272,8 +275,10 @@ export const CarouselDoc = () => {
       <h3 id="bottom-controls" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Bottom controls
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Move the carousel controls to the bottom and the extra selectors to the top.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this when the carousel sits high on a page or when imagery needs to take precedence over navigation UI. It
+        moves the navigation arrows and pagination dots to the bottom edge. Layout physics remain identical otherwise.
+        Navigation shortcuts and semantic roles are preserved.
       </p>
 
       <div className="mt-8 mb-16">
@@ -293,8 +298,10 @@ export const CarouselDoc = () => {
       <h3 id="numbers-selector" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Numbers Selector
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Use numbers instead of dots on the slider selectors.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this when the absolute position within the slide deck is more important than visual dots, such as multi-step
+        forms or tutorials. It replaces the pagination dots with explicit numeric buttons. Visual height is slightly
+        expanded to accommodate the numbers. Keyboard interactions on the numeric selectors allow direct jumps.
       </p>
 
       <div className="mt-8 mb-16">
@@ -314,8 +321,10 @@ export const CarouselDoc = () => {
       <h3 id="no-current-slider" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         No current slider
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Hides the current slider position and total count indicator.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to declutter the carousel interface when the exact slide count isn't strictly necessary for the user.
+        It removes the textual slide counter while keeping other navigation elements intact. Visuals are otherwise
+        identical. Screen readers still announce the slide index via the live region.
       </p>
 
       <div className="mt-8 mb-16">
@@ -335,8 +344,10 @@ export const CarouselDoc = () => {
       <h3 id="no-controls" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         No controls
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Hides the primary direction arrow controls.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to create a "headless" carousel driven entirely by your own external state or custom buttons. It hides
+        the primary directional arrows and pagination UI. You must pass custom buttons that hook into the{' '}
+        <code>CarouselContext</code>. Keyboard arrow navigation still works implicitly on focus.
       </p>
 
       <div className="mt-8 mb-16">
@@ -356,9 +367,11 @@ export const CarouselDoc = () => {
       <h3 id="play-infinite" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Play infinitely
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Automatically rotates slides at a specified interval without requiring user interaction.{' '}
-        <i>(stops at hover/focus) if stopOnHover = true</i>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this for hero banners or continuous galleries that should cycle automatically. It rotates slides on a fixed
+        interval without user interaction. To protect accessibility, auto-play forcibly pauses on hover or keyboard
+        focus, ensuring users have time to read. The live region is temporarily silenced during auto-play to prevent
+        spamming screen readers.
       </p>
 
       <div className="mt-8 mb-16">
@@ -376,10 +389,13 @@ export const CarouselDoc = () => {
       </div>
 
       <h3 id="vertical-orientation" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Vertical Oreientation
+        Vertical Orientation
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Navigate between slides vertically instead of the default horizontal direction.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to navigate between slides along the Y-axis instead of the standard horizontal direction. It renders
+        the track vertically and shifts the navigation arrows to point up and down. Text within slides remains
+        horizontal. Arrow navigation bindings automatically remap to <code>ArrowUp</code> and <code>ArrowDown</code>.
+        Accessible live regions remain fully functional.
       </p>
 
       <div className="mt-8 mb-16">

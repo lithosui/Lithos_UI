@@ -177,8 +177,10 @@ export const AlertWithUndo = () => {
         Filled
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        Solid background variant. Default <code>variant</code> — the accent color fills the whole plaque, so it reads as
-        the strongest visual weight across the six <code>type</code> options.
+        Use this for high-priority messages that demand immediate user attention. It renders with a solid background
+        corresponding to its intent, automatically adjusting text and border colors for contrast. On hover, the border
+        and shadow slightly expand. Restrict content to concise messages without complex child layouts. Inherits the{' '}
+        <code>alert</code> or <code>status</code> ARIA role based on intent.
       </p>
 
       <div className="mt-8 mb-16">
@@ -210,8 +212,10 @@ export const AlertWithUndo = () => {
         Outline
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        Set <code>variant="outlined"</code> to move border and shadow onto the accent color instead of the fill, keeping
-        the page background visible — a lighter-weight alternative to Filled.
+        Use this for medium-priority notifications that should remain visible without overpowering the surrounding page
+        content. It renders with a transparent background, applying the intent color to the border, shadow, and text
+        instead. Interaction behavior mirrors the filled variant. Best suited for inline validation or standard
+        informational messages. Standard ARIA status roles apply.
       </p>
 
       <div className="mt-8 mb-16">
@@ -243,8 +247,10 @@ export const AlertWithUndo = () => {
         Sizes
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        <code>size</code> scales padding, title, and message typography together — <code>sm</code> for dense lists,{' '}
-        <code>md</code> for most in-flow messaging, <code>lg</code> (default) for a page-level notice.
+        Use the <code>size</code> prop to scale the alert appropriately for its context. It adjusts padding, icon size,
+        and typography (<code>sm</code> for dense lists, <code>md</code> for inline flow, <code>lg</code> for page-level
+        notices). There are no layout differences other than geometric scaling. Ensure text length remains proportional
+        to the chosen size. Does not impact accessibility structure.
       </p>
 
       <div className="mt-8 mb-16">
@@ -267,8 +273,10 @@ export const AlertWithUndo = () => {
         No title
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        <code>title</code> is optional — omit it for a plain message-only plaque, useful when the surrounding context
-        already labels what the alert is about.
+        Use this for a plain message-only plaque when the surrounding context already provides a label for the alert.
+        Omitting the <code>title</code> prop restricts the component to a single text node without a heading element.
+        Visuals remain identical minus the title block. Avoid using for critical errors where an explicit summary
+        heading is necessary. Screen readers will read the message directly.
       </p>
 
       <div className="mt-8 mb-16">
@@ -285,8 +293,11 @@ export const AlertWithUndo = () => {
         Actions
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        Pass <code>onClose</code> and/or <code>onUndo</code> to render dismiss/undo buttons in the header. Alert never
-        removes itself — you own the state that controls whether it's still mounted.
+        Use this to provide inline resolution for the alert condition. Pass <code>onClose</code> to render a dismiss
+        button, or <code>onUndo</code> to render an undo button. The alert component itself does not manage its mount
+        state; you must remove it from the DOM in the callback. Action buttons are strictly icon-only and are placed in
+        the header. Rendered as native <code>&lt;button&gt;</code> elements with appropriate <code>aria-label</code>s
+        for screen readers.
       </p>
 
       <div className="mt-8 mb-16">
@@ -319,8 +330,10 @@ export const AlertWithUndo = () => {
         Custom color
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        The <code>color</code> prop accepts any hex value and overrides <code>type</code>'s palette — contrast text is
-        computed automatically via the YIQ engine so the title/message stay readable.
+        Use this when the predefined intents do not fit your brand or use case. Pass any valid hex code to the{' '}
+        <code>color</code> prop to override the intent palette. The YIQ contrast engine guarantees that text and border
+        colors automatically adjust for maximum readability against your custom background. Interaction and
+        accessibility roles remain unchanged.
       </p>
 
       <div className="mt-8 mb-16">

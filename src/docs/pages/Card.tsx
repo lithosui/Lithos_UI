@@ -120,7 +120,7 @@ export const CardDoc = () => {
   const imageCode = {
     body: `export const ImageBackgroundCard = () => {
   return (
-    <Card variant="image" className="w-full max-w-sm min-h-[300px]">
+    <Card variant="image" className="w-full max-w-sm min-h-75">
       <CardImage src="https://picsum.photos/600/600" alt="Full bleed background" isBackground />
       <CardContent>
         <CardTitle>Full Bleed Overlay</CardTitle>
@@ -194,6 +194,13 @@ export const CardDoc = () => {
       <h3 id="default" className="mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Default
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to encapsulate distinct, standalone pieces of information or interactive content. It renders with a
+        solid background, a robust 2px border, and a sharp shadow. Set <code>interactive</code> to true to enable hover
+        expansion of the shadow. It supports nested semantic elements like <code>CardTitle</code> and{' '}
+        <code>CardFooter</code>. Accessible by default, but if marked interactive, it should contain focusable
+        navigation elements.
+      </p>
       <PreviewBlock code={defaultCode} githubUrl={githubUrl}>
         <Card interactive className="max-w-sm">
           <CardImage src="https://picsum.photos/600/400" alt="Preview thumbnail" />
@@ -213,6 +220,12 @@ export const CardDoc = () => {
       <h3 id="accent" className="mt-12 mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Accent
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to highlight premium or active state cards without overpowering the layout immediately. It renders
+        identical to the default card but floods the background with the theme's solid accent color on hover. The
+        content limits and structure are identical to default. When filled, the text color automatically adapts using
+        the YIQ engine for readability.
+      </p>
       <PreviewBlock code={accentCode} githubUrl={githubUrl}>
         <Card variant="accent" interactive className="max-w-sm">
           <CardImage src="https://picsum.photos/600/400?1" alt="Preview" />
@@ -228,6 +241,12 @@ export const CardDoc = () => {
       <h3 id="solid" className="mt-12 mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Solid
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this for high-emphasis or featured cards that must draw immediate attention upon page load. It permanently
+        renders the background in the accent color, contrasting strongly with the page background. Text contrast is
+        automatically managed. Ensure usage is sparse to preserve visual hierarchy. Structural accessibility remains
+        standard.
+      </p>
       <PreviewBlock code={solidCode} githubUrl={githubUrl}>
         <Card variant="solid" interactive className="max-w-sm">
           <CardImage src="https://picsum.photos/600/400?2" alt="Preview" />
@@ -243,6 +262,12 @@ export const CardDoc = () => {
       <h3 id="elevate" className="mt-12 mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Interactive: Elevate
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this alternative physics mode when shadow expansion feels too heavy for the surrounding layout. Setting{' '}
+        <code>interactive="elevate"</code> causes the card itself to translate upwards along the Y-axis on hover,
+        leaving the shadow footprint behind. Avoid nesting elevate cards within other translating layouts. Interactive
+        bounds remain consistent for assistive technology.
+      </p>
       <PreviewBlock code={elevateCode} githubUrl={githubUrl}>
         <Card interactive="elevate" className="max-w-sm">
           <CardImage src="https://picsum.photos/600/400?3" alt="Preview" />
@@ -258,6 +283,12 @@ export const CardDoc = () => {
       <h3 id="spacing" className="mt-12 mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Spacing
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use the <code>spacing</code> prop on child components to adjust internal padding rhythm. It scales layout
+        density (<code>sm</code> for tight data grids, <code>md</code> for standard text, <code>lg</code> for spacious
+        hero cards). Does not alter the outer card dimensions directly but shifts the inner baseline grid. Consistent
+        spacing aids cognitive accessibility.
+      </p>
       <PreviewBlock code={spacingCode} githubUrl={githubUrl}>
         <div className="flex flex-col">
           <div className="flex mb-6">
@@ -296,8 +327,14 @@ export const CardDoc = () => {
       <h3 id="image" className="mt-12 mb-3 text-xl font-black tracking-tight text-(--lithos-text)">
         Image
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to render full-bleed, visually immersive cards where the background is an image. It relies on the{' '}
+        <code>variant="image"</code> prop on the root card. Requires a minimum height to be set via utility classes to
+        prevent collapse. Title and description text require dark scrims or explicit contrast handling to guarantee WCAG
+        compliance against arbitrary image backgrounds.
+      </p>
       <PreviewBlock code={imageCode} githubUrl={githubUrl}>
-        <Card variant="image" className="w-full max-w-sm min-h-[300px]">
+        <Card variant="image" className="w-full max-w-sm min-h-75">
           <CardImage src="https://picsum.photos/600/600" alt="Full bleed background" isBackground />
           <CardContent>
             <CardTitle>Full Bleed Overlay</CardTitle>

@@ -2,11 +2,17 @@ import type { PropItem } from '../../components/ui/PropsTable'
 
 export const buttonPropsData: PropItem[] = [
   {
-    name: 'intent',
-    type: "'primary' | 'secondary' | 'text'",
+    name: 'variant',
+    type: "'primary' | 'secondary' | 'accent' | 'text' | 'solid'",
     defaultValue: "'primary'",
     required: false,
     description: 'Visual emphasis variant.',
+  },
+  {
+    name: 'color',
+    type: 'string',
+    required: false,
+    description: 'Custom background color for the solid variant. Text color automatically adapts for contrast.',
   },
   {
     name: 'fullWidth',

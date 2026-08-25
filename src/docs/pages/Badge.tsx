@@ -114,6 +114,12 @@ export const BadgeDoc = () => {
       <h3 id="variants" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Variants
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to categorize or highlight small pieces of information, such as status labels or counts. It renders as
+        an inline block with a solid background matching its intent, automatically adjusting text color via the YIQ
+        engine. There are no hover or focus states since it is purely presentational. Content should be limited to 1-3
+        words or a short number. Excluded from keyboard focus by default to prevent navigation friction.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={variantsCode} githubUrl={githubUrl}>
@@ -139,6 +145,12 @@ export const BadgeDoc = () => {
       <h3 id="sizes" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Sizes
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use the <code>size</code> prop to scale the badge appropriately for its context. It proportionally scales the
+        font size and padding (<code>sm</code> for tight data tables, <code>md</code> for standard tags, <code>lg</code>{' '}
+        for prominent status headers). Does not affect structural layout or color contrast. Limits remain identical
+        across all sizes. Continues to be ignored by standard focus indexing.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={sizesCode} githubUrl={githubUrl}>
@@ -160,6 +172,12 @@ export const BadgeDoc = () => {
       <h3 id="custom-color" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Custom color
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this when the predefined intents do not match your branding or exact categorization needs. Pass a valid hex
+        code to the <code>color</code> prop to completely override the background. The YIQ contrast engine will
+        automatically calculate the most legible text and border colors against your custom background. Interaction and
+        accessibility roles remain unchanged.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={customCode} githubUrl={githubUrl}>
@@ -176,7 +194,7 @@ export const BadgeDoc = () => {
                 defaultValue={customColor}
                 max={7}
                 min={4}
-                className="p-1.5 text-sm outline-none border-2 border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] focus:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] max-w-[7.5rem]"
+                className="p-1.5 text-sm outline-none border-2 border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] focus:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] max-w-30"
               />
               <Button variant="primary" className="ml-6 text-sm" onClick={handleCustomColor}>
                 Use color

@@ -5,7 +5,7 @@ export type HexColor = string & { readonly __brand: 'HexColor' }
 
 export const isHexColor = (value: string): value is HexColor => HEX_COLOR_PATTERN.test(value)
 
-export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'text'
+export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'text' | 'solid'
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'default'
 

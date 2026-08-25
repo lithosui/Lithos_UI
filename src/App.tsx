@@ -21,13 +21,16 @@ import { ButtonDoc } from './docs/pages/Button'
 import { CalendarDoc } from './docs/pages/Calendar'
 import { CardDoc } from './docs/pages/Card'
 import { CarouselDoc } from './docs/pages/Carousel'
+import { CheckboxDoc } from './docs/pages/Checkbox'
 import { ComingSoon } from './showroom/sections/ComingSoon'
 import { ComponentsIndex } from './pages/ComponentsIndex'
+import { DialogDoc } from './docs/pages/Dialog'
 import { DocsLayout } from './docs/DocsLayout'
 import { Faq } from './pages/Faq'
 import { InputDoc } from './docs/pages/Input'
 import { Installation } from './docs/pages/Installation'
 import { Introduction } from './docs/pages/Introduction'
+import { PopoverPage } from './docs/pages/Popover'
 import { NotFound } from './showroom/sections/NotFound'
 import { Showroom } from './showroom/Index'
 import { ToastDoc } from './docs/pages/Toast'
@@ -68,7 +71,10 @@ const renderDocRoutes = (isDarkMode: boolean, toggleObsidian: () => void) => {
     { path: 'card', component: CardDoc },
     { path: 'carousel', component: CarouselDoc },
     { path: 'input', component: InputDoc },
+    { path: 'checkbox', component: CheckboxDoc },
+    { path: 'dialog', component: DialogDoc },
     { path: 'installation', component: Installation },
+    { path: 'popover', component: PopoverPage },
     { path: 'toast', component: ToastDoc },
     { path: 'toggle', component: ToggleDoc },
   ]

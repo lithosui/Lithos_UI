@@ -78,9 +78,9 @@ export const carouselPropsData: PropItem[] = [
     description: 'Enables continuous looping, moving to the first item after reaching the end.',
   },
   {
-    name: 'vertical',
-    type: 'boolean',
-    defaultValue: 'false',
+    name: 'mode',
+    type: '"horizontal" | "vertical"',
+    defaultValue: '"horizontal"',
     required: false,
     description: 'Changes the layout and scroll direction from horizontal to vertical.',
   },

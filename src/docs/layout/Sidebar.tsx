@@ -5,10 +5,11 @@ export const Sidebar = () => {
 
   const getLinkClass = (path: string) => {
     const isActive = location.pathname === path
-    const baseClass = 'block px-3 py-1.5 text-xs font-bold transition-colors duration-150 ease-out'
+    const baseClass =
+      'inline-block w-fit px-3 py-1.5 text-xs font-bold transition-all duration-150 ease-out border-2 rounded-(--lithos-radius)'
 
     return isActive
-      ? `${baseClass} border-(--lithos-accent) bg-(--lithos-accent) text-(--lithos-accent-text)`
+      ? `${baseClass} border-(--lithos-border) bg-(--lithos-accent) text-(--lithos-accent-text) shadow-[4px_4px_0_0_var(--lithos-border)]`
       : `${baseClass} border-transparent text-(--lithos-text) hover:bg-[color-mix(in_srgb,var(--lithos-text)_5%,transparent)] hover:text-(--lithos-text)`
   }
 
@@ -17,7 +18,7 @@ export const Sidebar = () => {
       {/* Getting Started Category */}
       <div className="mb-8">
         <h3 className="text-xs font-black opacity-50 mb-3 px-4 uppercase">Getting Started</h3>
-        <nav className="flex flex-col pl-4 ">
+        <nav className="flex flex-col items-start pl-4 space-y-1">
           <Link to="/docs" className={getLinkClass('/docs')}>
             Introduction
           </Link>
@@ -30,7 +31,7 @@ export const Sidebar = () => {
       {/* Atomic Components Category */}
       <div>
         <h3 className="text-xs font-black opacity-50 mb-3 px-4 uppercase">Components</h3>
-        <nav className="flex flex-col pl-4 ">
+        <nav className="flex flex-col items-start pl-4 space-y-1">
           <Link to="/docs/accordion" className={getLinkClass('/docs/accordion')}>
             Accordion
           </Link>
@@ -60,6 +61,14 @@ export const Sidebar = () => {
           </Link>
           <Link to="/docs/input" className={getLinkClass('/docs/input')}>
             Input
+          <Link to="/docs/checkbox" className={getLinkClass('/docs/checkbox')}>
+            Checkbox
+          </Link>
+          <Link to="/docs/dialog" className={getLinkClass('/docs/dialog')}>
+            Dialog
+          </Link>
+          <Link to="/docs/popover" className={getLinkClass('/docs/popover')}>
+            Popover
           </Link>
           <Link to="/docs/toast" className={getLinkClass('/docs/toast')}>
             Toast

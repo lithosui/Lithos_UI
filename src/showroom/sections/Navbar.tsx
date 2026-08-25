@@ -48,10 +48,13 @@ const Navbar = ({ isDarkMode = false, onToggleObsidian }: NavbarProps) => {
 
   return (
     <>
-      <header className="fixed top-0 z-50 w-full border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
+      <header
+        className="fixed top-0 z-50 w-full border-b-2 border-(--lithos-border) bg-(--lithos-surface)"
+        style={{ paddingRight: 'var(--removed-scrollbar-width, 0px)' }}
+      >
         {/* - Fixed rail: the 4px bottom border marks the top boundary of the app. */}
         {/* - 24px vertical padding gives the bar enough mass to read as a slab, not a strip. */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-6 py-5">
           {/* - Brand block flex-1 balances the center lane. */}
           <div className="flex items-center justify-start lg:flex-1">
             <Button variant="primary" onClick={() => navigate('/')}>
@@ -98,7 +101,7 @@ const Navbar = ({ isDarkMode = false, onToggleObsidian }: NavbarProps) => {
 
       {/* - Full-Screen Mobile Overlay */}
       {isMenuOpen && (
-        <nav className="fixed inset-0 z-[40] pt-32 pb-6 px-6 bg-(--lithos-surface) overflow-y-auto flex flex-col justify-start lg:hidden">
+        <nav className="fixed inset-0 z-40 pt-32 pb-6 px-6 bg-(--lithos-surface) overflow-y-auto flex flex-col justify-start lg:hidden">
           {links.map((link) => (
             <Link
               key={link.label}

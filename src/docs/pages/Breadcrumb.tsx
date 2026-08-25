@@ -137,9 +137,12 @@ export const IconNameBreadcrumb = () => {
       <h3 id="collapsible" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
         Collapsible
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Automatically truncates middle items when paths get too long. Click the <code>•••</code> ellipsis button to
-        expand hidden items.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this when navigation paths become too long to fit cleanly on screen. It renders a standard breadcrumb but
+        replaces intermediate items with an ellipsis button to save space. Clicking the ellipsis expands the hidden
+        items inline. Restrict the maximum visible items using the <code>maxItems</code> prop. The ellipsis button is
+        fully accessible, featuring a descriptive <code>aria-label</code> that alerts screen readers to its expanding
+        function.
       </p>
 
       <div className="mt-4 mb-16">
@@ -165,8 +168,11 @@ export const IconNameBreadcrumb = () => {
       <h3 id="icon" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
         Icon
       </h3>
-      <p className="mb-4 text-sm font-body opacity-70 text-(--lithos-text)">
-        Pairs descriptive icons alongside segment names for enhanced visual clarity and quick hierarchy scanning.
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use this to pair descriptive icons alongside segment names, enhancing visual clarity and hierarchical scanning.
+        It renders an icon preceding the text for each breadcrumb segment. Hover and focus states remain identical to
+        the default text links. Keep segment text brief to accommodate the added icon width. Icons are treated as
+        decorative and do not alter the navigation's semantic accessibility.
       </p>
 
       <div className="mt-4 mb-16">

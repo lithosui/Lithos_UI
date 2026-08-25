@@ -16,6 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.20",
     "@tailwindcss/vite": "^4.2.4",
     "clsx": "^2.1.1",
     "react": "^19.2.5",

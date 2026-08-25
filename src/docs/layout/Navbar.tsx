@@ -40,6 +40,9 @@ const groupedLinks = [
       { label: 'Card', href: '/docs/card' },
       { label: 'Carousel', href: '/docs/carousel' },
       { label: 'Input', href: '/docs/input' },
+      { label: 'Checkbox', href: '/docs/checkbox' },
+      { label: 'Dialog', href: '/docs/dialog' },
+      { label: 'Popover', href: '/docs/popover' },
       { label: 'Toast', href: '/docs/toast' },
       { label: 'Toggle', href: '/docs/toggle' },
     ],
@@ -68,8 +71,11 @@ export const DocsNavbar = ({ isDarkMode = false, onToggleObsidian }: DocsNavbarP
   const ActionToggle = isMenuOpen ? IconClose : IconMenu
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+    <header
+      className="fixed top-0 z-50 w-full border-b-2 border-(--lithos-border) bg-(--lithos-surface)"
+      style={{ paddingRight: 'var(--removed-scrollbar-width, 0px)' }}
+    >
+      <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-6 py-5">
         <div className="flex items-center justify-start lg:w-1/3">
           <Button variant="primary" onClick={() => navigate('/')}>
             Lithos UI

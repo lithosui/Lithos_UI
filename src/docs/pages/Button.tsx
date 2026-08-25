@@ -35,6 +35,14 @@ export const ButtonDoc = () => {
     manualPath: '../../components/ui/Button',
   }
 
+  const solidCode = {
+    body: `export const SolidButton = () => {
+  return <Button variant="solid" color="#0000FF">Solid</Button>
+}`,
+    componentNames: ['Button'],
+    manualPath: '../../components/ui/Button',
+  }
+
   const textCode = {
     body: `export const TextButton = () => {
   return <Button variant="text">Text</Button>
@@ -112,7 +120,7 @@ export const ButtonDoc = () => {
   return (
     <div className="max-w-5xl mx-auto px-6">
       <header className="mt-0">
-        <h1 className="text-4xl md:text-5xl font-display tracking-tight leading-none text-(--lithos-text) mb-6">
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-8">
           Button
         </h1>
         <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
@@ -133,7 +141,8 @@ export const ButtonDoc = () => {
         <p className="text-sm font-bold font-body opacity-80 text-(--lithos-text)">
           <strong>Default</strong> is the primary call to action and requires no <code>intent</code> prop.{' '}
           <strong>Secondary</strong> is a secondary call-to-action with an outlined style. <strong>Accent</strong> is a
-          secondary button that fills solid with the accent color on hover. <strong>Text</strong> is a text-only button
+          secondary button that fills solid with the accent color on hover. <strong>Solid</strong> allows a custom
+          background color with an automatically adapting contrast text. <strong>Text</strong> is a text-only button
           variant with no border or background, typically used for secondary or low-emphasis actions.
         </p>
       </div>
@@ -179,8 +188,9 @@ export const ButtonDoc = () => {
         Default
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        The <code>primary</code> intent, used with no <code>intent</code> prop. Solid accent fill for the main call to
-        action on a screen — use it once per view so it stays the obvious next step.
+        Use this as the primary call to action on a screen. It renders with a solid accent background and contrasting
+        text. Hovering or focusing scales the button slightly. Do not use more than once per view to maintain visual
+        hierarchy. Accessible via standard keyboard interactions.
       </p>
 
       <PreviewBlock code={defaultCode} githubUrl={githubUrl}>
@@ -191,8 +201,10 @@ export const ButtonDoc = () => {
         Secondary
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Outlined, lower-emphasis variant for actions alongside a primary button — cancel, back, or any option that
-        shouldn't compete visually with the main call to action.
+        Use this for lower-emphasis actions alongside a primary button, such as 'Cancel' or 'Back'. It renders with a
+        transparent background and a solid border to reduce visual weight compared to the default variant. On hover or
+        focus, the background fills with the accent color. Do not use for the main call to action. Fully accessible via
+        standard keyboard navigation.
       </p>
 
       <PreviewBlock code={secondaryCode} githubUrl={githubUrl}>
@@ -203,20 +215,38 @@ export const ButtonDoc = () => {
         Accent
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Secondary variant that fills solid with the accent color on hover. Use it for a call to action that needs to
-        stand out without the full visual weight of the primary button.
+        Use this for a secondary call to action that needs to stand out without the full visual weight of the primary
+        button. It renders exactly like the secondary variant but fills solid with the accent color on hover instead of
+        remaining transparent. Content guidelines match the secondary variant. Fully keyboard accessible.
       </p>
 
       <PreviewBlock code={accentCode} githubUrl={githubUrl}>
         <Button variant="accent">Accent</Button>
       </PreviewBlock>
 
+      <h4 id="solid" className="mb-3 text-lg font-black tracking-tight text-(--lithos-text)">
+        Solid
+      </h4>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this when a specific action requires a unique background color unrelated to the global theme, such as a
+        destructive 'Delete' button. Provide a custom hex <code>color</code> to set the background; the text color
+        automatically adapts using a YIQ contrast check. Standard hover scaling applies. Ensure custom colors still meet
+        accessibility contrast guidelines for colorblindness.
+      </p>
+
+      <PreviewBlock code={solidCode} githubUrl={githubUrl}>
+        <Button variant="solid" color="#0000FF">
+          Solid
+        </Button>
+      </PreviewBlock>
+
       <h4 id="text" className="mb-3 text-lg font-black tracking-tight text-(--lithos-text)">
         Text
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Flat, borderless variant with no background or shadow. Fits inline actions or tight spaces — toolbar items,
-        table row actions — where a full bordered button would be too heavy.
+        Use this for inline actions or tight spaces like toolbar items and table row actions. It renders as a flat,
+        borderless variant with no background or shadow to minimize visual clutter. Hovering slightly scales the text.
+        Do not use for standalone primary actions. Retains full focus management for keyboard users.
       </p>
 
       <PreviewBlock code={textCode} githubUrl={githubUrl}>
@@ -227,9 +257,10 @@ export const ButtonDoc = () => {
         With Icon
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        The <code>iconLeft</code> and <code>iconRight</code> props place an icon before or after the label with
-        mandate-compliant margin spacing (no CSS <code>gap</code>). Use a leading icon to reinforce meaning before the
-        reader reaches the text, or a trailing icon for actions that lead somewhere else, like opening a settings panel.
+        Use this to provide a visual cue alongside the text label for faster recognition. It renders an icon inline with
+        the text via the <code>iconLeft</code> or <code>iconRight</code> props. Keep labels short. The icon is treated
+        as decorative, ensuring the text label dictates screen reader accessibility. Hover and focus states match the
+        underlying variant.
       </p>
 
       <PreviewBlock code={withIconCode} githubUrl={githubUrl}>

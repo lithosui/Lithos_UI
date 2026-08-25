@@ -15,6 +15,9 @@ import { Accordion } from '../components/ui/Accordion'
 import { Breadcrumb } from '../components/ui/Breadcrumb'
 import { Calendar } from '../components/ui/Calendar'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
+import { Checkbox } from '../components/ui/Checkbox'
+import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover'
+import { IconClose } from '../components/ui/icons/IconClose'
 
 interface ComponentsIndexProps {
   isDarkMode: boolean
@@ -60,6 +63,36 @@ const CarouselPreview = () => {
     </Carousel>
   )
 }
+
+const DialogPreview = () => (
+  <div className="w-[130%] scale-[0.45] origin-center pointer-events-none border-2 border-(--lithos-border) bg-(--lithos-surface) text-(--lithos-text) shadow-[6px_6px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius)">
+    <div className="flex items-center justify-between p-4 border-b-2 border-(--lithos-border)">
+      <p className="font-black uppercase tracking-tight leading-none m-0 text-lg">Confirm</p>
+      <IconClose aria-hidden="true" className="w-4 h-4" />
+    </div>
+    <div className="p-4 font-body text-sm opacity-70">Delete this item?</div>
+    <div className="flex items-center justify-end p-4 border-t-2 border-(--lithos-border)">
+      <Button className="text-sm">Delete</Button>
+    </div>
+  </div>
+)
+
+const PopoverPreview = () => (
+  <div className="w-full scale-[0.6] origin-center flex flex-col items-center pointer-events-none mt-2">
+    <Popover open={true} modal={false}>
+      <PopoverTrigger asChild>
+        <Button className="mb-2">Open</Button>
+      </PopoverTrigger>
+      <PopoverContent
+        portaled={false}
+        className="p-3 w-32 border-2 border-(--lithos-border) bg-(--lithos-surface) text-(--lithos-text) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) z-0"
+      >
+        <p className="font-bold text-sm m-0 leading-tight">Settings</p>
+        <p className="text-[10px] opacity-70 m-0 leading-tight mt-1">Preferences.</p>
+      </PopoverContent>
+    </Popover>
+  </div>
+)
 
 const componentsList = [
   {
@@ -137,6 +170,26 @@ const componentsList = [
     name: 'Carousel',
     to: '/docs/carousel',
     preview: <CarouselPreview />,
+  },
+  {
+    name: 'Checkbox',
+    to: '/docs/checkbox',
+    preview: (
+      <div className="flex flex-col items-start [&>*:not(:first-child)]:mt-2 pointer-events-none">
+        <Checkbox label="Checked" defaultChecked />
+        <Checkbox label="Unchecked" />
+      </div>
+    ),
+  },
+  {
+    name: 'Dialog',
+    to: '/docs/dialog',
+    preview: <DialogPreview />,
+  },
+  {
+    name: 'Popover',
+    to: '/docs/popover',
+    preview: <PopoverPreview />,
   },
   {
     name: 'Toast',

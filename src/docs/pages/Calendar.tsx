@@ -158,6 +158,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="single" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Single
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to select a single specific date from the calendar grid. It renders the standard monthly calendar
+        interface. Selecting a new date unselects the previous one. Does not limit bounds unless min/max props are
+        provided. Keyboard navigable via standard arrow keys; selected dates use <code>aria-pressed</code>.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={singleCode} githubUrl={githubUrl}>
@@ -168,6 +173,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="multiple" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Multiple
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this when the user needs to select several unconnected dates, such as picking individual days for an event
+        schedule. It allows multiple selection within the same grid. Clicking an already selected date toggles it off.
+        Navigation and accessibility behavior match the single selection mode.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={multipleCode} githubUrl={githubUrl}>
@@ -178,6 +188,12 @@ export const DisabledDatesCalendar = () => {
       <h3 id="multicolor" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Multicolor selection
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to visually categorize selected dates into distinct groups, such as different shift types or
+        availability tiers. It accepts an array of objects mapping specific dates to custom hex colors. The YIQ contrast
+        engine ensures readability inside the colored selection indicators. Behavior is identical to multiple selection
+        mode.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={multiColorCode} githubUrl={githubUrl}>
@@ -194,6 +210,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="rainbow" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Rainbow
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this for playful or highly specific visual differentiation where each selected date is assigned a random or
+        sequential color. It behaves exactly like multiple selection but automatically applies a diverse color palette
+        to the selected dates. Does not alter structural layout or ARIA states.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={rainbowCode} githubUrl={githubUrl}>
@@ -204,6 +225,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="range" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Range
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this when the user needs to select a contiguous block of dates, such as a booking period or filter range. It
+        requires two clicks: one for the start date and one for the end date, visually connecting all dates in between.
+        Hovering before the second click highlights the prospective range.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={rangeCode} githubUrl={githubUrl}>
@@ -214,6 +240,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="disabled-dates" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Disabled dates
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to prevent selection of specific days, such as past dates, fully booked days, or holidays. Pass an
+        array of dates or bounds to make them unclickable. They render with reduced opacity and a crossed-out visual
+        style. Disabled dates are explicitly marked with <code>aria-disabled="true"</code> for screen readers.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={disabledDatesCode} githubUrl={githubUrl}>
@@ -224,6 +255,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="bounded-years" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Bounded years
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to constrain the year dropdown navigation to a specific range, such as historical data (e.g., [1940,
+        2024]). It limits the selectable years in the header dropdown menu without affecting the month grid layout.
+        Prevents out-of-bounds navigation.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={boundedYearsCode} githubUrl={githubUrl}>
@@ -234,6 +270,11 @@ export const DisabledDatesCalendar = () => {
       <h3 id="controlled" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Controlled
       </h3>
+      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+        Use this to explicitly manage the calendar's internal state (selected dates and visible month) from a parent
+        component. Pass <code>value</code> and <code>month</code> alongside their respective change handlers. Visually
+        identical to uncontrolled variants, but guarantees sync with external state logic.
+      </p>
 
       <div className="mt-8 mb-16">
         <PreviewBlock code={controlledCode} githubUrl={githubUrl}>
