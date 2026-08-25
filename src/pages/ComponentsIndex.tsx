@@ -158,7 +158,7 @@ const componentsList = [
     to: '/docs/checkbox',
     preview: (
       <div className="flex flex-col items-start [&>*:not(:first-child)]:mt-2 pointer-events-none">
-        <Checkbox variant="icon" label="Checked" defaultChecked />
+        <Checkbox label="Checked" defaultChecked />
         <Checkbox label="Unchecked" />
       </div>
     ),

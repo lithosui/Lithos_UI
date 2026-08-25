@@ -2,14 +2,6 @@ import type { PropItem } from '../../components/ui/PropsTable'
 
 export const checkboxPropsData: PropItem[] = [
   {
-    name: 'variant',
-    type: "'filled' | 'outlined' | 'icon'",
-    defaultValue: "'filled'",
-    required: false,
-    description:
-      "Solid fill vs. outline-only border/check. 'icon' always shows an icon and fills the box even when unchecked: a green check when selected, a red X when not.",
-  },
-  {
     name: 'color',
     type: 'HexColor | string',
     required: false,
@@ -95,13 +87,6 @@ export const checkboxGroupPropsData: PropItem[] = [
     defaultValue: "'vertical'",
     required: false,
     description: 'Stacks items in a column or flows them in a row.',
-  },
-  {
-    name: 'variant',
-    type: "'filled' | 'outlined' | 'icon'",
-    defaultValue: "'filled'",
-    required: false,
-    description: "Default variant for every child Checkbox that doesn't set its own.",
   },
   {
     name: 'disabled',

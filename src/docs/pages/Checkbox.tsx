@@ -3,14 +3,15 @@ import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { SetupGuide } from '../layout/SetupGuide'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { CodeViewer } from '../../components/ui/CodeViewer'
-import { Checkbox, CheckboxGroup } from '../../components/ui/Checkbox'
+import { Checkbox, PlainCheckbox, CheckboxGroup } from '../../components/ui/Checkbox'
 import { checkboxPropsData, checkboxGroupPropsData } from '../propsData/checkbox'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Checkbox.tsx'
 
-const componentNames = ['Checkbox', 'CheckboxGroup']
+const componentNames = ['Checkbox', 'PlainCheckbox', 'CheckboxGroup']
 const manualPath = {
   Checkbox: '../../components/ui/Checkbox',
+  PlainCheckbox: '../../components/ui/Checkbox',
   CheckboxGroup: '../../components/ui/Checkbox',
 }
 
@@ -22,19 +23,12 @@ const SingleCheckboxDemo = () => {
   )
 }
 
-const VariantCheckboxDemo = () => (
-  <div className="flex flex-col [&>*:not(:first-child)]:mt-3">
-    <Checkbox variant="filled" label="Filled" defaultChecked />
-    <Checkbox variant="outlined" label="Outlined" defaultChecked />
-    <Checkbox variant="icon" label="Icon — click to toggle" defaultChecked />
-  </div>
-)
+const PlainCheckboxDemo = () => <PlainCheckbox label="Remember me on this device" defaultChecked />
 
 const CustomColorCheckboxDemo = () => (
   <div className="flex flex-col [&>*:not(:first-child)]:mt-3">
-    <Checkbox color="#FF0033" label="Filled" defaultChecked />
-    <Checkbox color="#0055FF" variant="outlined" label="Outlined" defaultChecked />
-    <Checkbox color="#00AA55" variant="icon" label="Icon" defaultChecked />
+    <Checkbox color="#FF0033" label="Subscribe to newsletter" defaultChecked />
+    <PlainCheckbox color="#0055FF" label="Enable dark mode" defaultChecked />
   </div>
 )
 
@@ -90,7 +84,7 @@ const HorizontalGroupCheckboxDemo = () => {
   const [value, setValue] = useState<string[]>(['mon', 'wed', 'fri'])
 
   return (
-    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" variant="icon" label="Active days">
+    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" label="Active days">
       <Checkbox value="mon" label="Mon" />
       <Checkbox value="tue" label="Tue" />
       <Checkbox value="wed" label="Wed" />
@@ -117,27 +111,20 @@ export const CheckboxDoc = () => {
     manualPath,
   }
 
-  const variantCode = {
-    body: `export const VariantCheckboxDemo = () => (
-  <>
-    <Checkbox variant="filled" label="Filled" defaultChecked />
-    <Checkbox variant="outlined" label="Outlined" defaultChecked />
-    <Checkbox variant="icon" label="Icon — click to toggle" defaultChecked />
-  </>
-)`,
-    componentNames: ['Checkbox'],
+  const plainCode = {
+    body: `export const PlainCheckboxDemo = () => <PlainCheckbox label="Remember me on this device" defaultChecked />`,
+    componentNames: ['PlainCheckbox'],
     manualPath,
   }
 
   const customColorCode = {
     body: `export const CustomColorCheckboxDemo = () => (
   <>
-    <Checkbox color="#FF0033" label="Filled" defaultChecked />
-    <Checkbox color="#0055FF" variant="outlined" label="Outlined" defaultChecked />
-    <Checkbox color="#00AA55" variant="icon" label="Icon" defaultChecked />
+    <Checkbox color="#FF0033" label="Subscribe to newsletter" defaultChecked />
+    <PlainCheckbox color="#0055FF" label="Enable dark mode" defaultChecked />
   </>
 )`,
-    componentNames: ['Checkbox'],
+    componentNames: ['Checkbox', 'PlainCheckbox'],
     manualPath,
   }
 
@@ -206,7 +193,7 @@ export const CheckboxDoc = () => {
   const [value, setValue] = useState<string[]>(['mon', 'wed', 'fri'])
 
   return (
-    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" variant="icon" label="Active days">
+    <CheckboxGroup value={value} onChange={setValue} orientation="horizontal" label="Active days">
       <Checkbox value="mon" label="Mon" />
       <Checkbox value="tue" label="Tue" />
       <Checkbox value="wed" label="Wed" />
@@ -226,7 +213,7 @@ export const CheckboxDoc = () => {
           Checkbox
         </h1>
         <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
-          A native, form-friendly checkbox with three visual variants and a multi-select group.
+          A native, form-friendly checkbox with a multi-select group.
         </p>
         <hr className="border-t-2 border-(--lithos-border) mt-8 mb-8" />
       </header>
@@ -277,21 +264,21 @@ export const CheckboxDoc = () => {
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
         A controlled on/off choice, same as a native input. Works uncontrolled with <code>defaultChecked</code> too.
+        Checked shows a check icon by default.
       </p>
       <PreviewBlock code={singleCode} githubUrl={githubUrl}>
         <SingleCheckboxDemo />
       </PreviewBlock>
 
-      <h3 id="variant" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
-        Variant
+      <h3 id="plain" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
+        Plain checkbox
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
-        <code>filled</code> and <code>outlined</code> show the checked state with color alone — no icon.{' '}
-        <code>icon</code> is the only variant that renders one in the box, filled even when unchecked: a green check
-        when selected, a red X when it isn&apos;t.
+        Use <code>PlainCheckbox</code> when the check mark would be redundant, like a settings toggle where the filled
+        color alone already tells you it's on.
       </p>
-      <PreviewBlock code={variantCode} githubUrl={githubUrl}>
-        <VariantCheckboxDemo />
+      <PreviewBlock code={plainCode} githubUrl={githubUrl}>
+        <PlainCheckboxDemo />
       </PreviewBlock>
 
       <h3 id="custom-color" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
@@ -310,8 +297,8 @@ export const CheckboxDoc = () => {
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
         Use <code>indeterminate</code> for a &quot;select all&quot; checkbox whose children are partially checked. It
-        sets the native DOM property directly and always renders a dash, regardless of variant — checked and
-        partially-checked are different states and stay visually distinct.
+        sets the native DOM property directly and always renders a dash — checked and partially-checked are different
+        states and stay visually distinct.
       </p>
       <PreviewBlock code={indeterminateCode} githubUrl={githubUrl}>
         <IndeterminateCheckboxDemo />
@@ -332,8 +319,8 @@ export const CheckboxDoc = () => {
       </h3>
       <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
         CheckboxGroup owns one controlled <code>string[]</code>. Children declare a <code>value</code> and pick up
-        checked-state and toggling from the group automatically, plus its shared <code>variant</code>/
-        <code>disabled</code> unless they set their own.
+        checked-state and toggling from the group automatically, plus its shared <code>disabled</code> unless they set
+        their own.
       </p>
       <PreviewBlock code={groupCode} githubUrl={githubUrl}>
         <GroupCheckboxDemo />
@@ -374,7 +361,7 @@ export const CheckboxDoc = () => {
         <h2 id="api" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
           API Reference
         </h2>
-        <PropsAccordion title="Checkbox Props" data={checkboxPropsData} />
+        <PropsAccordion title="Checkbox / PlainCheckbox Props" data={checkboxPropsData} />
         <div className="mt-8">
           <PropsAccordion title="CheckboxGroup Props" data={checkboxGroupPropsData} />
         </div>
