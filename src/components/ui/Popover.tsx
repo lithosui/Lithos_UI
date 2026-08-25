@@ -135,34 +135,37 @@ export const PopoverTrigger = React.forwardRef<HTMLElement, PopoverTriggerProps>
   }
 )
 
-export const PopoverContent = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  ({ style, className, ...props }, propRef) => {
-    const { context: floatingContext, ...context } = usePopoverContext()
-    const ref = useMergeRefs([context.refs.setFloating, propRef])
+export const PopoverContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLProps<HTMLDivElement> & { portaled?: boolean }
+>(({ style, className, portaled = true, ...props }, propRef) => {
+  const { context: floatingContext, ...context } = usePopoverContext()
+  const ref = useMergeRefs([context.refs.setFloating, propRef])
 
-    if (!floatingContext.open) return null
+  if (!floatingContext.open) return null
 
-    return (
-      <FloatingPortal>
-        <FloatingFocusManager context={floatingContext} modal={context.modal}>
-          <div
-            ref={ref}
-            style={{ ...context.floatingStyles, ...style }}
-            aria-labelledby={context.labelId}
-            aria-describedby={context.descriptionId}
-            className={cn(
-              'z-50 min-w-40 border-2 border-(--lithos-border) bg-(--lithos-surface) p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)] text-(--lithos-text) outline-none rounded-(--lithos-radius)',
-              className
-            )}
-            {...context.getFloatingProps(props)}
-          >
-            {props.children}
-          </div>
-        </FloatingFocusManager>
-      </FloatingPortal>
-    )
-  }
-)
+  const content = (
+    <FloatingFocusManager context={floatingContext} modal={context.modal}>
+      <div
+        ref={ref}
+        style={{ ...context.floatingStyles, ...style }}
+        aria-labelledby={context.labelId}
+        aria-describedby={context.descriptionId}
+        className={cn(
+          'z-50 min-w-40 border-2 border-(--lithos-border) bg-(--lithos-surface) p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)] text-(--lithos-text) outline-none rounded-(--lithos-radius)',
+          className
+        )}
+        {...context.getFloatingProps(props)}
+      >
+        {props.children}
+      </div>
+    </FloatingFocusManager>
+  )
+
+  if (!portaled) return content
+
+  return <FloatingPortal>{content}</FloatingPortal>
+})
 
 export interface PopoverCloseProps extends React.ComponentPropsWithRef<'button'> {
   asChild?: boolean

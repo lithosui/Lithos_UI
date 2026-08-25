@@ -68,6 +68,7 @@ export const useLithosTheme = () => {
         document.body.classList.remove('obsidian', 'dark')
       }
 
+      window.dispatchEvent(new Event('lithos-theme-mode-changed'))
       return newMode
     })
   }

@@ -16,6 +16,7 @@ import { Breadcrumb } from '../components/ui/Breadcrumb'
 import { Calendar } from '../components/ui/Calendar'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
 import { Checkbox } from '../components/ui/Checkbox'
+import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover'
 import { IconClose } from '../components/ui/icons/IconClose'
 
 interface ComponentsIndexProps {
@@ -73,6 +74,23 @@ const DialogPreview = () => (
     <div className="flex items-center justify-end p-4 border-t-2 border-(--lithos-border)">
       <Button className="text-sm">Delete</Button>
     </div>
+  </div>
+)
+
+const PopoverPreview = () => (
+  <div className="w-full scale-[0.6] origin-center flex flex-col items-center pointer-events-none mt-2">
+    <Popover open={true} modal={false}>
+      <PopoverTrigger asChild>
+        <Button className="mb-2">Open</Button>
+      </PopoverTrigger>
+      <PopoverContent
+        portaled={false}
+        className="p-3 w-32 border-2 border-(--lithos-border) bg-(--lithos-surface) text-(--lithos-text) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) z-0"
+      >
+        <p className="font-bold text-sm m-0 leading-tight">Settings</p>
+        <p className="text-[10px] opacity-70 m-0 leading-tight mt-1">Preferences.</p>
+      </PopoverContent>
+    </Popover>
   </div>
 )
 
@@ -167,6 +185,11 @@ const componentsList = [
     name: 'Dialog',
     to: '/docs/dialog',
     preview: <DialogPreview />,
+  },
+  {
+    name: 'Popover',
+    to: '/docs/popover',
+    preview: <PopoverPreview />,
   },
   {
     name: 'Toast',
