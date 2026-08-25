@@ -15,6 +15,7 @@ import { Accordion } from '../components/ui/Accordion'
 import { Breadcrumb } from '../components/ui/Breadcrumb'
 import { Calendar } from '../components/ui/Calendar'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
+import { Checkbox } from '../components/ui/Checkbox'
 import { IconClose } from '../components/ui/icons/IconClose'
 
 interface ComponentsIndexProps {
@@ -151,6 +152,16 @@ const componentsList = [
     name: 'Carousel',
     to: '/docs/carousel',
     preview: <CarouselPreview />,
+  },
+  {
+    name: 'Checkbox',
+    to: '/docs/checkbox',
+    preview: (
+      <div className="flex flex-col items-start [&>*:not(:first-child)]:mt-2 pointer-events-none">
+        <Checkbox label="Checked" defaultChecked />
+        <Checkbox label="Unchecked" />
+      </div>
+    ),
   },
   {
     name: 'Dialog',
