@@ -120,7 +120,7 @@ export const CardDoc = () => {
   const imageCode = {
     body: `export const ImageBackgroundCard = () => {
   return (
-    <Card variant="image" className="w-full max-w-sm min-h-[300px]">
+    <Card variant="image" className="w-full max-w-sm min-h-75">
       <CardImage src="https://picsum.photos/600/600" alt="Full bleed background" isBackground />
       <CardContent>
         <CardTitle>Full Bleed Overlay</CardTitle>
@@ -334,7 +334,7 @@ export const CardDoc = () => {
         compliance against arbitrary image backgrounds.
       </p>
       <PreviewBlock code={imageCode} githubUrl={githubUrl}>
-        <Card variant="image" className="w-full max-w-sm min-h-[300px]">
+        <Card variant="image" className="w-full max-w-sm min-h-75">
           <CardImage src="https://picsum.photos/600/600" alt="Full bleed background" isBackground />
           <CardContent>
             <CardTitle>Full Bleed Overlay</CardTitle>
