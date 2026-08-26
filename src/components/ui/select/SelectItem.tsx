@@ -8,6 +8,8 @@ import type { ReactNode, ComponentPropsWithRef, MouseEvent, KeyboardEvent } from
 import { useListItem } from '@floating-ui/react'
 import { cn, type LithosClass } from '../../../utils/cn'
 import { useSelect } from './useSelect'
+import { getContrastText } from '../../../utils/yiq'
+import { useAccentColor } from '../../../core/useAccentColor'
 
 export interface SelectItemProps extends Omit<ComponentPropsWithRef<'li'>, 'className'> {
   value: string
@@ -19,6 +21,8 @@ export interface SelectItemProps extends Omit<ComponentPropsWithRef<'li'>, 'clas
 
 export const SelectItem = ({ value, disabled, children, className, index, ...rest }: SelectItemProps) => {
   const { selectedValue, handleSelect, activeIndex, multiple } = useSelect()
+  const { accentColor } = useAccentColor()
+  const fgColor = getContrastText(accentColor)
 
   const { ref, index: itemIndex } = useListItem({
     label: typeof children === 'string' ? children : undefined,
@@ -51,11 +55,12 @@ export const SelectItem = ({ value, disabled, children, className, index, ...res
       tabIndex={isActive ? 0 : -1}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      style={{ color: isSelected ? fgColor : 'var(--lithos-text)' }}
       className={cn(
         'cursor-pointer select-none px-3 py-1.5 text-sm outline-none',
 
         // both active and not active states uses the same font weight
-        isSelected && 'font-bold text-(--lithos-text)',
+        isSelected && 'font-bold',
 
         isSelected
           ? isActive
