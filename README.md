@@ -26,45 +26,38 @@ CSS specificity wars ruin dynamic themes. Lithos UI utilizes a Javascript-inject
 
 To prevent Tailwind class bloat ("DRY" architecture), Lithos UI packages its mechanical interactions into global CSS utility tokens. By applying the `.lithos-click` class to any button, the element instantly inherits the system's strict `2px` borders, brutalist `2px` shadows, and our signature zero-latency "Hard-Drop" click physics. No redundant transition or active states required.
 
-## Component Status
-
-### Primitives
+## Components
 
 | Component             | Status | Docs                                     |
 | --------------------- | ------ | ---------------------------------------- |
+| Accordion             | Stable | [Link](/src/docs/pages/Accordion.tsx)    |
 | Alert                 | Stable | [Link](/src/docs/pages/Alert.tsx)        |
 | Avatar                | Stable | [Link](/src/docs/pages/Avatar.tsx)       |
-| Accordion             | Stable | [Link](/src/docs/pages/Accordion.tsx)    |
 | Badge                 | Stable | [Link](/src/docs/pages/Badge.tsx)        |
 | Breadcrumb            | Stable | [Link](/src/docs/pages/Breadcrumb.tsx)   |
 | Button                | Stable | [Link](/src/docs/pages/Button.tsx)       |
 | Calendar              | Stable | [Link](/src/docs/pages/Calendar.tsx)     |
 | Card                  | Stable | [Link](/src/docs/pages/Card.tsx)         |
+| Carousel              | Stable | [Link](/src/docs/pages/Carousel.tsx)     |
+| Checkbox              | Stable | [Link](/src/docs/pages/Checkbox.tsx)     |
 | CodeViewer            | Stable | [Link](/src/docs/pages/CodeViewer.tsx)   |
 | Dialog                | Stable | [Link](/src/docs/pages/Dialog.tsx)       |
+| Popover               | Stable | [Link](/src/docs/pages/Popover.tsx)      |
 | PreviewBlock          | Stable | [Link](/src/docs/pages/PreviewBlock.tsx) |
 | Toast (ToastProvider) | Stable | [Link](/src/docs/pages/Toast.tsx)        |
 | Toggle                | Stable | [Link](/src/docs/pages/Toggle.tsx)       |
 
-### Layout
+### Blocks
 
-| Component  | Status | Docs |
-| ---------- | ------ | ---- |
-| Navbar     | Beta   | —    |
-| Footer     | Beta   | —    |
-| NotFound   | Beta   | —    |
-| ComingSoon | Beta   | —    |
-
-### Data Display and Landing Blocks
-
-| Component    | Status | Docs |
-| ------------ | ------ | ---- |
-| Hero         | Beta   | —    |
-| FeatureGrid  | Beta   | —    |
-| Pricing      | Beta   | —    |
-| Testimonials | Beta   | —    |
-| FAQ          | Beta   | —    |
-| ThemeEngine  | Beta   | —    |
+| Block Category | Status | Variants | Docs                                        |
+| -------------- | ------ | -------- | ------------------------------------------- |
+| FAQ            | Stable | 1        | [Link](/src/components/blocks/FAQ)          |
+| Feature Grids  | Stable | 1        | [Link](/src/components/blocks/FeatureGrid)  |
+| Footers        | Stable | 2        | [Link](/src/components/blocks/Footer)       |
+| Hero Sections  | Stable | 2        | [Link](/src/components/blocks/Hero)         |
+| Navbars        | Stable | 1        | [Link](/src/components/blocks/Navbar)       |
+| Pricing Tables | Stable | 1        | [Link](/src/components/blocks/Pricing)      |
+| Testimonials   | Stable | 1        | [Link](/src/components/blocks/Testimonials) |
 
 ---
 
