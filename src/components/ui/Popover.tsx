@@ -13,6 +13,8 @@ import {
   FloatingPortal,
   FloatingFocusManager,
   useId,
+  size,
+  type ElementProps,
 } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
 import { cn } from '../../utils/cn'
@@ -23,6 +25,7 @@ interface PopoverOptions {
   modal?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  interactions?: ElementProps[]
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -32,6 +35,7 @@ export const usePopover = ({
   modal,
   open: controlledOpen,
   onOpenChange: setControlledOpen,
+  interactions: extraInteractions = [],
 }: PopoverOptions = {}) => {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initialOpen)
   const labelId = useId()
@@ -46,11 +50,18 @@ export const usePopover = ({
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(8),
+      offset(0),
       flip({
         fallbackAxisSideDirection: 'end',
       }),
       shift({ padding: 8 }),
+      size({
+        apply: ({ rects, elements }) => {
+          Object.assign(elements.floating.style, {
+            width: `${rects.reference.width}px`,
+          })
+        },
+      }),
     ],
   })
 
@@ -60,7 +71,7 @@ export const usePopover = ({
   const dismiss = useDismiss(context)
   const role = useRole(context)
 
-  const interactions = useInteractions([click, dismiss, role])
+  const interactions = useInteractions([click, dismiss, role, ...extraInteractions])
 
   return React.useMemo(
     () => ({
