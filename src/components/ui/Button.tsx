@@ -79,20 +79,20 @@ export const Button = ({
  * border and popping the hovered/focused item's shadow above its neighbors via `z-10`.
  */
 export interface ButtonGroupProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  orientation?: 'horizontal' | 'vertical' | undefined
+  mode?: 'horizontal' | 'vertical' | undefined
   attached?: boolean | undefined
   className?: ClassValue | ClassArray
 }
 
 export const ButtonGroup = ({
-  orientation = 'horizontal',
+  mode = 'horizontal',
   attached = false,
   className,
   children,
   ref,
   ...rest
 }: ButtonGroupProps) => {
-  const isVertical = orientation === 'vertical'
+  const isVertical = mode === 'vertical'
 
   const classes = [
     'inline-flex',
