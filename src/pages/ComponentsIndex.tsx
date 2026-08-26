@@ -17,12 +17,20 @@ import { Calendar } from '../components/ui/Calendar'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
 import { Checkbox } from '../components/ui/Checkbox'
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover'
+import { Select } from '../components/ui/Select'
 import { IconClose } from '../components/ui/icons/IconClose'
 
 interface ComponentsIndexProps {
   isDarkMode: boolean
   toggleObsidian: () => void
 }
+
+const FRAMEWORK_OPTIONS = [
+  { label: 'React', value: 'react' },
+  { label: 'Preact', value: 'preact' },
+  { label: 'Vue.js', value: 'vue' },
+  { label: 'Svelte', value: 'svelte' },
+]
 
 const TogglePreview = () => {
   const [on, setOn] = useState(true)
@@ -35,7 +43,7 @@ const ToastPreview = () => {
     <div className="w-[120%] scale-[0.7] origin-center pointer-events-none mt-6">
       <ToastItem
         toast={{ id: 'prev-toast', message: 'Yummy toast', intent: 'success', color: accentColor, title: 'SUCCESS' }}
-        onRemove={() => {}}
+        onRemove={() => { }}
       />
     </div>
   )
@@ -190,6 +198,11 @@ const componentsList = [
     name: 'Popover',
     to: '/docs/popover',
     preview: <PopoverPreview />,
+  },
+  {
+    name: 'Select',
+    to: '/docs/select',
+    preview: <Select options={FRAMEWORK_OPTIONS} placeholder="Select a framework..." />,
   },
   {
     name: 'Toast',
