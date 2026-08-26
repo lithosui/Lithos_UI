@@ -59,6 +59,9 @@ export const Sidebar = () => {
           <Link to="/docs/carousel" className={getLinkClass('/docs/carousel')}>
             Carousel
           </Link>
+          <Link to="/docs/input" className={getLinkClass('/docs/input')}>
+            Input
+          </Link>
           <Link to="/docs/checkbox" className={getLinkClass('/docs/checkbox')}>
             Checkbox
           </Link>

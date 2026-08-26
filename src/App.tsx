@@ -27,6 +27,7 @@ import { ComponentsIndex } from './pages/ComponentsIndex'
 import { DialogDoc } from './docs/pages/Dialog'
 import { DocsLayout } from './docs/DocsLayout'
 import { Faq } from './pages/Faq'
+import { InputDoc } from './docs/pages/Input'
 import { Installation } from './docs/pages/Installation'
 import { Introduction } from './docs/pages/Introduction'
 import { PopoverPage } from './docs/pages/Popover'
@@ -70,6 +71,7 @@ const renderDocRoutes = (isDarkMode: boolean, toggleObsidian: () => void) => {
     { path: 'calendar', component: CalendarDoc },
     { path: 'card', component: CardDoc },
     { path: 'carousel', component: CarouselDoc },
+    { path: 'input', component: InputDoc },
     { path: 'checkbox', component: CheckboxDoc },
     { path: 'dialog', component: DialogDoc },
     { path: 'installation', component: Installation },
