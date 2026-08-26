@@ -78,9 +78,7 @@ export const TabsDoc = () => {
   return (
     <div className="max-w-5xl mx-auto px-6">
       <header className="mt-0">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-8">
-          Tabs
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-8">Tabs</h1>
         <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
           A set of layered sections of content—known as tab panels—that are displayed one at a time.
         </p>
@@ -89,7 +87,8 @@ export const TabsDoc = () => {
 
       <section className="mb-12">
         <p className="mb-8 text-lg md:text-xl text-(--lithos-text) max-w-3xl font-body">
-          The Tabs component is built using a compound component architecture. It strictly follows the Lithos UI physics engine by enforcing hard borders and solid drop shadows.
+          The Tabs component is built using a compound component architecture. It strictly follows the Lithos UI physics
+          engine by enforcing hard borders and solid drop shadows.
         </p>
       </section>
 
@@ -203,14 +202,13 @@ export const TabsDoc = () => {
         </h2>
         <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
           <li>
-            Uses <code>role="tablist"</code>, <code>role="tab"</code>, and <code>role="tabpanel"</code> for correct screen reader semantics.
+            Uses <code>role="tablist"</code>, <code>role="tab"</code>, and <code>role="tabpanel"</code> for correct
+            screen reader semantics.
           </li>
           <li>
             Maintains proper <code>aria-selected</code> states dynamically.
           </li>
-          <li>
-            Keyboard accessible (users can tab and hit enter to toggle content).
-          </li>
+          <li>Keyboard accessible (users can tab and hit enter to toggle content).</li>
         </ul>
       </section>
 

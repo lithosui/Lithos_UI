@@ -67,8 +67,12 @@ const TabsPreview = () => {
     <div className="w-full scale-[0.65] origin-center pointer-events-none mt-2 flex justify-center">
       <Tabs defaultValue="1" className="w-50">
         <TabsList>
-          <TabsTrigger value="1" className="py-1 px-3 text-xs">Tab 1</TabsTrigger>
-          <TabsTrigger value="2" className="py-1 px-3 text-xs">Tab 2</TabsTrigger>
+          <TabsTrigger value="1" className="py-1 px-3 text-xs">
+            Tab 1
+          </TabsTrigger>
+          <TabsTrigger value="2" className="py-1 px-3 text-xs">
+            Tab 2
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="1" className="p-3">
           <p className="text-xs m-0">Content 1</p>
