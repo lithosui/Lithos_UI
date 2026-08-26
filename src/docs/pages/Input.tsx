@@ -1,11 +1,15 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
-import { Input } from '../../components/ui/Input'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '../../components/ui/InputGroup'
+import { Input, InputGroup, InputGroupAddon, InputGroupInput } from '../../components/ui/Input'
 import { IconSearch } from '../../components/ui/icons/IconSearch'
+import { IconSettings } from '../../components/ui/icons/IconSettings'
 import { Button } from '../../components/ui/Button'
 import { PropsAccordion } from '../../components/ui/PropsTable'
-import { inputPropsData } from '../propsData/input'
-import { inputGroupAddonPropsData, inputGroupInputPropsData, inputGroupPropsData } from '../propsData/inputGroup'
+import {
+  inputPropsData,
+  inputGroupPropsData,
+  inputGroupInputPropsData,
+  inputGroupAddonPropsData,
+} from '../propsData/input'
 import { SetupGuide } from '../layout/SetupGuide'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Input.tsx'
@@ -75,6 +79,43 @@ export const InputDoc = () => {
     manualPath: INPUT_PATH,
   }
 
+  const sizesCode = {
+    body: `export const InputSizes = () => {
+  return (
+    <div className='flex flex-col items-center'>
+      <Input size='sm' placeholder='Small (h-8)' />
+      <Input size='default' className='mt-4' placeholder='Default (h-10)' />
+      <Input size='md' className='mt-4' placeholder='Medium (h-11)' />
+      <Input size='lg' className='mt-4' placeholder='Large (h-12)' />
+    </div>
+  )
+}`,
+    componentNames: ['Input'],
+    manualPath: INPUT_PATH,
+  }
+
+  const iconsCode = {
+    body: `export const InputIcons = () => {
+  return (
+    <div className='flex flex-col items-center'>
+      <InputGroup className='max-w-xs' startAdornment={<IconSearch />}>
+        <InputGroupInput placeholder='Search...' />
+      </InputGroup>
+      <InputGroup className='mt-4 max-w-xs' endAdornment={<IconSettings />}>
+        <InputGroupInput placeholder='Settings' />
+      </InputGroup>
+    </div>
+  )
+}`,
+    componentNames: ['InputGroup', 'InputGroupInput', 'IconSearch', 'IconSettings'],
+    manualPath: {
+      InputGroup: INPUT_PATH,
+      InputGroupInput: INPUT_PATH,
+      IconSearch: '../../components/ui/icons/IconSearch',
+      IconSettings: '../../components/ui/icons/IconSettings',
+    },
+  }
+
   const groupCode = {
     body: `export const InputGroupSearch = () => {
   return (
@@ -89,10 +130,27 @@ export const InputDoc = () => {
 }`,
     componentNames: ['InputGroup', 'InputGroupInput', 'InputGroupAddon', 'IconSearch'],
     manualPath: {
-      InputGroup: '../../components/ui/Input',
-      InputGroupInput: '../../components/ui/Input',
-      InputGroupAddon: '../../components/ui/Input',
+      InputGroup: INPUT_PATH,
+      InputGroupInput: INPUT_PATH,
+      InputGroupAddon: INPUT_PATH,
       IconSearch: '../../components/ui/icons/IconSearch',
+    },
+  }
+
+  const groupPasswordCode = {
+    body: `export const InputGroupPassword = () => {
+  return (
+    <InputGroup className='max-w-xs'>
+      <InputGroupInput type='password' placeholder='Password' />
+      <InputGroupAddon align='inline-end'>Required</InputGroupAddon>
+    </InputGroup>
+  )
+}`,
+    componentNames: ['InputGroup', 'InputGroupInput', 'InputGroupAddon'],
+    manualPath: {
+      InputGroup: INPUT_PATH,
+      InputGroupInput: INPUT_PATH,
+      InputGroupAddon: INPUT_PATH,
     },
   }
 
@@ -126,14 +184,9 @@ export const InputDoc = () => {
       </h2>
 
       <SetupGuide
-        componentNames={['Input']}
-        manualPath="../../components/ui/Input"
-        requires={[
-          'utils/cn.ts',
-          'utils/colors.ts',
-          'components/ui/InputGroup.tsx',
-          'components/ui/icons/IconSearch.tsx',
-        ]}
+        componentNames={['Input', 'InputGroup', 'InputGroupInput', 'InputGroupAddon']}
+        manualPath={INPUT_PATH}
+        requires={['utils/cn.ts', 'utils/colors.ts', 'components/ui/icons/IconSearch.tsx']}
       />
 
       <h2 id="examples" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
@@ -190,6 +243,25 @@ export const InputDoc = () => {
         </PreviewBlock>
       </div>
 
+      <h3 id="sizes" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Sizes
+      </h3>
+
+      <div className="mt-8 mb-16">
+        <p className="mb-6 text-lg text-(--lithos-text) max-w-3xl font-body">
+          Use the <code>size</code> prop to control the input height and padding. All sizes use explicit{' '}
+          <code>h-*</code> utilities so every input type (text, number, email) renders at the same height.
+        </p>
+        <PreviewBlock code={sizesCode} githubUrl={githubUrl}>
+          <div className="flex flex-col items-center text-center flex-wrap">
+            <Input size="sm" placeholder="Small (h-8)" />
+            <Input size="default" className="mt-8" placeholder="Default (h-10)" />
+            <Input size="md" className="mt-8" placeholder="Medium (h-11)" />
+            <Input size="lg" className="mt-8" placeholder="Large (h-12)" />
+          </div>
+        </PreviewBlock>
+      </div>
+
       <h3 id="custom-styling" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Custom styling
       </h3>
@@ -208,6 +280,27 @@ export const InputDoc = () => {
         </PreviewBlock>
       </div>
 
+      <h3 id="icons" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Icons
+      </h3>
+
+      <div className="mt-8 mb-16">
+        <p className="mb-6 text-lg text-(--lithos-text) max-w-3xl font-body">
+          Pass <code>startAdornment</code> or <code>endAdornment</code> to <code>InputGroup</code> to render icons
+          inside the group border. The adornments are positioned via flex ordering and separated by a 2px divider.
+        </p>
+        <PreviewBlock code={iconsCode} githubUrl={githubUrl}>
+          <div className="flex flex-col items-center text-center flex-wrap">
+            <InputGroup className="max-w-xs" startAdornment={<IconSearch />}>
+              <InputGroupInput placeholder="Search..." />
+            </InputGroup>
+            <InputGroup className="mt-8 max-w-xs" endAdornment={<IconSettings />}>
+              <InputGroupInput placeholder="Settings" />
+            </InputGroup>
+          </div>
+        </PreviewBlock>
+      </div>
+
       <h3 id="input-group" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
         Input group
       </h3>
@@ -217,6 +310,7 @@ export const InputDoc = () => {
           The <code>InputGroup</code> compound wraps a bare field with addon segments pinned to either edge. Addons keep
           their position through the <code>align</code> prop regardless of DOM order.
         </p>
+
         <PreviewBlock code={groupCode} githubUrl={githubUrl}>
           <div className="flex flex-col items-center text-center flex-wrap">
             <InputGroup className="max-w-xs">
@@ -226,13 +320,19 @@ export const InputDoc = () => {
               </InputGroupAddon>
               <InputGroupAddon align="inline-end">12 results</InputGroupAddon>
             </InputGroup>
-
-            <InputGroup className="mt-8 max-w-xs">
-              <InputGroupInput type="password" placeholder="Password" />
-              <InputGroupAddon align="inline-end">Required</InputGroupAddon>
-            </InputGroup>
           </div>
         </PreviewBlock>
+
+        <div className="mt-10">
+          <PreviewBlock code={groupPasswordCode} githubUrl={githubUrl}>
+            <div className="flex flex-col items-center text-center flex-wrap">
+              <InputGroup className="max-w-xs">
+                <InputGroupInput type="password" placeholder="Password" />
+                <InputGroupAddon align="inline-end">Required</InputGroupAddon>
+              </InputGroup>
+            </div>
+          </PreviewBlock>
+        </div>
       </div>
 
       <section className="mb-12">

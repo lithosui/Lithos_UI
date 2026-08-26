@@ -193,6 +193,20 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#accessibility', label: 'Accessibility', level: 1 },
     { id: '#api', label: 'API Reference', level: 1 },
   ],
+  '/docs/input': [
+    { id: '#installation', label: 'Installation', level: 1 },
+    { id: '#examples', label: 'Examples', level: 1 },
+    { id: '#basic-usage', label: 'Basic usage', level: 2 },
+    { id: '#native-attributes', label: 'Native attributes', level: 2 },
+    { id: '#disabled', label: 'Disabled', level: 2 },
+    { id: '#invalid', label: 'Invalid state', level: 2 },
+    { id: '#sizes', label: 'Sizes', level: 2 },
+    { id: '#custom-styling', label: 'Custom styling', level: 2 },
+    { id: '#icons', label: 'Icons', level: 2 },
+    { id: '#input-group', label: 'Input group', level: 2 },
+    { id: '#accessibility', label: 'Accessibility', level: 1 },
+    { id: '#api', label: 'API Reference', level: 1 },
+  ],
 }
 
 interface DocsLayoutProps {

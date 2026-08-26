@@ -18,6 +18,7 @@ import { Carousel, CarouselSlide } from '../components/ui/Carousel'
 import { Checkbox } from '../components/ui/Checkbox'
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover'
 import { IconClose } from '../components/ui/icons/IconClose'
+import { Input } from '../components/ui/Input'
 
 interface ComponentsIndexProps {
   isDarkMode: boolean
@@ -185,6 +186,11 @@ const componentsList = [
     name: 'Dialog',
     to: '/docs/dialog',
     preview: <DialogPreview />,
+  },
+  {
+    name: 'Input',
+    to: '/docs/input',
+    preview: <Input placeholder="Input" className="w-24 pointer-events-none" />,
   },
   {
     name: 'Popover',
