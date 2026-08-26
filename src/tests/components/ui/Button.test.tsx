@@ -129,14 +129,14 @@ describe('ButtonGroup', () => {
     expect(screen.getByRole('group')).toBeInTheDocument()
   })
 
-  it.each(['horizontal', 'vertical'] as const)('applies %s orientation layout', (orientation) => {
+  it.each(['horizontal', 'vertical'] as const)('applies %s mode layout', (mode) => {
     render(
-      <ButtonGroup orientation={orientation}>
+      <ButtonGroup mode={mode}>
         <Button>One</Button>
       </ButtonGroup>
     )
     const group = screen.getByRole('group')
-    expect(group.className).toContain(orientation === 'vertical' ? 'flex-col' : 'flex-row')
+    expect(group.className).toContain(mode === 'vertical' ? 'flex-col' : 'flex-row')
   })
 
   it('has no accessibility violations', async () => {

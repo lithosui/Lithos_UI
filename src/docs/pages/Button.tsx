@@ -94,7 +94,7 @@ export const ButtonDoc = () => {
   const groupVerticalCode = {
     body: `export const VerticalButtonGroup = () => {
   return (
-    <ButtonGroup orientation="vertical">
+    <ButtonGroup mode="vertical">
       <Button variant="primary">Save Changes</Button>
       <Button variant="secondary">Cancel</Button>
     </ButtonGroup>
@@ -299,8 +299,8 @@ export const ButtonDoc = () => {
         Default
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Default orientation, buttons laid out side by side with margin-based spacing between them. The classic dialog
-        footer pattern: a secondary <em>Cancel</em> next to the primary confirming action.
+        Default mode, buttons laid out side by side with margin-based spacing between them. The classic dialog footer
+        pattern: a secondary <em>Cancel</em> next to the primary confirming action.
       </p>
 
       <PreviewBlock code={groupHorizontalCode} githubUrl={githubUrl}>
@@ -314,12 +314,12 @@ export const ButtonDoc = () => {
         Vertical
       </h4>
       <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Set <code>orientation="vertical"</code> to stack buttons instead — useful in narrow sidebars, mobile sheets, or
+        Set <code>mode="vertical"</code> to stack buttons instead — useful in narrow sidebars, mobile sheets, or
         anywhere horizontal space is tight.
       </p>
 
       <PreviewBlock code={groupVerticalCode} githubUrl={githubUrl}>
-        <ButtonGroup orientation="vertical">
+        <ButtonGroup mode="vertical">
           <Button variant="primary">Save Changes</Button>
           <Button variant="secondary">Cancel</Button>
         </ButtonGroup>
