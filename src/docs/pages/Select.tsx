@@ -10,34 +10,47 @@ import {
   selectItemProps,
   useSelectProps,
 } from '../propsData/select'
+
 import { colors } from '../../utils/colors'
+import { cn } from '../../utils/cn'
+import { IconChevronDown } from '../../components/ui/icons/IconChevronDown'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Select.tsx'
 
 const FRAMEWORK_OPTIONS = [
-  { label: 'React', value: 'react' },
-  { label: 'Preact', value: 'preact' },
-  { label: 'Vue.js', value: 'vue' },
-  { label: 'Svelte', value: 'svelte' },
+  { value: 'react', label: 'React', color: 'bg-cyan-400', downloads: '20M/week' },
+  { value: 'preact', label: 'Preact', color: 'bg-purple-500', downloads: '1.2M/week' },
+  { value: 'vue', label: 'Vue.js', color: 'bg-emerald-500', downloads: '4M/week' },
+  { value: 'svelte', label: 'Svelte', color: 'bg-orange-500', downloads: '800K/week' },
 ]
-
-const FRAMEWORK_LABELS = { react: 'React', preact: 'Preact', vue: 'Vue.js', svelte: 'Svelte' }
 
 const CustomSelectLayout = () => {
   const { selectedValue } = useSelect()
+  const currentOption = FRAMEWORK_OPTIONS.find((opt) => opt.value === selectedValue)
 
   return (
     <>
       <SelectTrigger className="w-full justify-between">
-        <span>
-          {selectedValue ? FRAMEWORK_LABELS[selectedValue as keyof typeof FRAMEWORK_LABELS] : 'Select a framework...'}
+        <span className="flex items-center space-x-2 truncate min-w-0">
+          {currentOption && <span className={cn('size-2 rounded-full shrink-0', currentOption.color)} />}
+          <span className="truncate min-w-0 font-medium">
+            {currentOption ? currentOption.label : 'Select a framework...'}
+          </span>
         </span>
+        <IconChevronDown className="ml-2 size-4 shrink-0 opacity-60" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="react">React</SelectItem>
-        <SelectItem value="preact">Preact</SelectItem>
-        <SelectItem value="vue">Vue.js</SelectItem>
-        <SelectItem value="svelte">Svelte</SelectItem>
+        {FRAMEWORK_OPTIONS.map((opt) => (
+          <SelectItem key={opt.value} value={opt.value}>
+            <div className="flex items-center justify-between w-full space-x-4">
+              <span className="flex items-center space-x-2 min-w-0">
+                <span className={cn('size-2 rounded-full shrink-0', opt.color)} />
+                <span className="truncate">{opt.label}</span>
+              </span>
+              <span className="text-xs opacity-60 font-mono shrink-0">{opt.downloads}</span>
+            </div>
+          </SelectItem>
+        ))}
       </SelectContent>
     </>
   )
@@ -85,26 +98,45 @@ export const SelectMultiple = () => {
 }
 
 const customLayoutCode = {
-  body: `const FRAMEWORK_LABELS = {
-  react: 'React',
-  preact: 'Preact',
-  vue: 'Vue.js',
-  svelte: 'Svelte'
-}
+  body: `const FRAMEWORK_OPTIONS = [
+  { value: 'react', label: 'React', color: 'bg-cyan-400', downloads: '20M/week' },
+  { value: 'preact', label: 'Preact', color: 'bg-purple-500', downloads: '1.2M/week' },
+  { value: 'vue', label: 'Vue.js', color: 'bg-emerald-500', downloads: '4M/week' },
+  { value: 'svelte', label: 'Svelte', color: 'bg-orange-500', downloads: '800K/week' }
+]
 
 const CustomSelectLayout = () => {
   const { selectedValue } = useSelect()
+  const currentOption = FRAMEWORK_OPTIONS.find(opt => opt.value === selectedValue)
 
   return (
     <>
       <SelectTrigger className='w-full justify-between'>
-        <span>{selectedValue ? FRAMEWORK_LABELS[selectedValue] : 'Select a framework...'}</span>
+        <span className='flex items-center space-x-2 truncate min-w-0'>
+          {currentOption && (
+            <span className={\`size-2 rounded-full shrink-0 \${currentOption.color}\`} />
+          )}
+          <span className='truncate min-w-0 font-medium'>
+            {currentOption ? currentOption.label : 'Select a framework...'}
+          </span>
+        </span>
+        <IconChevronDown className='ml-2 size-4 shrink-0 opacity-60' />
       </SelectTrigger>
+
       <SelectContent>
-        <SelectItem value='react'>React</SelectItem>
-        <SelectItem value='preact'>Preact</SelectItem>
-        <SelectItem value='vue'>Vue.js</SelectItem>
-        <SelectItem value='svelte'>Svelte</SelectItem>
+        {FRAMEWORK_OPTIONS.map(opt => (
+          <SelectItem key={opt.value} value={opt.value}>
+            <div className='flex items-center justify-between w-full space-x-4'>
+              <span className='flex items-center space-x-2 min-w-0'>
+                <span className={\`size-2 rounded-full shrink-0 \${opt.color}\`} />
+                <span className='truncate'>{opt.label}</span>
+              </span>
+              <span className='text-xs opacity-60 font-mono shrink-0'>
+                {opt.downloads}
+              </span>
+            </div>
+          </SelectItem>
+        ))}
       </SelectContent>
     </>
   )
@@ -112,13 +144,16 @@ const CustomSelectLayout = () => {
 
 export const SelectCustom = () => {
   return (
-    <Select defaultValue='preact'>
+    <Select>
       <CustomSelectLayout />
     </Select>
   )
 }`,
-  componentNames: ['Select', 'SelectTrigger', 'SelectContent', 'SelectItem', 'useSelect'],
-  manualPath: '../../components/ui/Select',
+  componentNames: ['Select', 'SelectTrigger', 'SelectContent', 'SelectItem', 'useSelect', 'IconChevronDown'],
+  manualPath: {
+    others: '../../components/ui/Select',
+    IconChevronDown: '../../components/icons/IconChevronDown',
+  },
 }
 
 export const SelectDoc = () => {
@@ -158,6 +193,8 @@ export const SelectDoc = () => {
         manualPath="../../components/ui/Select"
         requires={[
           'utils/cn.ts',
+          'utils/yiq.ts',
+          'core/useAccentColor.ts',
           'components/ui/Button.tsx',
           'components/ui/Popover.tsx',
           'components/ui/icons/IconChevronDown.tsx',
@@ -216,7 +253,7 @@ export const SelectDoc = () => {
       <div className="mt-8 mb-16">
         <PreviewBlock code={customLayoutCode} githubUrl={githubUrl}>
           <div className="max-w-xs w-full">
-            <Select defaultValue="preact">
+            <Select>
               <CustomSelectLayout />
             </Select>
           </div>
