@@ -162,8 +162,11 @@ const createCheckbox = (showCheck: boolean) => {
   return CheckboxComponent
 }
 
-export const Checkbox = createCheckbox(true)
-export const PlainCheckbox = createCheckbox(false)
+const InternalCheckbox = createCheckbox(true)
+export const Checkbox = (props: CheckboxProps) => <InternalCheckbox {...props} />
+
+const InternalPlainCheckbox = createCheckbox(false)
+export const PlainCheckbox = (props: CheckboxProps) => <InternalPlainCheckbox {...props} />
 
 export interface IconCheckboxProps extends CheckboxProps {
   icon?: ComponentType<IconProps>

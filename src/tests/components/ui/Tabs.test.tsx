@@ -19,7 +19,7 @@ describe('Tabs', () => {
 
     expect(screen.getByRole('tab', { name: 'Tab 1' })).toBeInTheDocument()
     expect(screen.getByRole('tab', { name: 'Tab 2' })).toBeInTheDocument()
-    
+
     // Tab 1 content should be visible, Tab 2 shouldn't
     expect(screen.getByText('Content 1')).toBeInTheDocument()
     expect(screen.queryByText('Content 2')).not.toBeInTheDocument()
@@ -61,7 +61,7 @@ describe('Tabs', () => {
   })
 
   it('passes className and native props to the root element', () => {
-    const { container } = render(
+    render(
       <Tabs defaultValue="tab1" className="custom-class" data-testid="tabs-root">
         <TabsList>
           <TabsTrigger value="tab1">Tab 1</TabsTrigger>
@@ -69,7 +69,7 @@ describe('Tabs', () => {
         <TabsContent value="tab1">Content 1</TabsContent>
       </Tabs>
     )
-    
+
     const root = screen.getByTestId('tabs-root')
     expect(root).toHaveClass('custom-class')
   })

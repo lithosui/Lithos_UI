@@ -28,7 +28,17 @@ export interface TabsProps extends Omit<ComponentPropsWithRef<'div'>, 'defaultVa
   intent?: TabsIntent
 }
 
-export const Tabs = ({ defaultValue = '', value, onValueChange, variant = 'outlined', intent = 'accent', children, className, ref, ...rest }: TabsProps) => {
+export const Tabs = ({
+  defaultValue = '',
+  value,
+  onValueChange,
+  variant = 'outlined',
+  intent = 'accent',
+  children,
+  className,
+  ref,
+  ...rest
+}: TabsProps) => {
   const [localValue, setLocalValue] = useState(defaultValue)
 
   const currentValue = value !== undefined ? value : localValue
@@ -49,7 +59,7 @@ export const Tabs = ({ defaultValue = '', value, onValueChange, variant = 'outli
   )
 }
 
-export interface TabsListProps extends ComponentPropsWithRef<'div'> {}
+export type TabsListProps = ComponentPropsWithRef<'div'>
 
 export const TabsList = ({ className, children, ref, ...rest }: TabsListProps) => {
   const context = useContext(TabsContext)
@@ -85,9 +95,13 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
   const isAccent = intent === 'accent'
   const isDefault = intent === 'default'
   const baseColor = isAccent || isDefault ? '' : colors[intent as keyof typeof colors]
-  
+
   const tabColor = isAccent ? 'var(--lithos-accent)' : isDefault ? 'var(--lithos-text)' : baseColor
-  const tabTextColor = isAccent ? 'var(--lithos-accent-text)' : isDefault ? 'var(--lithos-bg)' : getContrastText(baseColor)
+  const tabTextColor = isAccent
+    ? 'var(--lithos-accent-text)'
+    : isDefault
+      ? 'var(--lithos-bg)'
+      : getContrastText(baseColor)
 
   const filledActiveStyle = isSelected ? { backgroundColor: tabColor, color: tabTextColor } : {}
   const textActiveStyle = isSelected ? { borderColor: tabColor, color: tabColor } : {}
@@ -150,18 +164,15 @@ export const TabsContent = ({ value, className, children, ref, ...rest }: TabsCo
   }
 
   const contentVariantClasses = {
-    outlined: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) rounded-tl-none bg-(--lithos-surface) relative z-0',
-    filled: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0',
+    outlined:
+      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) rounded-tl-none bg-(--lithos-surface) relative z-0',
+    filled:
+      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0',
     text: 'pt-2 font-body text-(--lithos-text) relative z-0',
   }
 
   return (
-    <div
-      ref={ref}
-      role="tabpanel"
-      className={cn(contentVariantClasses[context.variant], className)}
-      {...rest}
-    >
+    <div ref={ref} role="tabpanel" className={cn(contentVariantClasses[context.variant], className)} {...rest}>
       {children}
     </div>
   )
