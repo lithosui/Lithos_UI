@@ -9,7 +9,7 @@ export const tabsPropsData: PropItem[] = [
   },
   {
     name: 'variant',
-    type: "'outlined' | 'filled' | 'text'",
+    type: "'outlined' | 'icon' | 'line'",
     defaultValue: "'outlined'",
     required: false,
     description: 'The visual style variant of the tabs.',
@@ -19,7 +19,14 @@ export const tabsPropsData: PropItem[] = [
     type: "'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
     defaultValue: "'accent'",
     required: false,
-    description: 'The semantic color intent of the tabs, affecting the active state of filled and text variants.',
+    description: 'The semantic color intent of the tabs, affecting the active state of icon and line variants.',
+  },
+  {
+    name: 'orientation',
+    type: "'horizontal' | 'vertical'",
+    defaultValue: "'horizontal'",
+    required: false,
+    description: 'The layout orientation of the tabs list.',
   },
   {
     name: 'value',

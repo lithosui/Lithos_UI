@@ -8,14 +8,16 @@ import { cn } from '../../utils/cn'
 import { colors } from '../../utils/colors'
 import { getContrastText } from '../../utils/yiq'
 
-export type TabsVariant = 'outlined' | 'filled' | 'text'
+export type TabsVariant = 'outlined' | 'icon' | 'line'
 export type TabsIntent = 'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'
+export type TabsOrientation = 'horizontal' | 'vertical'
 
 interface TabsContextType {
   value: string
   onValueChange: (value: string) => void
   variant: TabsVariant
   intent: TabsIntent
+  orientation: TabsOrientation
 }
 
 const TabsContext = createContext<TabsContextType | null>(null)
@@ -26,6 +28,7 @@ export interface TabsProps extends Omit<ComponentPropsWithRef<'div'>, 'defaultVa
   onValueChange?: (value: string) => void
   variant?: TabsVariant
   intent?: TabsIntent
+  orientation?: TabsOrientation
 }
 
 export const Tabs = ({
@@ -34,6 +37,7 @@ export const Tabs = ({
   onValueChange,
   variant = 'outlined',
   intent = 'accent',
+  orientation = 'horizontal',
   children,
   className,
   ref,
@@ -51,8 +55,14 @@ export const Tabs = ({
   }
 
   return (
-    <TabsContext.Provider value={{ value: currentValue, onValueChange: handleValueChange, variant, intent }}>
-      <div ref={ref} className={cn('w-full', className)} {...rest}>
+    <TabsContext.Provider
+      value={{ value: currentValue, onValueChange: handleValueChange, variant, intent, orientation }}
+    >
+      <div
+        ref={ref}
+        className={cn('w-full flex', orientation === 'horizontal' ? 'flex-col' : 'flex-row gap-6', className)}
+        {...rest}
+      >
         {children}
       </div>
     </TabsContext.Provider>
@@ -65,14 +75,23 @@ export const TabsList = ({ className, children, ref, ...rest }: TabsListProps) =
   const context = useContext(TabsContext)
   if (!context) throw new Error('TabsList must be used within a Tabs component')
 
+  const { variant, orientation } = context
+
   const variantClasses = {
-    outlined: 'flex flex-wrap -mb-0.5 z-10 relative',
-    filled: 'flex flex-wrap gap-3 mb-6',
-    text: 'flex flex-wrap border-b-4 border-(--lithos-border) mb-4',
+    outlined:
+      'inline-flex p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) shadow-[4px_4px_0_0_var(--lithos-shadow)] mb-6',
+    icon: 'inline-flex p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) mb-6',
+    line: cn('flex', orientation === 'horizontal' ? 'flex-row flex-wrap gap-4 mb-4' : 'flex-col gap-4 mr-4'),
   }
 
   return (
-    <div ref={ref} className={cn(variantClasses[context.variant], className)} role="tablist" {...rest}>
+    <div
+      ref={ref}
+      className={cn(variantClasses[variant], className)}
+      role="tablist"
+      aria-orientation={orientation}
+      {...rest}
+    >
       {children}
     </div>
   )
@@ -90,7 +109,7 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
   }
 
   const isSelected = context.value === value
-  const { variant, intent } = context
+  const { variant, intent, orientation } = context
 
   const isAccent = intent === 'accent'
   const isDefault = intent === 'default'
@@ -103,30 +122,28 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
       ? 'var(--lithos-bg)'
       : getContrastText(baseColor)
 
-  const filledActiveStyle = isSelected ? { backgroundColor: tabColor, color: tabTextColor } : {}
-  const textActiveStyle = isSelected ? { borderColor: tabColor, color: tabColor } : {}
-  const activeStyle = variant === 'filled' ? filledActiveStyle : variant === 'text' ? textActiveStyle : {}
+  const iconActiveStyle = isSelected ? { backgroundColor: tabColor, color: tabTextColor } : {}
+  const lineActiveStyle = isSelected ? { borderColor: tabColor, color: tabColor } : {}
+  const activeStyle =
+    variant === 'icon' || variant === 'outlined' ? iconActiveStyle : variant === 'line' ? lineActiveStyle : {}
 
   const triggerVariantClasses = {
     outlined: cn(
-      'px-4 py-2 font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75',
-      'rounded-t-(--lithos-radius)',
+      'px-4 py-2 font-black tracking-tighter leading-none border-2 cursor-pointer transition-all duration-75 rounded-[calc(var(--lithos-radius)-4px)] flex items-center justify-center gap-2',
       isSelected
-        ? 'bg-(--lithos-surface) text-(--lithos-text) border-b-transparent z-10 shadow-[2px_2px_0_0_var(--lithos-shadow)]'
-        : 'bg-(--lithos-bg) text-(--lithos-text) border-b-(--lithos-border) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface) z-0 shadow-none',
-      'mr-1 last:mr-0'
+        ? 'border-(--lithos-border) shadow-none'
+        : 'border-transparent text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
     ),
-    filled: cn(
-      'px-5 py-2.5 font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75 rounded-full',
+    icon: cn(
+      'px-4 py-2 font-black tracking-tighter leading-none border-2 cursor-pointer transition-all duration-75 rounded-[calc(var(--lithos-radius)-4px)] flex items-center justify-center gap-2',
       isSelected
-        ? 'shadow-none translate-y-[2px] translate-x-[2px]'
-        : 'bg-(--lithos-bg) text-(--lithos-text) shadow-[2px_2px_0_0_var(--lithos-shadow)] hover:shadow-[4px_4px_0_0_var(--lithos-shadow)] hover:-translate-y-0.5 hover:-translate-x-0.5'
+        ? 'border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] -translate-y-[1px] -translate-x-[1px]'
+        : 'border-transparent text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
     ),
-    text: cn(
-      'px-4 py-3 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 border-b-4 translate-y-[4px] bg-transparent outline-none mr-2 last:mr-0',
-      isSelected
-        ? ''
-        : 'border-transparent text-(--lithos-text) opacity-60 hover:opacity-100 hover:border-(--lithos-border)'
+    line: cn(
+      'pb-2 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 bg-transparent outline-none flex items-center justify-center gap-2',
+      orientation === 'horizontal' ? 'border-b-4' : 'border-r-4 pr-2 pb-0 justify-end',
+      isSelected ? '' : 'border-transparent text-(--lithos-text) opacity-60 hover:opacity-100'
     ),
   }
 
@@ -165,10 +182,9 @@ export const TabsContent = ({ value, className, children, ref, ...rest }: TabsCo
 
   const contentVariantClasses = {
     outlined:
-      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) rounded-tl-none bg-(--lithos-surface) relative z-0',
-    filled:
-      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0',
-    text: 'pt-2 font-body text-(--lithos-text) relative z-0',
+      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1',
+    icon: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1',
+    line: 'pt-2 font-body text-(--lithos-text) relative z-0 flex-1',
   }
 
   return (

@@ -4,6 +4,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Ta
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { SetupGuide } from '../layout/SetupGuide'
 import { tabsPropsData } from '../propsData/tabs'
+import { IconHome } from '../../components/ui/icons/IconHome'
+import { IconSettings } from '../../components/ui/icons/IconSettings'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Tabs.tsx'
 
@@ -33,10 +35,35 @@ export const TabsDoc = () => {
     manualPath: '../../components/ui/Tabs',
   }
 
-  const pillCode = {
-    body: `export const FilledTabs = () => {
+  const iconCode = {
+    body: `export const IconTabs = () => {
   return (
-    <Tabs defaultValue="account" variant="filled">
+    <Tabs defaultValue="home" variant="icon">
+      <TabsList>
+        <TabsTrigger value="home">
+          <IconHome className="w-4 h-4" /> Home
+        </TabsTrigger>
+        <TabsTrigger value="settings">
+          <IconSettings className="w-4 h-4" /> Settings
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="home">
+        <p>Home dashboard.</p>
+      </TabsContent>
+      <TabsContent value="settings">
+        <p>Notification settings.</p>
+      </TabsContent>
+    </Tabs>
+  )
+}`,
+    componentNames: ['Tabs', 'TabsList', 'TabsTrigger', 'TabsContent', 'IconHome', 'IconSettings'],
+    manualPath: '../../components/ui/Tabs',
+  }
+
+  const lineCode = {
+    body: `export const LineTabs = () => {
+  return (
+    <Tabs defaultValue="account" variant="line">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -54,10 +81,10 @@ export const TabsDoc = () => {
     manualPath: '../../components/ui/Tabs',
   }
 
-  const underlineCode = {
-    body: `export const TextTabs = () => {
+  const verticalCode = {
+    body: `export const VerticalTabs = () => {
   return (
-    <Tabs defaultValue="account" variant="text">
+    <Tabs defaultValue="account" variant="line" orientation="vertical">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -150,14 +177,41 @@ export const TabsDoc = () => {
         </PreviewBlock>
       </div>
 
-      <h3 id="filled" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Filled Variant
+      <h3 id="icon" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Icon Variant
       </h3>
 
       <div className="mt-8 mb-16">
-        <PreviewBlock code={pillCode} githubUrl={githubUrl}>
+        <PreviewBlock code={iconCode} githubUrl={githubUrl}>
           <div className="w-full max-w-md">
-            <Tabs defaultValue="account" variant="filled">
+            <Tabs defaultValue="home" variant="icon">
+              <TabsList>
+                <TabsTrigger value="home">
+                  <IconHome className="w-4 h-4" /> Home
+                </TabsTrigger>
+                <TabsTrigger value="settings">
+                  <IconSettings className="w-4 h-4" /> Settings
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="home">
+                <p>Home dashboard.</p>
+              </TabsContent>
+              <TabsContent value="settings">
+                <p>Notification settings.</p>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </PreviewBlock>
+      </div>
+
+      <h3 id="line" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Line Variant
+      </h3>
+
+      <div className="mt-8 mb-16">
+        <PreviewBlock code={lineCode} githubUrl={githubUrl}>
+          <div className="w-full max-w-md">
+            <Tabs defaultValue="account" variant="line">
               <TabsList>
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
@@ -173,14 +227,14 @@ export const TabsDoc = () => {
         </PreviewBlock>
       </div>
 
-      <h3 id="text" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Text Variant
+      <h3 id="vertical" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Vertical Orientation
       </h3>
 
       <div className="mt-8 mb-16">
-        <PreviewBlock code={underlineCode} githubUrl={githubUrl}>
+        <PreviewBlock code={verticalCode} githubUrl={githubUrl}>
           <div className="w-full max-w-md">
-            <Tabs defaultValue="account" variant="text">
+            <Tabs defaultValue="account" variant="line" orientation="vertical">
               <TabsList>
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
