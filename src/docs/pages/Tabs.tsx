@@ -84,16 +84,20 @@ export const TabsDoc = () => {
   const verticalCode = {
     body: `export const VerticalTabs = () => {
   return (
-    <Tabs defaultValue="account" variant="line" orientation="vertical">
+    <Tabs defaultValue="account" variant="outlined" orientation="vertical">
       <TabsList>
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="notifications">Notifications</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
         <p>Make changes to your account here.</p>
       </TabsContent>
       <TabsContent value="password">
         <p>Change your password here.</p>
+      </TabsContent>
+      <TabsContent value="notifications">
+        <p>Manage your notification preferences here.</p>
       </TabsContent>
     </Tabs>
   )
@@ -234,16 +238,20 @@ export const TabsDoc = () => {
       <div className="mt-8 mb-16">
         <PreviewBlock code={verticalCode} githubUrl={githubUrl}>
           <div className="w-full max-w-md">
-            <Tabs defaultValue="account" variant="line" orientation="vertical">
+            <Tabs defaultValue="account" variant="outlined" orientation="vertical">
               <TabsList>
                 <TabsTrigger value="account">Account</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
+                <TabsTrigger value="notifications">Notifications</TabsTrigger>
               </TabsList>
               <TabsContent value="account">
                 <p>Make changes to your account here.</p>
               </TabsContent>
               <TabsContent value="password">
                 <p>Change your password here.</p>
+              </TabsContent>
+              <TabsContent value="notifications">
+                <p>Manage your notification preferences here.</p>
               </TabsContent>
             </Tabs>
           </div>

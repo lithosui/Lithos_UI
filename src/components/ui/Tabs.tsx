@@ -78,10 +78,15 @@ export const TabsList = ({ className, children, ref, ...rest }: TabsListProps) =
   const { variant, orientation } = context
 
   const variantClasses = {
-    outlined:
-      'inline-flex p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) shadow-[4px_4px_0_0_var(--lithos-shadow)] mb-6',
-    icon: 'inline-flex p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) mb-6',
-    line: cn('flex', orientation === 'horizontal' ? 'flex-row flex-wrap gap-4 mb-4' : 'flex-col gap-4 mr-4'),
+    outlined: cn(
+      'inline-flex w-fit  p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) shadow-[4px_4px_0_0_var(--lithos-shadow)] mb-6',
+      orientation === 'horizontal' ? 'flex-row' : 'flex-col'
+    ),
+    icon: cn(
+      'inline-flex w-fit p-1 gap-1 border-2 border-(--lithos-border) rounded-(--lithos-radius) bg-(--lithos-bg) mb-6',
+      orientation === 'horizontal' ? 'flex-row' : 'flex-col'
+    ),
+    line: cn('flex w-max', orientation === 'horizontal' ? 'flex-row flex-wrap gap-4 mb-4' : 'flex-col gap-4 mr-4'),
   }
 
   return (
@@ -129,16 +134,28 @@ export const TabsTrigger = ({ value, className, children, ref, ...rest }: TabsTr
 
   const triggerVariantClasses = {
     outlined: cn(
-      'px-4 py-2 font-black tracking-tighter leading-none border-2 cursor-pointer transition-all duration-75 rounded-[calc(var(--lithos-radius)-4px)] flex items-center justify-center gap-2',
+      'px-4 py-2 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 flex items-center justify-center gap-2',
+      orientation === 'horizontal'
+        ? 'border-y-0 border-x-2 border-transparent first:border-l-0 last:border-r-0'
+        : 'border-x-0 border-y-2 border-transparent first:border-t-0 last:border-b-0 w-full justify-start',
       isSelected
-        ? 'border-(--lithos-border) shadow-none'
-        : 'border-transparent text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
+        ? cn(
+            'bg-(--lithos-accent) text-(--lithos-accent-text)',
+            orientation === 'horizontal' ? 'border-x-(--lithos-border)' : 'border-y-(--lithos-border)'
+          )
+        : 'text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
     ),
     icon: cn(
-      'px-4 py-2 font-black tracking-tighter leading-none border-2 cursor-pointer transition-all duration-75 rounded-[calc(var(--lithos-radius)-4px)] flex items-center justify-center gap-2',
+      'px-4 py-2 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 flex items-center justify-center gap-2',
+      orientation === 'horizontal'
+        ? 'border-y-0 border-x-2 border-transparent first:border-l-0 last:border-r-0'
+        : 'border-x-0 border-y-2 border-transparent first:border-t-0 last:border-b-0 w-full justify-start',
       isSelected
-        ? 'border-(--lithos-border) shadow-[2px_2px_0_0_var(--lithos-shadow)] -translate-y-[1px] -translate-x-[1px]'
-        : 'border-transparent text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
+        ? cn(
+            'shadow-[2px_2px_0_0_var(--lithos-shadow)] -translate-y-[1px] -translate-x-[1px]',
+            orientation === 'horizontal' ? 'border-x-(--lithos-border)' : 'border-y-(--lithos-border)'
+          )
+        : 'text-(--lithos-text) opacity-70 hover:opacity-100 hover:bg-(--lithos-surface)'
     ),
     line: cn(
       'pb-2 font-black tracking-tighter leading-none cursor-pointer transition-all duration-75 bg-transparent outline-none flex items-center justify-center gap-2',
@@ -182,9 +199,9 @@ export const TabsContent = ({ value, className, children, ref, ...rest }: TabsCo
 
   const contentVariantClasses = {
     outlined:
-      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1',
-    icon: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1',
-    line: 'pt-2 font-body text-(--lithos-text) relative z-0 flex-1',
+      'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1 w-full',
+    icon: 'p-4 border-2 border-(--lithos-border) shadow-[4px_4px_0_0_var(--lithos-shadow)] rounded-(--lithos-radius) bg-(--lithos-surface) relative z-0 flex-1 w-full',
+    line: 'pt-2 font-body text-(--lithos-text) relative z-0 flex-1 w-full',
   }
 
   return (
