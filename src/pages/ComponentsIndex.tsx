@@ -18,12 +18,21 @@ import { Carousel, CarouselSlide } from '../components/ui/Carousel'
 import { Checkbox } from '../components/ui/Checkbox'
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
+import { Select } from '../components/ui/Select'
 import { IconClose } from '../components/ui/icons/IconClose'
+import { Input } from '../components/ui/Input'
 
 interface ComponentsIndexProps {
   isDarkMode: boolean
   toggleObsidian: () => void
 }
+
+const FRAMEWORK_OPTIONS = [
+  { label: 'React', value: 'react' },
+  { label: 'Preact', value: 'preact' },
+  { label: 'Vue.js', value: 'vue' },
+  { label: 'Svelte', value: 'svelte' },
+]
 
 const TogglePreview = () => {
   const [on, setOn] = useState(true)
@@ -211,9 +220,19 @@ const componentsList = [
     preview: <DialogPreview />,
   },
   {
+    name: 'Input',
+    to: '/docs/input',
+    preview: <Input placeholder="Input" className="w-24 pointer-events-none" />,
+  },
+  {
     name: 'Popover',
     to: '/docs/popover',
     preview: <PopoverPreview />,
+  },
+  {
+    name: 'Select',
+    to: '/docs/select',
+    preview: <Select options={FRAMEWORK_OPTIONS} placeholder="Select a framework..." />,
   },
   {
     name: 'Toast',

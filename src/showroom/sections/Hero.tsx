@@ -39,12 +39,9 @@ const Hero = ({ accentColor, updateAccentColor }: HeroProps) => {
             </h2>
 
             <p className="mt-6 text-xl sm:text-2xl font-normal leading-tight text-(--lithos-text) md:text-3xl font-body max-w-2xl mx-auto lg:mx-0">
-              No layout shift. No unreadable text on a bad accent color. No CSS specificity fights. Four systems{' '}
-              {
-                // @ts-expect-error - Custom ht tag
-                <ht>built into every component</ht>
-              }
-              , working automatically — so the UI you shipped is still standing next quarter.
+              No layout shift. No unreadable text on a bad accent color. No CSS specificity fights. Four systems
+              <ht>built into every component</ht>, working automatically — so the UI you shipped is still standing next
+              quarter.
             </p>
 
             <p className="mt-4 text-sm sm:text-base font-bold text-(--lithos-text) opacity-50">

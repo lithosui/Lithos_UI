@@ -56,7 +56,7 @@ export const buttonPropsData: PropItem[] = [
 
 export const buttonGroupPropsData: PropItem[] = [
   {
-    name: 'orientation',
+    name: 'mode',
     type: "'horizontal' | 'vertical'",
     defaultValue: "'horizontal'",
     required: false,

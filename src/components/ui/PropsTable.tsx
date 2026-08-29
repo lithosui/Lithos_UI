@@ -16,9 +16,10 @@ export interface PropItem {
 
 export interface PropsTableProps {
   data: PropItem[]
+  isHook?: boolean | undefined
 }
 
-export const PropsTable = ({ data }: PropsTableProps) => {
+export const PropsTable = ({ data, isHook }: PropsTableProps) => {
   return (
     <div className="overflow-x-auto my-2 rounded-(--lithos-radius)">
       <table className="w-full text-left border-collapse font-body text-sm">
@@ -35,15 +36,17 @@ export const PropsTable = ({ data }: PropsTableProps) => {
             <tr key={prop.name} className="border-b border-(--lithos-border)/40">
               <td className="p-3 font-mono font-bold text-(--lithos-text) whitespace-nowrap">
                 {prop.name}
-                {prop.required ? (
-                  <span className="ml-1.5 text-xs font-bold text-red-500" title="Required">
-                    *
-                  </span>
-                ) : (
-                  <span className="ml-1.5 text-[10px] font-normal opacity-70" title="Optional">
-                    opt
-                  </span>
-                )}
+
+                {!isHook &&
+                  (prop.required ? (
+                    <span className="ml-1.5 text-xs font-bold text-red-500" title="Required">
+                      *
+                    </span>
+                  ) : (
+                    <span className="ml-1.5 text-[10px] font-normal opacity-70" title="Optional">
+                      opt
+                    </span>
+                  ))}
               </td>
               <td className="p-3 font-mono text-xs opacity-80 wrap-break-word max-w-55">{prop.type}</td>
               <td className="p-3 font-mono text-xs opacity-70 whitespace-nowrap">{prop.defaultValue || '—'}</td>
@@ -61,11 +64,12 @@ export const PropsAccordion = ({
   data,
   className,
   defaultOpen = true,
+  isHook,
   ...rest
-}: AccordionProps & { data: PropItem[] }) => {
+}: AccordionProps & { data: PropItem[]; isHook?: boolean }) => {
   return (
     <Accordion title={title} className={cn('my-4', className)} defaultOpen={defaultOpen} {...rest}>
-      <PropsTable data={data} />
+      <PropsTable data={data} isHook={isHook} />
     </Accordion>
   )
 }
