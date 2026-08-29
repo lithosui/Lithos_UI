@@ -120,11 +120,15 @@ body {
 
 @layer components {
   .lithos-click {
-    @apply inline-flex items-center justify-center font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75 shadow-[2px_2px_0px_0px_var(--lithos-shadow)] hover:shadow-[4px_4px_0px_0px_var(--lithos-shadow)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 p-2;
+    @apply inline-flex items-center justify-center font-black tracking-tighter leading-none border-2 border-(--lithos-border) cursor-pointer transition-all duration-75 shadow-[2px_2px_0px_0px_var(--lithos-shadow)] hover:shadow-[4px_4px_0px_0px_var(--lithos-shadow)] focus:shadow-[4px_4px_0px_0px_var(--lithos-shadow)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 p-2;
   }
 
   code:not([data-code-viewer]) {
     @apply bg-(--lithos-surface) px-1 py-0.5;
+  }
+
+  kbd {
+    @apply px-1.5 py-0.5 text-xs font-mono rounded bg-(--lithos-accent)/15 border border-(--lithos-accent)/30;
   }
 }
 
