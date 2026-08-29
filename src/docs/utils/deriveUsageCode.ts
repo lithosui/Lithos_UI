@@ -14,7 +14,7 @@ export const deriveImportLines = (
     const otherImports: Record<string, string[]> = {}
 
     componentNames.forEach((name) => {
-      const path = manualPath[name]
+      const path = manualPath[name] || manualPath['others']
       // Assume paths not starting with '.' (or '/') are external dependencies like 'react'
       if (path && !path.startsWith('.') && !path.startsWith('/')) {
         if (!otherImports[path]) {
@@ -48,7 +48,7 @@ export const deriveImportLines = (
   // Group manual imports by path to avoid multiple lines for the same module
   const manualGroups: Record<string, string[]> = {}
   componentNames.forEach((name) => {
-    const path = manualPath[name]
+    const path = manualPath[name] || manualPath['others']
     if (!path) return
 
     if (!manualGroups[path]) {
