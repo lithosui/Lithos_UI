@@ -10,8 +10,8 @@ import { useAccentColor } from '../../core/useAccentColor'
 import type { HexColor } from '../../core/types'
 import { cn, type LithosClass } from '../../utils/cn'
 
-type BadgeSizes = 'default' | 'sm' | 'md' | 'lg'
-type BadgeIntents = 'default' | 'accent' | 'success' | 'error' | 'warning' | 'info'
+export type BadgeSizes = 'default' | 'sm' | 'md' | 'lg'
+export type BadgeIntents = 'default' | 'accent' | 'success' | 'error' | 'warning' | 'info'
 
 export interface BadgeProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
   intent?: BadgeIntents
