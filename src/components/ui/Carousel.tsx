@@ -19,14 +19,21 @@ import {
 import { cn, type LithosClass } from '../../utils/cn'
 import { scrollTo } from '../../utils/scrollTo'
 import { CarouselNext, CarouselPrev } from './carousel/CarouselButton'
-import { CarouselProvider, type SliderSelector, type ScrollFuncProp } from './carousel/CarouselContext'
+import { CarouselProvider } from './carousel/CarouselProvider'
+import {
+  type SliderSelector,
+  type ScrollFuncProp,
+  type CarouselDirection,
+  type CarouselMode,
+  type CarouselControlsPosition,
+} from './carousel/carousel.types'
 import { CarouselControls } from './carousel/CarouselControls'
 import { CarouselPagination } from './carousel/CarouselPagination'
 import { CarouselSlide, type CarouselSlideProps } from './carousel/CarouselSlide'
 import { useCarouselDrag } from './carousel/useCarouselDrag'
 
 export interface CarouselProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  controlsPosition?: 'top' | 'bottom'
+  controlsPosition?: CarouselControlsPosition
   title?: string
   hidePagination?: boolean
   hideControls?: boolean
@@ -34,10 +41,10 @@ export interface CarouselProps extends Omit<ComponentPropsWithRef<'div'>, 'class
   showCounter?: boolean
   playInfinite?: boolean
   playInterval?: number
-  playDirection?: 'forwards' | 'backwards'
+  playDirection?: CarouselDirection
   stopOnHover?: boolean
   loop?: boolean
-  mode?: 'horizontal' | 'vertical'
+  mode?: CarouselMode
   className?: LithosClass
 }
 
@@ -210,7 +217,7 @@ const Carousel = ({
   const pauseRotation = () => stopOnHover && setIsPaused(true)
   const continueRotation = () => stopOnHover && setIsPaused(false)
 
-  const Controls = !hideControls && <CarouselControls title={title} bottomPositioned={!isTop} loop={loop} />
+  const Controls = !hideControls && <CarouselControls title={title ?? ''} bottomPositioned={!isTop} loop={loop} />
 
   const Extras = !hidePagination && (
     <CarouselPagination
@@ -289,3 +296,4 @@ const Carousel = ({
 }
 
 export { Carousel, CarouselPrev, CarouselNext, CarouselPagination, CarouselControls, CarouselSlide }
+export type * from './carousel/carousel.types'

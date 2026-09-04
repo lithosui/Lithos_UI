@@ -36,7 +36,6 @@ export * from './core/useAccentColor'
 export * from './components/ui/popover/usePopover'
 export * from './components/ui/select/useSelect'
 export * from './components/ui/carousel/useCarousel'
-export * from './components/ui/carousel/CarouselContext'
 
 // Utilities
 export * from './utils/cn'

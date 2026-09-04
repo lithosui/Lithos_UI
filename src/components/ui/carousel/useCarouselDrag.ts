@@ -6,7 +6,7 @@
  */
 import { useRef, useState, type PointerEvent } from 'react'
 import { scrollTo } from '../../../utils/scrollTo'
-import type { ScrollFunc } from './CarouselContext'
+import type { ScrollFunc } from './carousel.types'
 
 export interface UseCarouselDragOptions {
   containerRef: React.RefObject<HTMLDivElement | null>

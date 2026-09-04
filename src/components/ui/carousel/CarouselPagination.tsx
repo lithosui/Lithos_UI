@@ -7,7 +7,7 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Button } from '../Button'
 import { cn, type LithosClass } from '../../../utils/cn'
-import type { ScrollFunc, SliderSelector } from './CarouselContext'
+import type { ScrollFunc, SliderSelector } from './carousel.types'
 import { IconCircle } from '../icons/IconCircle'
 
 const iconClass = {

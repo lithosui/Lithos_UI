@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { describe, it, expect, vi } from 'vitest'
-import { CarouselProvider } from '../../../components/ui/carousel/CarouselContext'
+import { CarouselProvider } from '../../../components/ui/carousel/CarouselProvider'
 import { CarouselPrev, CarouselNext } from '../../../components/ui/carousel/CarouselButton'
 
 describe('CarouselButtons', () => {

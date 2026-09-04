@@ -1,26 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
-
 /**
  * @fileoverview Lithos UI carousel context provider and type definitions.
  * - Centralizes navigation methods, orientation flags, and indexing state for sub-components via `CarouselContext`.
  * - Memoizes provider value to prevent unnecessary re-renders across consumers (`CarouselControls`, `CarouselPagination`, `CarouselButton`).
  */
-import { createContext, useMemo, type ReactNode } from 'react'
-
-export type CarouselDirection = 'forwards' | 'backwards'
-export type ScrollFuncProp = CarouselDirection | number
-export type ScrollFunc = (direction: ScrollFuncProp) => void
-export type SliderSelector = 'dots' | 'numbers'
-export type CarouselMode = 'horizontal' | 'vertical'
-
-export interface CarouselContextValue {
-  scroll: ScrollFunc
-  currentIndex: number
-  totalSlides: number
-  mode: CarouselMode
-}
-
-export const CarouselContext = createContext<CarouselContextValue | null>(null)
+import { useMemo, type ReactNode } from 'react'
+import type { ScrollFunc, CarouselMode } from './carousel.types'
+import { CarouselContext } from './useCarousel'
 
 export interface CarouselProviderProps {
   children: ReactNode

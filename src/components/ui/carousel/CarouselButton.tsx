@@ -6,7 +6,7 @@
  */
 import { type ComponentPropsWithRef, type MouseEvent } from 'react'
 import { Button } from '../Button'
-import { type CarouselDirection } from './CarouselContext'
+import { type CarouselDirection } from './carousel.types'
 import { useCarousel } from './useCarousel'
 import type { LithosClass } from '../../../utils/cn'
 import { IconArrowLeft } from '../icons/IconArrowLeft'
