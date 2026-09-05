@@ -8,11 +8,10 @@ export const breadcrumbPropsData: PropItem[] = [
     description: 'Array of data objects to dynamically render breadcrumb segments.',
   },
   {
-    name: 'variant',
-    type: "'default' | 'collapsible' | 'icon'",
-    defaultValue: "'default'",
+    name: 'mode',
+    type: "'collapsible'",
     required: false,
-    description: 'Style variant. Collapsible auto-hides middle items; icon is optimized for item icons.',
+    description: 'Navigation mode. Set to "collapsible" to auto-hide middle items behind an ellipsis button.',
   },
   {
     name: 'separator',

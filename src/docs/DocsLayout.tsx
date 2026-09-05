@@ -136,9 +136,10 @@ const tocRegistry: Record<string, TOCItem[]> = {
   ],
   '/docs/breadcrumb': [
     { id: '#installation', label: 'Installation', level: 1 },
-    { id: '#examples', label: 'Breadcrumb Types', level: 1 },
-    { id: '#collapsible', label: '1. Collapsible', level: 2 },
-    { id: '#icon-name', label: '2. Simple Icon + Name', level: 2 },
+    { id: '#examples', label: 'Examples', level: 1 },
+    { id: '#collapsible', label: 'Collapsible', level: 2 },
+    { id: '#icon', label: 'Icon', level: 2 },
+    { id: '#custom-separator', label: 'Custom Separator', level: 2 },
     { id: '#anatomy', label: 'Anatomy', level: 1 },
     { id: '#accessibility', label: 'Accessibility', level: 1 },
     { id: '#api', label: 'API Reference', level: 1 },

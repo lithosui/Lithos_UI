@@ -58,6 +58,28 @@ export const IconNameBreadcrumb = () => {
     },
   }
 
+  const customSeparatorCode = {
+    body: `
+export const CustomSeparatorBreadcrumb = () => {
+  const items = [
+    { label: 'Lithos UI', href: '#', onClick: (e) => e.preventDefault() },
+    { label: 'Components', href: '#', onClick: (e) => e.preventDefault() },
+    { label: 'Breadcrumb', active: true },
+  ]
+
+  return (
+    <Breadcrumb 
+      items={items} 
+      separator={<span className="text-(--lithos-accent)">/</span>} 
+    />
+  )
+}`,
+    componentNames: ['Breadcrumb'],
+    manualPath: {
+      Breadcrumb: '../../components/ui/Breadcrumb',
+    },
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-6">
       <header className="mt-0">
@@ -162,6 +184,31 @@ export const IconNameBreadcrumb = () => {
                 { label: 'Breadcrumb', href: '#', icon: <IconSettings />, onClick: (e) => e.preventDefault() },
                 { label: 'Icon', active: true, icon: <IconFileText /> },
               ]}
+            />
+          </div>
+        </PreviewBlock>
+      </div>
+
+      {/* Type 3: Custom Separator */}
+      <h3 id="custom-separator" className="mb-2 text-xl font-black tracking-tight text-(--lithos-text)">
+        Custom Separator
+      </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Use the <code>separator</code> prop to replace the default SVG chevron with any custom <code>ReactNode</code>.
+        Whether it's a simple text slash or a different SVG icon, the breadcrumb will automatically manage spacing and
+        accessibility for your custom separator.
+      </p>
+
+      <div className="mt-4 mb-16">
+        <PreviewBlock code={customSeparatorCode} githubUrl={githubUrl}>
+          <div className="flex flex-col items-center justify-center p-4">
+            <Breadcrumb
+              items={[
+                { label: 'Lithos UI', href: '#', onClick: (e) => e.preventDefault() },
+                { label: 'Components', href: '#', onClick: (e) => e.preventDefault() },
+                { label: 'Breadcrumb', active: true },
+              ]}
+              separator={<span className="text-(--lithos-accent) text-3xl">/</span>}
             />
           </div>
         </PreviewBlock>
