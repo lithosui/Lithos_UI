@@ -7,8 +7,8 @@
 import type { ComponentPropsWithRef } from 'react'
 import { Button } from '../Button'
 import { cn, type LithosClass } from '../../../utils/cn'
-import type { ScrollFunc, SliderSelector } from './carousel.types'
 import { IconCircle } from '../icons/IconCircle'
+import { useCarousel } from './useCarousel'
 
 const iconClass = {
   default: 'w-2 h-2',
@@ -17,37 +17,20 @@ const iconClass = {
 }
 
 export interface CarouselPaginationProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  index: number
-  slides: number
-  scroll: ScrollFunc
-  sliderSelector?: SliderSelector
-  showCounter?: boolean
   label?: string
   className?: LithosClass
-  bottomControls?: boolean
-  mode?: 'horizontal' | 'vertical'
 }
 
-export const CarouselPagination = ({
-  index,
-  slides,
-  scroll,
-  sliderSelector = 'dots',
-  showCounter = true,
-  className,
-  label = 'Move to the slide $',
-  bottomControls = false,
-  mode = 'horizontal',
-  ...rest
-}: CarouselPaginationProps) => {
+export const CarouselPagination = ({ className, label = 'Move to the slide $', ...rest }: CarouselPaginationProps) => {
+  const { currentIndex, totalSlides, scroll, slideSelector, showCounter, bottomControls, mode } = useCarousel()
   const selectors = []
   const vertical = mode === 'vertical'
 
-  for (let i = 0; i < slides; i++) {
-    const isLast = i === slides - 1
-    const isSelected = i === index
-    const extraVisible = i === index - 1 || i === index + 1
-    const shouldHide = i < index - 2 || i > index + 2
+  for (let i = 0; i < totalSlides; i++) {
+    const isLast = i === totalSlides - 1
+    const isSelected = i === currentIndex
+    const extraVisible = i === currentIndex - 1 || i === currentIndex + 1
+    const shouldHide = i < currentIndex - 2 || i > currentIndex + 2
 
     const classes = [
       isLast ? 'mr-0' : 'mr-4',
@@ -56,7 +39,7 @@ export const CarouselPagination = ({
       isSelected && 'opacity-100',
     ]
 
-    const sliderIsDots = sliderSelector === 'dots'
+    const sliderIsDots = slideSelector === 'dots'
     const dotSize = isSelected ? iconClass.selected : iconClass[extraVisible ? 'visible' : 'default']
 
     selectors.push(
@@ -71,14 +54,14 @@ export const CarouselPagination = ({
         tabIndex={shouldHide ? -1 : undefined}
       >
         {sliderIsDots && <IconCircle className={dotSize} aria-hidden="true" />}
-        {sliderSelector === 'numbers' && i + 1}
+        {slideSelector === 'numbers' && i + 1}
       </Button>
     )
   }
 
   const selectorsContainerClass = cn('flex sm:ml-auto', !showCounter && 'mx-auto')
   const containerClass = cn(
-    'flex items-center justify-center flex-col sm:flex-row',
+    'flex items-center justify-center flex-col sm:flex-row space-x-2',
     bottomControls ? 'mb-3' : 'mt-3',
     className
   )
@@ -88,7 +71,7 @@ export const CarouselPagination = ({
       {!vertical && <div className={selectorsContainerClass}>{selectors}</div>}
       {showCounter && (
         <span className="sm:ml-auto mt-4 sm:mt-0">
-          {index + 1}/{slides}
+          {currentIndex + 1}/{totalSlides}
         </span>
       )}
     </div>
