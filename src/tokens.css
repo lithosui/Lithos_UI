@@ -54,4 +54,16 @@ body.obsidian {
   kbd {
     @apply px-1.5 py-0.5 text-xs font-mono rounded bg-(--lithos-accent)/15 border border-(--lithos-accent)/30;
   }
+
+  /* Chrome, Safari & Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE & Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
 }

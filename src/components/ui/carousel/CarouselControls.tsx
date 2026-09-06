@@ -10,25 +10,16 @@ import { useCarousel } from './useCarousel'
 import type { LithosClass } from '../../../utils/cn'
 
 export interface CarouselControlsProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  title?: string
-  bottomPositioned?: boolean
   className?: LithosClass
-  loop?: boolean
 }
 
-export const CarouselControls = ({
-  title,
-  bottomPositioned = false,
-  className,
-  loop = false,
-  ...rest
-}: CarouselControlsProps) => {
-  const { currentIndex, totalSlides } = useCarousel()
+export const CarouselControls = ({ className, ...rest }: CarouselControlsProps) => {
+  const { currentIndex, totalSlides, title, loop, bottomControls } = useCarousel()
 
   return (
     <div
       className={cn(
-        bottomPositioned ? 'mt-3' : 'mb-3',
+        bottomControls ? 'mt-3' : 'mb-3',
         'flex flex-col sm:flex-row items-center justify-between',
         className
       )}

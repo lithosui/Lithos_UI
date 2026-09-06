@@ -212,6 +212,7 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#no-controls', label: 'No controls', level: 2 },
     { id: '#play-infinite', label: 'Play infinitely', level: 2 },
     { id: '#vertical-orientation', label: 'Vertical Orientation', level: 2 },
+    { id: '#custom-layout', label: 'Custom Layout', level: 2 },
     { id: '#anatomy', label: 'Anatomy', level: 1 },
     { id: '#accessibility', label: 'Accessibility', level: 1 },
     { id: '#api', label: 'API Reference', level: 1 },

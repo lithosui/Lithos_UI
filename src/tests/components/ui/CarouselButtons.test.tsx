@@ -1,17 +1,17 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { describe, it, expect, vi } from 'vitest'
-import { CarouselProvider } from '../../../components/ui/carousel/CarouselProvider'
 import { CarouselPrev, CarouselNext } from '../../../components/ui/carousel/CarouselButton'
+import { renderWithContext } from './carouselTestUtils'
 
 describe('CarouselButtons', () => {
   it('renders CarouselPrev and CarouselNext with default accessibility labels', () => {
-    render(
-      <CarouselProvider scroll={() => {}}>
+    renderWithContext(
+      <>
         <CarouselPrev />
         <CarouselNext />
-      </CarouselProvider>
+      </>
     )
 
     expect(screen.getByRole('button', { name: 'Previous slide' })).toBeInTheDocument()
@@ -22,11 +22,12 @@ describe('CarouselButtons', () => {
     const user = userEvent.setup()
     const scrollMock = vi.fn()
 
-    render(
-      <CarouselProvider scroll={scrollMock}>
+    renderWithContext(
+      <>
         <CarouselPrev />
         <CarouselNext />
-      </CarouselProvider>
+      </>,
+      { scroll: scrollMock }
     )
 
     const prevButton = screen.getByRole('button', { name: 'Previous slide' })
@@ -45,13 +46,9 @@ describe('CarouselButtons', () => {
     const customOnClick = vi.fn()
     const scrollMock = vi.fn()
 
-    render(
-      <CarouselProvider scroll={scrollMock}>
-        <CarouselPrev label="Anterior" onClick={customOnClick} />
-      </CarouselProvider>
-    )
+    renderWithContext(<CarouselPrev label="Prev" onClick={customOnClick} />, { scroll: scrollMock })
 
-    const customBtn = screen.getByRole('button', { name: 'Anterior' })
+    const customBtn = screen.getByRole('button', { name: 'Prev' })
     expect(customBtn).toBeInTheDocument()
 
     await user.click(customBtn)
@@ -60,21 +57,17 @@ describe('CarouselButtons', () => {
   })
 
   it('renders custom children instead of default arrow icons', () => {
-    render(
-      <CarouselProvider scroll={() => {}}>
-        <CarouselPrev>Custom Prev</CarouselPrev>
-      </CarouselProvider>
-    )
+    renderWithContext(<CarouselPrev>Custom Prev</CarouselPrev>)
 
     expect(screen.getByText('Custom Prev')).toBeInTheDocument()
   })
 
   it('should have no accessibility violations', async () => {
-    const { container } = render(
-      <CarouselProvider scroll={() => {}}>
+    const { container } = renderWithContext(
+      <>
         <CarouselPrev />
         <CarouselNext />
-      </CarouselProvider>
+      </>
     )
 
     const results = await axe(container)

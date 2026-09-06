@@ -70,3 +70,5 @@ export const useCarouselDrag = ({ containerRef, scroll, vertical = false }: UseC
     onPointerCancel: onPointerUp,
   }
 }
+
+export type useCarouselDragReturn = ReturnType<typeof useCarouselDrag>

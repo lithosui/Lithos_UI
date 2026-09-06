@@ -1,6 +1,14 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { CodeViewer } from '../../components/ui/CodeViewer'
-import { Carousel, CarouselSlide } from '../../components/ui/Carousel'
+import {
+  Carousel,
+  CarouselSlide,
+  CarouselPrev,
+  CarouselNext,
+  CarouselTrack,
+  CarouselPagination,
+  useCarousel,
+} from '../../components/ui/Carousel'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { SetupGuide } from '../layout/SetupGuide'
 import {
@@ -8,7 +16,11 @@ import {
   carouselSlidePropsData,
   carouselPrevPropsData,
   carouselNextPropsData,
+  carouselTrackPropsData,
+  carouselPaginationPropsData,
+  carouselControlsPropsData,
 } from '../propsData/carousel'
+import { colors } from '../../utils/colors'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Carousel.tsx'
 const CAROUSEL_PATH = '../../components/ui/Carousel'
@@ -20,6 +32,34 @@ const SLIDES = `<CarouselSlide>Slide 1</CarouselSlide>
       <CarouselSlide>Slide 5</CarouselSlide>
       <CarouselSlide>Slide 6</CarouselSlide>
       <CarouselSlide>Slide 7</CarouselSlide>`
+
+const CarouselCustomLayout = () => {
+  const { title } = useCarousel()
+
+  return (
+    <>
+      <h4 className="text-(--lithos-text) text-md">{title}</h4>
+
+      <div className="flex items-center space-x-4 justify-center">
+        <CarouselPrev>Prev</CarouselPrev>
+
+        <CarouselTrack className="w-40 h-25">
+          <CarouselSlide>Slide 1</CarouselSlide>
+          <CarouselSlide>Slide 2</CarouselSlide>
+          <CarouselSlide>Slide 3</CarouselSlide>
+          <CarouselSlide>Slide 4</CarouselSlide>
+          <CarouselSlide>Slide 5</CarouselSlide>
+          <CarouselSlide>Slide 6</CarouselSlide>
+          <CarouselSlide>Slide 7</CarouselSlide>
+        </CarouselTrack>
+
+        <CarouselNext>Next</CarouselNext>
+      </div>
+
+      <CarouselPagination className="mt-0" />
+    </>
+  )
+}
 
 export const CarouselDoc = () => {
   const usageCode = {
@@ -115,6 +155,58 @@ export const CarouselDoc = () => {
   )
 }`,
     componentNames: ['Carousel', 'CarouselSlide'],
+    manualPath: CAROUSEL_PATH,
+  }
+
+  const customLayoutCode = {
+    body: `const CarouselCustomContent = () => {
+  const { title } = useCarousel()
+
+  return (
+    <>
+      <h4 className='text-(--lithos-text) text-md'>{title}</h4>
+
+      <div className='flex items-center space-x-4 justify-center'>
+        <CarouselPrev>Prev</CarouselPrev>
+
+        <CarouselTrack className='w-40 h-25'>
+          <CarouselSlide>Slide 1</CarouselSlide>
+          <CarouselSlide>Slide 2</CarouselSlide>
+          <CarouselSlide>Slide 3</CarouselSlide>
+          <CarouselSlide>Slide 4</CarouselSlide>
+          <CarouselSlide>Slide 5</CarouselSlide>
+          <CarouselSlide>Slide 6</CarouselSlide>
+          <CarouselSlide>Slide 7</CarouselSlide>
+        </CarouselTrack>
+
+        <CarouselNext>Next</CarouselNext>
+      </div>
+
+      <CarouselPagination className='mt-0' />
+    </>
+  )
+}
+
+export const CustomLayoutCarousel = () => {
+  return (
+    <Carousel
+      title='Carousel with a custom layout!'
+      custom
+      className='flex flex-col space-y-4 items-center py-4'
+    >
+      <CarouselCustomContent />
+    </Carousel>
+  )
+}`,
+    componentNames: [
+      'Carousel',
+      'CarouselPrev',
+      'CarouselNext',
+      'CarouselTrack',
+      'CarouselSlide',
+      'CarouselPagination',
+      'useCarousel',
+    ],
     manualPath: CAROUSEL_PATH,
   }
 
@@ -354,6 +446,29 @@ export const CarouselDoc = () => {
         </PreviewBlock>
       </div>
 
+      <h3 id="custom-layout" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Custom Layout
+      </h3>
+
+      <div className="mt-8 mb-16">
+        <PreviewBlock code={customLayoutCode} githubUrl={githubUrl}>
+          <Carousel title="Carousel with a custom layout!" className="flex flex-col space-y-4 items-center py-4" custom>
+            <CarouselCustomLayout />
+          </Carousel>
+        </PreviewBlock>
+      </div>
+
+      <div className="border-l-4 pl-6 py-2 mb-8 bg-(--lithos-surface) p-4" style={{ borderColor: colors.warning }}>
+        <p className="text-sm font-bold font-body opacity-80 text-(--lithos-text)">
+          When customizing the dimensions in a custom layout, apply sizing utilities (e.g., <code>w-40</code>,{' '}
+          <code>h-40</code>) directly to the <code>CarouselTrack</code>.
+        </p>
+
+        <p className="text-sm font-medium font-body opacity-80 mt-4">
+          The <code>CarouselSlide</code> primitive automatically expands to to fit the active track boundary cleanly.
+        </p>
+      </div>
+
       <h2 id="anatomy" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
         Anatomy
       </h2>
@@ -365,8 +480,12 @@ export const CarouselDoc = () => {
     <CarouselPrev />
     <CarouselNext />
   </CarouselControls>
-  <CarouselSlide>...</CarouselSlide>
-  <CarouselSlide>...</CarouselSlide>
+
+  <CarouselTrack>
+    <CarouselSlide>...</CarouselSlide>
+    <CarouselSlide>...</CarouselSlide>
+  </CarouselTrack>
+
   <CarouselPagination />
 </Carousel>`}
         />
@@ -409,6 +528,9 @@ export const CarouselDoc = () => {
         <PropsAccordion title="CarouselSlide Props" data={carouselSlidePropsData} className="mb-6" />
         <PropsAccordion title="CarouselPrev Button Props" data={carouselPrevPropsData} className="mb-6" />
         <PropsAccordion title="CarouselNext Button Props" data={carouselNextPropsData} />
+        <PropsAccordion title="CarouselTrack Props" data={carouselTrackPropsData} />
+        <PropsAccordion title="CarouselControls Props" data={carouselControlsPropsData} />
+        <PropsAccordion title="CarouselPagination Props" data={carouselPaginationPropsData} />
       </section>
     </div>
   )
