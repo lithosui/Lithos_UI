@@ -28,6 +28,7 @@ type DurationObjType = {
   warning?: number
   info?: number
   default?: number
+  accent?: number
 }
 
 export interface ToastProviderProps {
@@ -58,6 +59,7 @@ export const ToastProvider = ({ children, duration, position = 'bottom-right', c
           warning: 5000,
           info: 5000,
           default: 5000,
+          accent: 5000,
         },
         duration
       )) ||
@@ -164,8 +166,9 @@ export const ToastItem = ({ toast, onRemove, className }: ToastItemProps) => {
     return () => clearTimeout(timer)
   }, [isHovered, onRemove, isError, duration])
 
-  const bgColor = color || colors[intent] || colors.default
-  const textColor = getContrastText(bgColor)
+  const isAccent = intent === 'accent'
+  const bgColor = color || (isAccent ? 'var(--lithos-accent)' : colors[intent as keyof typeof colors]) || colors.default
+  const textColor = isAccent && !color ? 'var(--lithos-accent-text)' : getContrastText(bgColor)
 
   const label = 'Close notification'
 
@@ -179,8 +182,6 @@ export const ToastItem = ({ toast, onRemove, className }: ToastItemProps) => {
         .toast-override-${id} {
           background-color: ${bgColor} !important;
           color: ${textColor} !important;
-          border-color: ${textColor} !important;
-          --lithos-shadow: ${textColor} !important;
         }
       `}</style>
 
@@ -193,7 +194,7 @@ export const ToastItem = ({ toast, onRemove, className }: ToastItemProps) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={cn(
-          `toast-override-${id} pointer-events-auto border-2 p-3 sm:p-4 mb-4 w-full flex flex-row items-start shadow-[4px_4px_0_0_var(--lithos-shadow)] animate-[slide-up_0.3s_ease-out_forwards] rounded-(--lithos-radius)`,
+          `toast-override-${id} pointer-events-auto border-2 border-(--lithos-border) p-3 sm:p-4 mb-4 w-full flex flex-row items-start shadow-[4px_4px_0_0_var(--lithos-shadow)] animate-[slide-up_0.3s_ease-out_forwards] rounded-(--lithos-radius)`,
           className
         )}
       >
@@ -205,9 +206,14 @@ export const ToastItem = ({ toast, onRemove, className }: ToastItemProps) => {
         {/* - Close control keeps the same hard-edge language as the card. */}
         <Button
           onClick={onRemove}
-          className="ml-3 shrink-0 bg-transparent text-current"
+          className="ml-3 shrink-0"
           aria-label={label}
-          style={{ borderColor: textColor }}
+          style={{
+            backgroundColor: bgColor,
+            borderColor: textColor,
+            color: textColor,
+            '--lithos-shadow': textColor,
+          }}
         >
           <IconClose aria-hidden="true" />
         </Button>

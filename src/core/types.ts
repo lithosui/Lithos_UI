@@ -1,3 +1,11 @@
+import 'react'
+
+declare module 'react' {
+  interface CSSProperties {
+    [key: `--${string}`]: string | number | undefined
+  }
+}
+
 const HEX_COLOR_PATTERN = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/
 
 // __brand doesn't exist at runtime; it just blocks plain strings from being assigned without going through isHexColor
@@ -7,14 +15,14 @@ export const isHexColor = (value: string): value is HexColor => HEX_COLOR_PATTER
 
 export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'text' | 'solid'
 
-export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'default'
+export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'default' | 'accent'
 
 export type ToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
 export interface ToastProps {
   intent?: ToastType | undefined
-  title: string
+  title?: string | undefined
   message: string
   color?: HexColor | string | undefined
-  duration?: number
+  duration?: number | undefined
 }
