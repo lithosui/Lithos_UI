@@ -1,8 +1,6 @@
 /**
- * @fileoverview Lithos UI carousel primitive.
- * - Multi-axis scroll container (horizontal/vertical) driven by native CSS snap points, touch-drag gestures, and ResizeObserver realignments.
- * - Compound component pattern with sub-component filtering to allow arbitrary non-slide children while indexing `CarouselSlide` elements.
- * - Accessible auto-rotation loop with focus/hover pausing and dynamic `aria-live` politeness management.
+ * @fileoverview Lithos UI carousel public entry point (barrel file).
+ * - Re-exports the Carousel components, useCarousel hook and types for consumer consumption.
  */
 export * from './carousel/Carousel'
 export * from './carousel/CarouselTrack'
