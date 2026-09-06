@@ -208,7 +208,7 @@ export const CustomSeparatorBreadcrumb = () => {
                 { label: 'Components', href: '#', onClick: (e) => e.preventDefault() },
                 { label: 'Breadcrumb', active: true },
               ]}
-              separator={<span className="text-(--lithos-accent) text-3xl">/</span>}
+              separator={<span className="text-(--lithos-accent)">/</span>}
             />
           </div>
         </PreviewBlock>
