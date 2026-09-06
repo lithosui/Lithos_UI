@@ -1,19 +1,20 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { describe, it, expect, vi } from 'vitest'
 import { CarouselPagination } from '../../../components/ui/carousel/CarouselPagination'
+import { renderWithContext } from './carouselTestUtils'
 
 describe('CarouselPagination', () => {
   it('renders correct number of pagination dots by default', () => {
-    render(<CarouselPagination index={0} slides={5} scroll={() => {}} />)
+    renderWithContext(<CarouselPagination />, { totalSlides: 5 })
 
     const buttons = screen.getAllByRole('button', { hidden: true })
     expect(buttons).toHaveLength(5)
   })
 
   it('marks current active slide with aria-current="true"', () => {
-    render(<CarouselPagination index={2} slides={5} scroll={() => {}} />)
+    renderWithContext(<CarouselPagination />, { currentIndex: 2, totalSlides: 5 })
 
     const activeButton = screen.getByRole('button', { name: 'Move to the slide 3' })
     expect(activeButton).toHaveAttribute('aria-current', 'true')
@@ -23,7 +24,11 @@ describe('CarouselPagination', () => {
     const user = userEvent.setup()
     const scrollMock = vi.fn()
 
-    render(<CarouselPagination index={0} slides={4} scroll={scrollMock} />)
+    renderWithContext(<CarouselPagination />, {
+      currentIndex: 0,
+      totalSlides: 4,
+      scroll: scrollMock,
+    })
 
     const targetButton = screen.getByRole('button', { name: 'Move to the slide 3' })
     await user.click(targetButton)
@@ -33,7 +38,11 @@ describe('CarouselPagination', () => {
   })
 
   it('renders numeric indicators when sliderSelector is "numbers"', () => {
-    render(<CarouselPagination index={0} slides={3} scroll={() => {}} sliderSelector="numbers" />)
+    renderWithContext(<CarouselPagination />, {
+      currentIndex: 0,
+      totalSlides: 3,
+      slideSelector: 'numbers',
+    })
 
     expect(screen.getByText('1')).toBeInTheDocument()
     expect(screen.getByText('2')).toBeInTheDocument()
@@ -41,16 +50,20 @@ describe('CarouselPagination', () => {
   })
 
   it('renders counter indicator when showCounter is true', () => {
-    render(
-      // don't add it as default value is true
-      <CarouselPagination index={1} slides={4} scroll={() => {}} />
-    )
+    renderWithContext(<CarouselPagination />, {
+      currentIndex: 1,
+      totalSlides: 4,
+      showCounter: true,
+    })
 
     expect(screen.getByText('2/4')).toBeInTheDocument()
   })
 
   it('hides slides beyond range index +/- 2 from screen reader tree and keyboard focus', () => {
-    const { container } = render(<CarouselPagination index={0} slides={7} scroll={() => {}} />)
+    const { container } = renderWithContext(<CarouselPagination />, {
+      currentIndex: 0,
+      totalSlides: 7,
+    })
 
     // get the out-of-range index 5 slide (0 + 2 = 2)
     const hiddenButton = container.querySelector('button[aria-label="Move to the slide 6"]')
@@ -61,7 +74,10 @@ describe('CarouselPagination', () => {
   })
 
   it('should have no accessibility violations', async () => {
-    const { container } = render(<CarouselPagination index={0} slides={3} scroll={() => {}} />)
+    const { container } = renderWithContext(<CarouselPagination />, {
+      currentIndex: 0,
+      totalSlides: 3,
+    })
 
     const results = await axe(container)
     expect(results).toHaveNoViolations()
