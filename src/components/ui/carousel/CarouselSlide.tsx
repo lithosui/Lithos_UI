@@ -9,21 +9,21 @@ import { cn, type LithosClass } from '../../../utils/cn'
 import { useCarousel } from './useCarousel'
 
 export interface CarouselSlideProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  index?: number
   label?: string
   className?: LithosClass
 }
 
-export const CarouselSlide = ({ index, label, className, children, ...rest }: CarouselSlideProps) => {
+export const CarouselSlide = ({ label, className, children, ...rest }: CarouselSlideProps) => {
   const id = useId()
-  const { currentIndex, totalSlides, registerSlide } = useCarousel()
+  const { currentIndex, totalSlides, registerSlide, slideIds } = useCarousel()
 
   useEffect(() => {
     const unregister = registerSlide(id)
     return () => unregister()
   }, [registerSlide, id])
 
-  const slideIndex = index ?? 0
+  // get the dynamic index according to the register order
+  const slideIndex = slideIds.indexOf(id)
   const isActive = currentIndex === slideIndex
   const slideLabel = label || `${slideIndex + 1} of ${totalSlides}`
 

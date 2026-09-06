@@ -16,6 +16,7 @@ export interface CarouselContextValue {
   handleScroll: (e: UIEvent<HTMLDivElement>) => void
   dragHandlers: Omit<useCarouselDragReturn, 'isDragging'>
   registerSlide: (id: string) => () => void
+  slideIds: string[]
 
   // config options
   title?: string

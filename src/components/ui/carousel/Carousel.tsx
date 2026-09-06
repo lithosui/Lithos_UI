@@ -258,6 +258,7 @@ export const Carousel = ({
       vertical,
       bottomControls: !isTop,
       registerSlide,
+      slideIds,
     }),
     [
       scroll,
@@ -276,6 +277,7 @@ export const Carousel = ({
       vertical,
       isTop,
       registerSlide,
+      slideIds,
     ]
   )
 
