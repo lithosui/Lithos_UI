@@ -144,3 +144,44 @@ export const carouselNextPropsData: PropItem[] = [
     description: 'Custom CSS classes passed to the next button element.',
   },
 ]
+
+export const carouselControlsPropsData: PropItem[] = [
+  {
+    name: 'className',
+    type: 'LithosClass',
+    required: false,
+    description: 'Custom CSS classes passed to the controls container.',
+  },
+]
+
+export const carouselPaginationPropsData: PropItem[] = [
+  {
+    name: 'label',
+    type: 'string',
+    defaultValue: '"Move to the slide $"',
+    required: false,
+    description:
+      'Accessible label pattern for slide navigation buttons. The "$" symbol is replaced by the slide number.',
+  },
+  {
+    name: 'className',
+    type: 'LithosClass',
+    required: false,
+    description: 'Custom CSS classes passed to the pagination container.',
+  },
+]
+
+export const carouselTrackPropsData: PropItem[] = [
+  {
+    name: 'children',
+    type: 'ReactNode',
+    required: true,
+    description: 'Slide elements rendered inside the scrollable track.',
+  },
+  {
+    name: 'className',
+    type: 'LithosClass',
+    required: false,
+    description: 'Custom CSS classes passed to the track container.',
+  },
+]
