@@ -100,14 +100,13 @@ export const Alert = ({
                 <Button
                   onClick={onUndo}
                   aria-label="Undo"
-                  className={cn('shrink-0 bg-transparent', onClose && 'mr-3')}
-                  style={
-                    {
-                      borderColor: actionColor,
-                      color: actionColor,
-                      '--lithos-shadow': actionColor,
-                    } as React.CSSProperties
-                  }
+                  className={cn('shrink-0', onClose && 'mr-3')}
+                  style={{
+                    backgroundColor: isFilled ? accentColor : 'var(--lithos-bg)',
+                    borderColor: actionColor,
+                    color: actionColor,
+                    '--lithos-shadow': actionColor,
+                  }}
                 >
                   <IconUndo />
                 </Button>
@@ -117,14 +116,13 @@ export const Alert = ({
                 <Button
                   onClick={onClose}
                   aria-label="Close alert"
-                  className="shrink-0 bg-transparent"
-                  style={
-                    {
-                      borderColor: actionColor,
-                      color: actionColor,
-                      '--lithos-shadow': actionColor,
-                    } as React.CSSProperties
-                  }
+                  className="shrink-0"
+                  style={{
+                    backgroundColor: isFilled ? accentColor : 'var(--lithos-bg)',
+                    borderColor: actionColor,
+                    color: actionColor,
+                    '--lithos-shadow': actionColor,
+                  }}
                 >
                   <IconClose />
                 </Button>

@@ -7,22 +7,28 @@ import { CodeViewer } from '../../components/ui/CodeViewer'
 
 import { toastPropsData, toastProviderPropsData } from '../propsData/toast'
 import { ToastProvider } from '../../components/ui/Toast'
-import type { ToastProps } from '../../core/types'
+import type { ToastProps, ToastType } from '../../core/types'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Toast.tsx'
 
-const newToast: ToastProps = {
+const defaultToastProps: ToastProps = {
   title: 'SYSTEM TOAST',
   message: 'Structural integrity verified.',
-  intent: 'success',
+  intent: 'default',
 }
 
-// inner component that consumes the nested context
-const ToastTriggerButton = () => {
+const customToastProps: ToastProps = {
+  title: 'SYSTEM TOAST',
+  message: 'Structural integrity verified.',
+  intent: 'accent',
+  duration: 10000,
+}
+
+const CustomToastTriggerButton = () => {
   const toast = useToast()
 
   const triggerToast = () => {
-    if (toast && toast.addToast) toast.addToast({ ...newToast })
+    if (toast && toast.addToast) toast.addToast({ ...customToastProps })
   }
 
   return <Button onClick={triggerToast}>Trigger Toast</Button>
@@ -31,8 +37,35 @@ const ToastTriggerButton = () => {
 const PositionedToast = () => {
   return (
     <ToastProvider position="top-left">
-      <ToastTriggerButton />
+      <CustomToastTriggerButton />
     </ToastProvider>
+  )
+}
+
+const AllIntentsToast = () => {
+  const toast = useToast()
+
+  const intents: ToastType[] = ['default', 'success', 'error', 'warning', 'info', 'accent']
+
+  return (
+    <div className="-mb-4 -mr-4 flex flex-wrap">
+      {intents.map((intent) => (
+        <Button
+          key={intent}
+          onClick={() => {
+            if (toast && toast.addToast) {
+              toast.addToast({
+                message: `This is a ${intent} toast notification.`,
+                intent,
+              })
+            }
+          }}
+          className="capitalize mb-4 mr-4"
+        >
+          {intent}
+        </Button>
+      ))}
+    </div>
   )
 }
 
@@ -40,7 +73,7 @@ export const ToastDoc = () => {
   const toast = useToast()
 
   const triggerToast = () => {
-    if (toast && toast.addToast) toast.addToast({ ...newToast })
+    if (toast && toast.addToast) toast.addToast({ ...defaultToastProps })
   }
 
   const usageCode = {
@@ -52,7 +85,7 @@ export const ToastDoc = () => {
       addToast({
         title: 'SYSTEM TOAST',
         message: 'Structural integrity verified.',
-        intent: 'success',
+        intent: 'default',
       })
     }
   }
@@ -80,7 +113,7 @@ export const ToastDoc = () => {
       addToast({
         title: 'SYSTEM TOAST',
         message: 'Structural integrity verified.',
-        intent: 'success',
+        intent: 'accent',
         duration: 10000,
       })
     }
@@ -103,6 +136,40 @@ export const App = () => {
     componentNames: ['ToastProvider', 'useToast', 'Button'],
     manualPath: {
       ToastProvider: '../../components/ui/Toast',
+      useToast: '../../core/hooks/useToast',
+      Button: '../../components/ui/Button',
+    },
+  }
+
+  const allIntentsCode = {
+    body: `export const AllIntentsToast = () => {
+  const { addToast } = useToast()
+  
+  const intents: ToastType[] = ['default', 'success', 'error', 'warning', 'info', 'accent']
+
+  return (
+    <div className="-mb-4 -mr-4 flex flex-wrap">
+      {intents.map((intent) => (
+        <Button 
+          key={intent} 
+          onClick={() => {
+            if (addToast) {
+              addToast({
+                message: \`This is a \${intent} toast notification.\`,
+                intent
+              })
+            }
+          }}
+          className="capitalize mb-4 mr-4"
+        >
+          {intent}
+        </Button>
+      ))}
+    </div>
+  )
+}`,
+    componentNames: ['useToast', 'Button'],
+    manualPath: {
       useToast: '../../core/hooks/useToast',
       Button: '../../components/ui/Button',
     },
@@ -170,6 +237,19 @@ export const App = () => {
 
       <PreviewBlock code={usageCode} githubUrl={githubUrl}>
         <Button onClick={triggerToast}>Trigger Toast</Button>
+      </PreviewBlock>
+
+      <h3 id="intents" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+        Intents
+      </h3>
+      <p className="mb-4 text-base text-(--lithos-text) max-w-3xl font-body opacity-80">
+        Toasts support multiple semantic intents (<code>success</code>, <code>error</code>, <code>warning</code>,{' '}
+        <code>info</code>, <code>default</code>, and <code>accent</code>) which automatically map to specific background
+        colors and guarantee perfect text/shadow contrast in both light and dark themes.
+      </p>
+
+      <PreviewBlock code={allIntentsCode} githubUrl={githubUrl}>
+        <AllIntentsToast />
       </PreviewBlock>
 
       <h3 id="custom-position" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
