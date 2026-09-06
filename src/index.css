@@ -107,17 +107,3 @@ body {
     @apply bg-(--lithos-accent) text-(--lithos-accent-text) px-1 box-decoration-clone;
   }
 }
-
-@layer utilities {
-  /* Chrome, Safari & Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    /* IE & Edge */
-    scrollbar-width: none;
-    /* Firefox */
-  }
-}
