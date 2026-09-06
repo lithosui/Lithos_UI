@@ -23,6 +23,7 @@ import { Button } from './Button'
 import type { ButtonVariant } from '../../core/types'
 import { IconClose } from './icons/IconClose'
 import { cn, type LithosClass } from '../../utils/cn'
+import { colors } from '../../utils/colors'
 
 export type DialogVariant = 'default' | 'simple' | 'bare'
 export type DialogIntent = 'default' | 'success' | 'error' | 'warning' | 'info'
@@ -127,6 +128,9 @@ export const Dialog = ({
 
   if (!open || typeof document === 'undefined') return null
 
+  const intentColor = intent !== 'default' ? colors[intent] : undefined
+  const shadowColor = offsetColor ?? intentColor
+
   const classes = cn(
     'relative w-full flex flex-col max-h-[calc(100vh-2rem)] overflow-hidden animate-[brutalist-pop_0.15s_ease-out] rounded-(--lithos-radius)',
     sizeClass[size],
@@ -155,7 +159,8 @@ export const Dialog = ({
           tabIndex={-1}
           className={classes}
           style={{
-            ...(offsetColor && variant === 'default' ? { boxShadow: `6px 6px 0px 0px ${offsetColor}` } : {}),
+            ...(intentColor && variant !== 'bare' ? { borderColor: intentColor } : {}),
+            ...(shadowColor && variant === 'default' ? { boxShadow: `6px 6px 0px 0px ${shadowColor}` } : {}),
             ...style,
           }}
           {...rest}
