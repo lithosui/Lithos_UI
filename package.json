@@ -41,8 +41,8 @@
     "*.css"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node api.js && vite",
+    "build": "node api.js && vite build",
     "build:lib": "vite build -c vite.lib.config.ts && npx @tailwindcss/cli -i ./src/tokens.css -o ./dist/tokens.css",
     "lint": "eslint .",
     "preview": "vite preview",
