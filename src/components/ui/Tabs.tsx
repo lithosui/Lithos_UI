@@ -57,8 +57,7 @@ export const Tabs = ({
   return (
     <TabsContext.Provider value={{ value, onValueChange: handleValueChange, variant }}>
       <div
-        ref={ref}
-        className={cn('w-full', variant === 'vertical' && 'flex flex-col sm:flex-row gap-6', className)}
+        className={cn('w-full', variant === 'vertical' && 'flex flex-col sm:flex-row', className)}
         data-state={value}
         {...rest}
       >
@@ -151,7 +150,7 @@ export const TabsContent = ({ value, className, children, ref, ...rest }: TabsCo
       className={cn(
         'border-2 border-(--lithos-border) bg-(--lithos-surface) p-6 text-(--lithos-text) rounded-(--lithos-radius)',
         'shadow-[8px_8px_0_0_var(--lithos-border)]',
-        variant === 'vertical' ? 'mt-0 flex-1 w-full' : 'mt-6',
+        variant === 'vertical' ? 'mt-6 sm:mt-0 sm:ml-6 flex-1 w-full' : 'mt-6',
         className
       )}
       {...rest}
