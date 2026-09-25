@@ -33,6 +33,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Zero-Gap Rule compliance across all subcomponents using explicit margin/padding calculations and no CSS `gap`.
   - Comprehensive documentation page with live interactive examples (Basic, Shortcuts & Badges, and Dialog modal) and full `propsData` tables.
   - Vitest test suite with 14 unit tests achieving 100% pass rate and `jest-axe` automated accessibility compliance.
+- Added lithos-ui CSS **z-index variables** ([#329](https://github.com/lithosui/Lithos_UI/pull/329)).
+- **Drawer:** Added the drawer primitive ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
 
 ### Changed (0.1.2)
 
