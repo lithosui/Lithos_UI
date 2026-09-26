@@ -1,12 +1,13 @@
-import { useState, useRef, useCallback, useMemo, type PointerEvent, type CSSProperties } from 'react'
-import type { UseDrawerSwipeOptions, DrawerVerticalPlacement } from './drawer.types'
+import { useState, useRef, useCallback, useMemo, type PointerEvent, type DragEvent, type CSSProperties } from 'react'
+import type { UseDrawerSwipeOptions, DrawerPlacement } from './drawer.types'
 
-const swipeOriginMap: Record<DrawerVerticalPlacement, string> = {
-  bottom: 'bottom',
-  top: 'top',
-}
-
-export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: UseDrawerSwipeOptions) => {
+export const useDrawerSwipe = ({
+  placement,
+  open,
+  onClose,
+  threshold = 100,
+  allowSwipeOnContent = true,
+}: UseDrawerSwipeOptions) => {
   const [dragOffset, setDragOffset] = useState(0)
   const pointerStart = useRef({ x: 0, y: 0 })
   const isDragging = useRef(false)
@@ -19,18 +20,32 @@ export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: Us
     lastOffset.current = 0
   }
 
+  const resetSwipeState = useCallback((e: PointerEvent) => {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+
+    isDragging.current = false
+    setDragOffset(0)
+  }, [])
+
   const handlePointerDownCapture = useCallback(
     (e: PointerEvent) => {
-      if (!open) return
+      if (!open || !allowSwipeOnContent) return
+
+      let interactiveSelector = 'button, input, textarea, select, [role="button"]'
+
+      if (!allowSwipeOnContent) {
+        interactiveSelector += ', a'
+      }
 
       const target = e.target as HTMLElement
-      if (target.closest('button, input, textarea, select, a, [role="button"]')) return
+      if (target.closest(interactiveSelector)) return
 
-      e.currentTarget.setPointerCapture(e.pointerId)
       pointerStart.current = { x: e.clientX, y: e.clientY }
       isDragging.current = true
     },
-    [open]
+    [open, allowSwipeOnContent]
   )
 
   const handlePointerMoveCapture = useCallback(
@@ -38,16 +53,38 @@ export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: Us
       if (!isDragging.current) return
 
       const deltaY = e.clientY - pointerStart.current.y
+      const deltaX = e.clientX - pointerStart.current.x
+
+      const absX = Math.abs(deltaX)
+      const absY = Math.abs(deltaY)
+
+      if ((placement === 'left' || placement === 'right') && absY > absX) {
+        isDragging.current = false
+        return
+      }
+
+      if ((placement === 'top' || placement === 'bottom') && absX > absY) {
+        isDragging.current = false
+        return
+      }
 
       let offset = 0
 
-      if (placement === 'bottom' && deltaY > 0) {
+      if (placement === 'left' && deltaX < 0) {
+        offset = absX
+      } else if (placement === 'right' && deltaX > 0) {
+        offset = deltaX
+      } else if (placement === 'bottom' && deltaY > 0) {
         offset = deltaY
       } else if (placement === 'top' && deltaY < 0) {
-        offset = Math.abs(deltaY)
+        offset = absY
       }
 
       if (offset > 0) {
+        if (!e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.setPointerCapture(e.pointerId)
+        }
+
         setDragOffset(offset)
         lastOffset.current = offset
       }
@@ -59,38 +96,51 @@ export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: Us
     (e: PointerEvent) => {
       if (!isDragging.current) return
 
-      if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-        e.currentTarget.releasePointerCapture(e.pointerId)
-      }
-
-      isDragging.current = false
-
       if (dragOffset >= threshold) {
         isClosingViaSwipe.current = true
         onClose()
       }
 
-      setDragOffset(0)
+      resetSwipeState(e)
     },
-    [dragOffset, onClose, threshold]
+    [dragOffset, onClose, threshold, resetSwipeState]
+  )
+
+  const handlePointerCancelCapture = useCallback(
+    (e: PointerEvent) => {
+      resetSwipeState(e)
+    },
+    [resetSwipeState]
+  )
+
+  const handleDragStartCapture = useCallback(
+    (e: DragEvent<HTMLDivElement>) => {
+      if (!allowSwipeOnContent) return
+
+      // prevent draggable elements elements to start the native drag-n-drop
+      e.preventDefault()
+    },
+    [allowSwipeOnContent]
   )
 
   const getSwipeStyle = useCallback((): CSSProperties => {
-    const translateMap: Record<DrawerVerticalPlacement, string> = {
+    const translateMap: Record<DrawerPlacement, string> = {
       bottom: `translateY(${dragOffset}px)`,
       top: `translateY(-${dragOffset}px)`,
+      left: `translateX(-${dragOffset}px)`,
+      right: `translateX(${dragOffset}px)`,
     }
 
     if (dragOffset === 0) {
       if (isClosingViaSwipe.current) {
         const offset = lastOffset.current
-        const translateValue = placement === 'bottom' ? `${offset}px` : `-${offset}px`
+        const isNegativeOffset = placement === 'top' || placement === 'left'
+        const translateValue = `${isNegativeOffset ? '-' : ''}${offset}px`
+        const translateFunc = placement === 'left' || placement === 'right' ? 'translateX' : 'translateY'
 
         return {
-          // keep the swipe position while it hides
-          transform: `translateY(${translateValue})`,
-          transformOrigin: swipeOriginMap[placement],
-
+          transform: `${translateFunc}(${translateValue})`,
+          transformOrigin: placement,
           transitionProperty: 'translate, scale, transform, opacity',
         }
       }
@@ -99,7 +149,7 @@ export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: Us
 
     return {
       transform: translateMap[placement],
-      transformOrigin: swipeOriginMap[placement],
+      transformOrigin: placement,
       transitionDuration: '0ms',
       transitionProperty: 'none',
     }
@@ -111,10 +161,20 @@ export const useDrawerSwipe = ({ placement, open, onClose, threshold = 100 }: Us
         onPointerDownCapture: handlePointerDownCapture,
         onPointerMoveCapture: handlePointerMoveCapture,
         onPointerUpCapture: handlePointerUpCapture,
+        onPointerCancelCapture: handlePointerCancelCapture,
+        onDragStartCapture: handleDragStartCapture,
       },
       style: getSwipeStyle(),
       isDragging: dragOffset > 0,
     }),
-    [dragOffset, getSwipeStyle, handlePointerUpCapture, handlePointerDownCapture, handlePointerMoveCapture]
+    [
+      dragOffset,
+      getSwipeStyle,
+      handlePointerUpCapture,
+      handlePointerDownCapture,
+      handlePointerMoveCapture,
+      handlePointerCancelCapture,
+      handleDragStartCapture,
+    ]
   )
 }
