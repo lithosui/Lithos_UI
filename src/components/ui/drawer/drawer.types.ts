@@ -11,8 +11,7 @@ export type DrawerPlacement = DrawerHorizontalPlacement | DrawerVerticalPlacemen
 export type DrawerTransition = 'slide' | 'fade' | 'zoom'
 export type DrawerTransformOrigin =
   'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-export type DrawerMode = 'temporary' | 'permanent' | 'mini'
-export type DrawerRole = 'dialog' | 'navigation' | 'complementary' | 'region'
+export type DrawerMode = 'default' | 'responsive'
 export type DrawerTransitionDuration = number | { enter: number; exit: number }
 
 type AccessibleNameProps =
@@ -49,7 +48,7 @@ export type DrawerProps = AccessibleNameProps & {
   transition?: DrawerTransition
 
   /**
-   * Origin point for CSS transform animations (useful for custom scale/zoom transitions).
+   * Origin point for CSS transform animations.
    * @default 'center'
    */
   transformOrigin?: DrawerTransformOrigin
@@ -75,23 +74,9 @@ export type DrawerProps = AccessibleNameProps & {
   className?: LithosClass
 
   /**
-   * Additional CSS classes for the backdrop overlay (only active in `temporary` mode).
+   * Additional CSS classes for the backdrop overlay.
    */
   backdropClass?: LithosClass
-
-  /**
-   * WAI-ARIA role attribute applied to the drawer container or landmark.
-   * - `dialog`: Default for `temporary` mode.
-   * - `complementary`: Default for `permanent` / `mini` modes (renders an `<aside>`).
-   * - `navigation`: Recommended for main navigation links (renders a `<nav>`).
-   * - `region`: Useful for generic landmark sections (renders a `<section>`).
-   *
-   * @note In `permanent` / `mini` modes, the root element dynamically adapts its HTML tag
-   * (`<aside>`, `<nav>`, `<section>`) based on the assigned role.
-   * In `temporary` mode, the root container preserves `role="dialog"` for modal accessibility
-   * and wraps internal content with the corresponding semantic HTML landmark tag.
-   */
-  role?: DrawerRole
 
   /**
    * ID of the element that describes the drawer content for screen readers.
@@ -106,7 +91,7 @@ export type DrawerProps = AccessibleNameProps & {
 
   /**
    * Whether to display a visual swipe handle indicator.
-   * @default false
+   * @default placement === 'bottom' || placement === 'top'
    */
   indicator?: boolean
 
@@ -122,69 +107,41 @@ export type DrawerProps = AccessibleNameProps & {
   swipeOnlyOnIndicator?: boolean
 
   /**
+   * Whether swipe/drag gesture is allowed directly on the drawer content.
+   * If set to `false`, interactive elements won't capture pointer drag events.
+   * @default true
+   */
+  allowSwipeOnContent?: boolean
+
+  /**
    * Minimum swipe distance in pixels required to trigger the close action.
-   * @default 50
+   * @default 100
    */
   threshold?: number
-} & (
-    | {
-        /**
-         * Display mode of the drawer.
-         * - `temporary`: Displays over a backdrop overlay (modal behavior).
-         * @default 'temporary'
-         */
-        mode?: 'temporary'
 
-        /**
-         * Side from which the drawer enters the screen.
-         * @default 'left'
-         */
-        placement?: DrawerPlacement
+  /**
+   * Drawer rendering mode. Responsive mode automatically converts to a Dialog on desktop.
+   * @default 'default'
+   */
+  mode?: DrawerMode
 
-        /**
-         * Optional element that acts as a trigger to open the drawer.
-         */
-        trigger?: ReactNode
+  /**
+   * Placement edge where the drawer enters from.
+   * @default mode === 'responsive' ? 'bottom' : 'right'
+   */
+  placement?: DrawerPlacement
 
-        collapsedWidth?: never
-        expandedWidth?: never
-      }
-    | {
-        /**
-         * Display mode of the drawer.
-         * - `permanent`: Integrates directly into the layout, expanding/collapsing in flow.
-         * - `mini`: Collapses into a thin icon rail without hiding completely.
-         */
-        mode: 'permanent' | 'mini'
-
-        /**
-         * Horizontal side where the layout drawer is docked.
-         * @default 'left'
-         */
-        placement?: DrawerHorizontalPlacement
-
-        /**
-         * Optional element that acts as a trigger to open the drawer.
-         */
-        trigger?: ReactNode
-
-        /**
-         * Custom CSS width class applied when collapsed in `mini` mode (e.g. `'w-16'`).
-         */
-        collapsedWidth?: string
-
-        /**
-         * Custom CSS width class applied when expanded in `permanent` or `mini` mode (e.g. `'w-64'`).
-         */
-        expandedWidth?: string
-      }
-  )
+  /**
+   * Trigger element used to open the drawer.
+   */
+  trigger?: ReactNode
+}
 
 export interface UseDrawerSwipeOptions {
   /**
-   * Vertical placement orientation for gesture detection.
+   * Placement orientation for gesture detection.
    */
-  placement: DrawerVerticalPlacement
+  placement: DrawerPlacement
 
   /**
    * Current open state.
@@ -198,7 +155,13 @@ export interface UseDrawerSwipeOptions {
 
   /**
    * Distance threshold in pixels required to register a swipe gesture.
-   * @default 50
+   * @default 100
    */
   threshold?: number
+
+  /**
+   * Whether swipe gesture is enabled on the target element.
+   * @default true
+   */
+  allowSwipeOnContent?: boolean
 }
