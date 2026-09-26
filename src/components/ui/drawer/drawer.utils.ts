@@ -4,8 +4,8 @@ import { cn } from '../../../utils/cn'
 const placementClasses: Record<DrawerPlacement, string> = {
   left: 'top-0 left-0 h-full w-[80vw] max-w-[280px] sm:max-w-xs',
   right: 'top-0 right-0 h-full w-[80vw] max-w-[280px] sm:max-w-xs',
-  top: 'top-0 left-0 w-full h-full max-h-[80vh]',
-  bottom: 'bottom-0 left-0 w-full h-full max-h-[80vh]',
+  top: 'top-0 left-0 w-full h-full max-h-[60vh]',
+  bottom: 'bottom-0 left-0 w-full h-full max-h-[60vh]',
 }
 
 const slideOffscreenClasses: Record<DrawerPlacement, string> = {
@@ -16,17 +16,17 @@ const slideOffscreenClasses: Record<DrawerPlacement, string> = {
 }
 
 const placementBorder: Record<DrawerPlacement, string> = {
-  right: 'border-l-2',
-  left: 'border-r-2',
-  top: 'border-b-2',
-  bottom: 'border-t-2',
+  right: 'border-l-4',
+  left: 'border-r-4',
+  top: 'border-b-4',
+  bottom: 'border-t-4',
 }
 
 const placementRadiusClasses: Record<DrawerPlacement, string> = {
-  right: 'rounded-l-[var(--lithos-radius)]',
-  left: 'rounded-r-[var(--lithos-radius)]',
-  top: 'rounded-b-[var(--lithos-radius)]',
-  bottom: 'rounded-t-[var(--lithos-radius)]',
+  right: 'rounded-l-(--lithos-radius)',
+  left: 'rounded-r-(--lithos-radius)',
+  top: 'rounded-b-(--lithos-radius)',
+  bottom: 'rounded-t-(--lithos-radius)',
 }
 
 const originClasses: Record<DrawerTransformOrigin, string> = {
@@ -41,7 +41,7 @@ const originClasses: Record<DrawerTransformOrigin, string> = {
   'bottom-right': 'origin-bottom-right',
 }
 
-export const getTransitionClasses = (
+export const getDrawerClasses = (
   transition: DrawerTransition,
   placement: DrawerPlacement,
   transformOrigin?: DrawerTransformOrigin
