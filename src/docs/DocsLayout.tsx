@@ -101,6 +101,16 @@ const tocRegistry: Record<string, TOCItem[]> = {
     { id: '#accessibility', label: 'Accessibility', level: 1 },
     { id: '#api', label: 'API Reference', level: 1 },
   ],
+  '/docs/drawer': [
+    { id: '#installation', label: 'Installation', level: 1 },
+    { id: '#examples', label: 'Examples', level: 1 },
+    { id: '#scrollable-content', label: 'Scrollable Content', level: 2 },
+    { id: '#positions', label: 'Positions', level: 2 },
+    { id: '#responsive', label: 'Responsive', level: 2 },
+    { id: '#anatomy', label: 'Anatomy', level: 1 },
+    { id: '#accessibility', label: 'Accessibility', level: 1 },
+    { id: '#api', label: 'API Reference', level: 1 },
+  ],
   '/docs/dropdown': [
     { id: '#installation', label: 'Installation', level: 1 },
     { id: '#examples', label: 'Examples', level: 1 },

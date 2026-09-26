@@ -22,6 +22,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Added `src/cli/registry.ts` to act as the single source of truth for component dependencies. The documentation's `SetupGuide.tsx` now dynamically pulls from this registry to prevent drift.
 - **Dropdown:** Added the dropdown primitive ([#315](https://github.com/lithosui/Lithos_UI/pull/315)).
 - **useListKeyNavigation:** Added hook to manage keyboard events easily and allowing 2D navigation. Currently being used by the `Dropdown` and `Select` primitives. ([#315](https://github.com/lithosui/Lithos_UI/pull/315))
+- Added lithos-ui CSS **z-index variables** ([#329](https://github.com/lithosui/Lithos_UI/pull/329)).
+- **Drawer:** Added the drawer primitive ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
 - **Command:** Introduced neo-brutalist Command palette and ⌘K menu primitive suite ([#331](https://github.com/lithosui/Lithos_UI/pull/331)).
   - Zero-dependency, accessible keyboard-driven command menu (`Command`, `CommandInput`, `CommandList`, `CommandEmpty`, `CommandLoading`, `CommandGroup`, `CommandItem`, `CommandItemDescription`, `CommandBadge`, `CommandShortcut`, `CommandSeparator`, `CommandFooter`, `CommandDialog`).
   - Real-time client-side substring and keyword fuzzy searching with auto-hiding empty groups.
@@ -31,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Zero-Gap Rule compliance across all subcomponents using explicit margin/padding calculations and no CSS `gap`.
   - Comprehensive documentation page with live interactive examples (Basic, Shortcuts & Badges, and Dialog modal) and full `propsData` tables.
   - Vitest test suite with 14 unit tests achieving 100% pass rate and `jest-axe` automated accessibility compliance.
+- Added lithos-ui CSS **z-index variables** ([#329](https://github.com/lithosui/Lithos_UI/pull/329)).
+- **Drawer:** Added the drawer primitive ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
+- **useMediaQuery:** Added hook to use listen to media queries ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
 
 ### Changed (0.1.2)
 
@@ -47,6 +52,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Scoped the generic `kbd` selector in `src/tokens.css` to `kbd:not([data-slot="kbd"])` to avoid polluting the `Kbd` component styling ([#328](https://github.com/lithosui/Lithos_UI/pull/328)).
 - Properly arranged the components and blocks ([#303](https://github.com/lithosui/Lithos_UI/pull/303)).
 - Improved the hero title responsiveness ([#305](https://github.com/lithosui/Lithos_UI/pull/305)).
+- The `PopoverContent` now passes the transition status as `data-status` ([#322](https://github.com/lithosui/Lithos_UI/pull/332)).
 
 ### Fixed (0.1.2)
 

@@ -33,7 +33,7 @@ export const PopoverContent = ({
   } = usePopoverContext()
   const ref = useMergeRefs([refs.setFloating, propRef])
 
-  const { isMounted } = useTransitionStatus(floatingContext, {
+  const { isMounted, status } = useTransitionStatus(floatingContext, {
     duration: transitionDuration,
   })
 
@@ -44,6 +44,7 @@ export const PopoverContent = ({
       <div
         ref={ref}
         style={{ ...floatingStyles, ...style }}
+        data-status={status}
         aria-labelledby={labelId}
         aria-describedby={descriptionId}
         className={cn(
