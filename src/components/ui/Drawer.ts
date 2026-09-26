@@ -4,6 +4,10 @@
  */
 
 export * from './drawer/Drawer'
+export * from './drawer/DrawerHeader'
+export * from './drawer/DrawerBody'
+export * from './drawer/DrawerFooter'
+export * from './drawer/DrawerTitle'
 export * from './drawer/useDrawer'
 
 export type * from './drawer/drawer.types'
