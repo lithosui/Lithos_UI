@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { Drawer } from '../../../components/ui/drawer/Drawer'
 import { useDrawer } from '../../../components/ui/drawer/useDrawer'
-import { getTransitionClasses, getDuration } from '../../../components/ui/drawer/drawer.utils'
+import { getDrawerClasses, getDuration } from '../../../components/ui/drawer/drawer.utils'
 
 const axeOptions = {
   rules: {
@@ -42,7 +42,7 @@ describe('Drawer', () => {
   })
 
   describe('Accessibility (a11y)', () => {
-    it('should pass accessibility tests when open in temporary mode', async () => {
+    it('should pass accessibility tests when open in default mode', async () => {
       const { container } = render(
         <Drawer open onOpenChange={() => {}} aria-label="Settings panel">
           <p>Drawer Content</p>
@@ -51,44 +51,9 @@ describe('Drawer', () => {
       const results = await axe(container, axeOptions)
       expect(results).toHaveNoViolations()
     })
-
-    it('should pass accessibility tests in permanent mode', async () => {
-      const { container } = render(
-        <Drawer open onOpenChange={() => {}} mode="permanent" aria-label="Navigation drawer">
-          <p>Navigation Links</p>
-        </Drawer>
-      )
-      const results = await axe(container, axeOptions)
-      expect(results).toHaveNoViolations()
-    })
-
-    it('should apply correct default roles based on mode', () => {
-      const { rerender } = render(
-        <Drawer open onOpenChange={() => {}} mode="temporary" aria-label="Temporary drawer">
-          Content
-        </Drawer>
-      )
-      expect(screen.getByRole('dialog')).toBeInTheDocument()
-
-      rerender(
-        <Drawer open onOpenChange={() => {}} mode="permanent" aria-label="Permanent drawer">
-          Content
-        </Drawer>
-      )
-      expect(screen.getByRole('complementary')).toBeInTheDocument()
-    })
-
-    it('should always use "dialog" role on temporary mode', () => {
-      render(
-        <Drawer open onOpenChange={() => {}} mode="temporary" role="region" aria-label="Test region">
-          Content
-        </Drawer>
-      )
-      expect(screen.getByRole('dialog')).toBeInTheDocument()
-    })
   })
 
-  describe('Temporary Mode Rendering & Interactions', () => {
+  describe('Default Mode Rendering & Interactions', () => {
     it('should render trigger and open drawer when trigger is clicked', async () => {
       const user = userEvent.setup()
       const handleOpenChange = vi.fn()
@@ -132,7 +97,7 @@ describe('Drawer', () => {
 
     it('should modify body overflow style when open and clean up on unmount', () => {
       const { unmount, rerender } = render(
-        <Drawer open mode="temporary" onOpenChange={() => {}} aria-label="Overflow test drawer">
+        <Drawer open onOpenChange={() => {}} aria-label="Overflow test drawer">
           Content
         </Drawer>
       )
@@ -140,14 +105,14 @@ describe('Drawer', () => {
       expect(document.body.style.overflow).toBe('hidden')
 
       rerender(
-        <Drawer open={false} mode="temporary" onOpenChange={() => {}} aria-label="Overflow test drawer">
+        <Drawer open={false} onOpenChange={() => {}} aria-label="Overflow test drawer">
           Content
         </Drawer>
       )
       expect(document.body.style.overflow).toBe('')
 
       rerender(
-        <Drawer open mode="temporary" onOpenChange={() => {}} aria-label="Overflow test drawer">
+        <Drawer open onOpenChange={() => {}} aria-label="Overflow test drawer">
           Content
         </Drawer>
       )
@@ -155,56 +120,6 @@ describe('Drawer', () => {
 
       unmount()
       expect(document.body.style.overflow).toBe('')
-    })
-  })
-
-  describe('Permanent & Mini Modes', () => {
-    it('should render as an aside element with correct dimensions when open', () => {
-      render(
-        <Drawer
-          open
-          mode="permanent"
-          onOpenChange={() => {}}
-          aria-label="Permanent navigation"
-          expandedWidth="w-80"
-          className="custom-class"
-        >
-          <p>Permanent Content</p>
-        </Drawer>
-      )
-
-      const aside = screen.getByRole('complementary')
-      expect(aside).toHaveClass('w-80', 'custom-class')
-      expect(aside).not.toHaveAttribute('aria-hidden', 'true')
-    })
-
-    it('should hide and apply aria-hidden when closed in permanent mode', () => {
-      render(
-        <Drawer
-          open={false}
-          mode="permanent"
-          onOpenChange={() => {}}
-          aria-label="Closed permanent navigation"
-          collapsedWidth="w-0"
-        >
-          <p>Permanent Content</p>
-        </Drawer>
-      )
-
-      const aside = document.querySelector('aside')
-      expect(aside).toHaveAttribute('aria-hidden', 'true')
-      expect(aside).toHaveClass('opacity-0', 'pointer-events-none', 'w-0')
-    })
-
-    it('should handle mini mode fallback width when collapsed', () => {
-      render(
-        <Drawer open={false} mode="mini" onOpenChange={() => {}} aria-label="Mini drawer">
-          <p>Mini Content</p>
-        </Drawer>
-      )
-
-      const aside = document.querySelector('aside')
-      expect(aside).toHaveClass('w-16')
     })
   })
 
@@ -365,19 +280,19 @@ describe('Drawer', () => {
 describe('Drawer Utils', () => {
   describe('getTransitionClasses', () => {
     it('should return slide transition classes by default', () => {
-      const classes = getTransitionClasses('slide', 'right')
+      const classes = getDrawerClasses('slide', 'right')
       expect(classes).toContain('translate-x-full')
       expect(classes).toContain('data-[status=open]:translate-x-0')
     })
 
     it('should return fade transition classes', () => {
-      const classes = getTransitionClasses('fade', 'left')
+      const classes = getDrawerClasses('fade', 'left')
       expect(classes).toContain('opacity-0')
       expect(classes).toContain('data-[status=open]:opacity-100')
     })
 
     it('should return zoom transition classes with proper origin', () => {
-      const classes = getTransitionClasses('zoom', 'bottom', 'center')
+      const classes = getDrawerClasses('zoom', 'bottom', 'center')
       expect(classes).toContain('scale-75')
       expect(classes).toContain('origin-center')
       expect(classes).toContain('data-[status=open]:scale-100')
