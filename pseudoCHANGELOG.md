@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Vitest test suite with 14 unit tests achieving 100% pass rate and `jest-axe` automated accessibility compliance.
 - Added lithos-ui CSS **z-index variables** ([#329](https://github.com/lithosui/Lithos_UI/pull/329)).
 - **Drawer:** Added the drawer primitive ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
+- **useMediaQuery:** Added hook to use listen to media queries ([#332](https://github.com/lithosui/Lithos_UI/pull/332)).
 
 ### Changed (0.1.2)
 
