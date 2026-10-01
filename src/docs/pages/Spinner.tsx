@@ -95,7 +95,7 @@ export const SpinnerDoc = () => {
   return (
     <div className="flex flex-col items-center w-full space-y-10">
       {/* Button Examples */}
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-wrap justify-center space-x-6">
         <Button disabled variant="primary" iconLeft={<Spinner size={16} icon="FiSettings" />}>
           Applying Configuration
         </Button>
@@ -112,12 +112,12 @@ export const SpinnerDoc = () => {
       </div>
 
       {/* Badge Examples */}
-      <div className="flex flex-wrap justify-center gap-6">
-        <Badge intent="warning" className="flex items-center gap-2 px-3 py-1.5">
+      <div className="flex flex-wrap justify-center space-x-6">
+        <Badge intent="warning" className="flex items-center space-x-2 px-3 py-1.5">
           <Spinner size={12} icon="FiRefreshCw" />
           <span>SYNCING CLOUD</span>
         </Badge>
-        <Badge intent="success" className="flex items-center gap-2 px-3 py-1.5">
+        <Badge intent="success" className="flex items-center space-x-2 px-3 py-1.5">
           <Spinner size={12} icon="FiRefreshCcw" anticlockwise />
           <span>RESTORING BACKUP</span>
         </Badge>
@@ -126,7 +126,7 @@ export const SpinnerDoc = () => {
       {/* Alert Example */}
       <div className="w-full max-w-lg">
         <Alert intent="info" variant="outlined" size="md" title="Migration in progress">
-          <span className="flex items-center gap-3">
+          <span className="flex items-center space-x-3">
             <Spinner size={20} icon="VscLoading" />
             <span>Moving 2.4 million records to the new cluster...</span>
           </span>
@@ -341,7 +341,7 @@ export const SpinnerDoc = () => {
         <PreviewBlock code={integrationCode}>
           <div className="flex flex-col items-center w-full p-8 space-y-10">
             {/* Button Examples */}
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex flex-wrap justify-center space-x-6">
               <Button disabled variant="primary" iconLeft={<Spinner size={16} icon="FiSettings" />}>
                 Applying Configuration
               </Button>
@@ -358,12 +358,12 @@ export const SpinnerDoc = () => {
             </div>
 
             {/* Badge Examples */}
-            <div className="flex flex-wrap justify-center gap-6">
-              <Badge intent="warning" className="flex items-center gap-2 px-3 py-1.5">
+            <div className="flex flex-wrap justify-center space-x-6">
+              <Badge intent="warning" className="flex items-center space-x-2 px-3 py-1.5">
                 <Spinner size={12} icon="FiRefreshCw" />
                 <span>SYNCING CLOUD</span>
               </Badge>
-              <Badge intent="success" className="flex items-center gap-2 px-3 py-1.5">
+              <Badge intent="success" className="flex items-center space-x-2 px-3 py-1.5">
                 <Spinner size={12} icon="FiRefreshCcw" anticlockwise />
                 <span>RESTORING BACKUP</span>
               </Badge>
@@ -372,7 +372,7 @@ export const SpinnerDoc = () => {
             {/* Alert Example */}
             <div className="w-full max-w-lg">
               <Alert intent="info" variant="outlined" size="md" title="Migration in progress">
-                <span className="flex items-center gap-3">
+                <span className="flex items-center space-x-3">
                   <Spinner size={20} icon="VscLoading" />
                   <span>Moving 2.4 million records to the new cluster...</span>
                 </span>
