@@ -22,8 +22,8 @@ export const PreviewBlockDoc = () => {
 }\\\`
 
   return (
-    <PreviewBlock 
-      code={innerCode} 
+    <PreviewBlock
+      code={innerCode}
       githubUrl="https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/PreviewBlock.tsx"
     >
       <p className="text-base md:text-lg text-(--lithos-text) font-body">

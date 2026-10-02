@@ -5,7 +5,7 @@
  * - Excluded from the public package as it's meant for docs tooling.
  */
 import { useState, type ReactNode } from 'react'
-import { cn } from '../../utils/cn'
+import { cn, type LithosClass } from '../../utils/cn'
 import { CodeViewer } from './CodeViewer'
 import { Button } from './Button'
 import { IconMonitor } from './icons/IconMonitor'
@@ -37,6 +37,7 @@ export interface PreviewBlockProps {
   previewBaseUrl?: string
   installGuide?: ReactNode
   children: ReactNode
+  className?: LithosClass
 }
 
 // 1. Decoupled, floating tab classes relying purely on the primitive
@@ -54,6 +55,7 @@ export const PreviewBlock = ({
   slug,
   previewBaseUrl = '/blocks/preview',
   installGuide,
+  className,
 }: PreviewBlockProps) => {
   const [activeTab, setActiveTab] = useState<AvailableTabs>('preview')
   const [breakpoint, setBreakpoint] = useState<Breakpoint>('desktop')
@@ -70,7 +72,12 @@ export const PreviewBlock = ({
   }
 
   return (
-    <div className="mb-8 border-2 border-(--lithos-border) bg-(--lithos-bg) overflow-hidden transform-[translateZ(0)] rounded-(--lithos-radius)">
+    <div
+      className={cn(
+        'mb-8 border-2 border-(--lithos-border) bg-(--lithos-bg) overflow-hidden transform-[translateZ(0)] rounded-(--lithos-radius)',
+        className
+      )}
+    >
       {/* 2. Control Bar inside container */}
       <div className="flex flex-wrap items-center justify-between p-4 border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
         <div className="flex flex-wrap items-center">

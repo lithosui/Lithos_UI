@@ -48,6 +48,7 @@ import { ToggleDoc } from './docs/pages/Toggle'
 import { TabsDoc } from './docs/pages/Tabs'
 import { TableDoc } from './docs/pages/Table'
 import { TypographyDoc } from './docs/pages/Typography'
+import { SidebarDoc } from './docs/pages/Sidebar'
 import { ThemeBuilder } from './pages/ThemeBuilder'
 import { TooltipDoc } from './docs/pages/Tooltip'
 import { useEffect } from 'react'
@@ -94,6 +95,7 @@ const renderDocRoutes = () => {
     { path: 'kbd', component: KbdDoc },
     { path: 'popover', component: PopoverPage },
     { path: 'select', component: SelectDoc },
+    { path: 'sidebar', component: SidebarDoc },
     { path: 'skeleton', component: SkeletonDoc },
     { path: 'spinner', component: SpinnerDoc },
     { path: 'toast', component: ToastDoc },
