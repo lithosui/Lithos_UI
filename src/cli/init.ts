@@ -1,10 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { getConfig, fetchFile, ensureDir } from './utils.js'
+import { getConfig, fetchFile, ensureDir, getProjectRoot, promptUser, installDependencies } from './utils.js'
 
 export const init = async () => {
-  const configPath = path.join(process.cwd(), 'lithos.json')
+  const root = getProjectRoot()
+  const configPath = path.join(root, 'lithos.json')
 
   if (!fs.existsSync(configPath)) {
     const defaultConfig = getConfig() // Will return defaults based on whether 'src' exists
@@ -20,7 +21,7 @@ export const init = async () => {
   const tokensUrl = 'https://raw.githubusercontent.com/lithosui/Lithos_UI/main/src/tokens.css'
   try {
     const tokensContent = await fetchFile(tokensUrl)
-    const cssPath = path.join(process.cwd(), config.css)
+    const cssPath = path.join(root, config.css)
 
     ensureDir(cssPath)
 
@@ -48,5 +49,25 @@ export const init = async () => {
     }
   } catch (err) {
     console.error('✖ Failed to fetch tokens.css:', err)
+  }
+
+  // Tailwind check
+  const pkgPath = path.join(root, 'package.json')
+  let hasTailwind = false
+  if (fs.existsSync(pkgPath)) {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'))
+    const deps = { ...pkg.dependencies, ...pkg.devDependencies }
+    hasTailwind = !!deps['tailwindcss']
+  }
+
+  if (!hasTailwind) {
+    const installTw = await promptUser(
+      '\\nTailwind CSS is required but not found. Press <Enter> to install and configure it, or type "n" to skip: (Y/n) '
+    )
+    if (installTw) {
+      console.log('Installing Tailwind CSS (v4)...')
+      installDependencies(['tailwindcss'], true)
+      console.log('✓ Tailwind CSS installed.')
+    }
   }
 }

@@ -2,16 +2,32 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { registry, type RegistryItem } from './registry.js'
-import { getConfig, fetchFile, getLocalDestination, rewriteImports, ensureDir } from './utils.js'
+import {
+  getConfig,
+  fetchFile,
+  getLocalDestination,
+  rewriteImports,
+  ensureDir,
+  getProjectRoot,
+  promptUser,
+  installDependencies,
+} from './utils.js'
 import { init } from './init.js'
 
-const getAllRequires = (item: RegistryItem): string[] => {
+const getAllRequires = (item: RegistryItem): { files: string[]; npmDeps: string[] } => {
   const visited = new Set<string>()
   const deps = new Set<string>()
+  const npmDeps = new Set<string>()
 
   const traverse = (currentItem: RegistryItem) => {
     if (visited.has(currentItem.slug)) return
     visited.add(currentItem.slug)
+
+    if (currentItem.dependencies) {
+      for (const d of currentItem.dependencies) {
+        npmDeps.add(d)
+      }
+    }
 
     for (const req of currentItem.requires) {
       deps.add(req)
@@ -35,7 +51,7 @@ const getAllRequires = (item: RegistryItem): string[] => {
   }
 
   traverse(item)
-  return Array.from(deps)
+  return { files: Array.from(deps), npmDeps: Array.from(npmDeps) }
 }
 
 export const add = async (components: string[]) => {
@@ -44,9 +60,10 @@ export const add = async (components: string[]) => {
     process.exit(1)
   }
 
-  const configPath = path.join(process.cwd(), 'lithos.json')
+  const root = getProjectRoot()
+  const configPath = path.join(root, 'lithos.json')
   if (!fs.existsSync(configPath)) {
-    console.log('\ni lithos.json not found. Initializing automatically...')
+    console.log('\\ni lithos.json not found. Initializing automatically...')
     await init()
   }
 
@@ -56,15 +73,15 @@ export const add = async (components: string[]) => {
     const item = registry[compName]
     if (!item) {
       console.error(`✖ Component '${compName}' not found.`)
-      console.log('\nAvailable components:')
+      console.log('\\nAvailable components:')
       Object.keys(registry).forEach((k) => console.log(`- ${k}`))
       continue
     }
 
-    console.log(`\nAdding ${item.name}...`)
+    console.log(`\\nAdding ${item.name}...`)
 
     // We need to download the component itself, PLUS all transitive dependencies.
-    const allRequires = getAllRequires(item)
+    const { files: allRequires, npmDeps } = getAllRequires(item)
     const filesToDownload = [
       {
         url: item.githubUrl,
@@ -80,8 +97,27 @@ export const add = async (components: string[]) => {
           repoPath: req,
           requires: allRequires, // All files share the same flat requires list for rewriting context
         })
-      } else {
-        console.log(`i Dependency '${req}' is an NPM package. Ensure it is installed.`)
+      }
+    }
+
+    // Handle third-party dependencies
+    if (npmDeps.length > 0) {
+      const pkgPath = path.join(root, 'package.json')
+      let installedDeps: Record<string, string> = {}
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'))
+        installedDeps = { ...pkg.dependencies, ...pkg.devDependencies }
+      }
+
+      const missingDeps = npmDeps.filter((d) => !installedDeps[d])
+
+      if (missingDeps.length > 0) {
+        console.log(`\\nThis component requires the following packages to function:`)
+        missingDeps.forEach((d) => console.log(` - ${d}`))
+        const install = await promptUser('Would you like to install them now? (Y/n) ')
+        if (install) {
+          installDependencies(missingDeps)
+        }
       }
     }
 
@@ -99,7 +135,7 @@ export const add = async (components: string[]) => {
 
         ensureDir(dest)
         fs.writeFileSync(dest, rewritten)
-        console.log(`✓ Created ${path.relative(process.cwd(), dest)}`)
+        console.log(`✓ Created ${path.relative(root, dest)}`)
       } catch (e: unknown) {
         console.error(`✖ Error processing ${file.repoPath}:`, (e as Error).message)
       }

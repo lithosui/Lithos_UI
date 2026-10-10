@@ -1,6 +1,19 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
+import readline from 'node:readline'
+import { execSync } from 'node:child_process'
+
+export const getProjectRoot = (startDir = process.cwd()): string => {
+  let currentDir = startDir
+  while (currentDir !== path.parse(currentDir).root) {
+    if (fs.existsSync(path.join(currentDir, 'lithos.json')) || fs.existsSync(path.join(currentDir, 'package.json'))) {
+      return currentDir
+    }
+    currentDir = path.dirname(currentDir)
+  }
+  return startDir
+}
 
 export interface LithosConfig {
   aliases: {
@@ -25,7 +38,8 @@ const DEFAULT_CONFIG: LithosConfig = {
 }
 
 export const getConfig = (): LithosConfig => {
-  const configPath = path.join(process.cwd(), 'lithos.json')
+  const root = getProjectRoot()
+  const configPath = path.join(root, 'lithos.json')
   if (fs.existsSync(configPath)) {
     try {
       const parsed = JSON.parse(fs.readFileSync(configPath, 'utf8'))
@@ -36,7 +50,7 @@ export const getConfig = (): LithosConfig => {
   }
 
   // If no config and no src folder, fallback to root
-  if (!fs.existsSync(path.join(process.cwd(), 'src'))) {
+  if (!fs.existsSync(path.join(root, 'src'))) {
     return {
       aliases: {
         components: './components/ui',
@@ -61,27 +75,28 @@ export const fetchFile = async (url: string): Promise<string> => {
 }
 
 export const getLocalDestination = (repoPath: string, config: LithosConfig): string => {
+  const root = getProjectRoot()
   // repoPath is like "components/ui/Button.tsx" or "utils/cn.ts"
   if (repoPath.startsWith('components/ui/')) {
-    return path.join(process.cwd(), config.aliases.components, repoPath.replace('components/ui/', ''))
+    return path.join(root, config.aliases.components, repoPath.replace('components/ui/', ''))
   }
   if (repoPath.startsWith('components/blocks/')) {
-    return path.join(process.cwd(), config.aliases.blocks, repoPath.replace('components/blocks/', ''))
+    return path.join(root, config.aliases.blocks, repoPath.replace('components/blocks/', ''))
   }
   if (repoPath.startsWith('components/templates/')) {
     return path.join(
-      process.cwd(),
+      root,
       config.aliases.templates || './src/components/templates',
       repoPath.replace('components/templates/', '')
     )
   }
   if (repoPath.startsWith('utils/')) {
-    return path.join(process.cwd(), config.aliases.utils, repoPath.replace('utils/', ''))
+    return path.join(root, config.aliases.utils, repoPath.replace('utils/', ''))
   }
   if (repoPath.startsWith('core/')) {
-    return path.join(process.cwd(), config.aliases.core, repoPath.replace('core/', ''))
+    return path.join(root, config.aliases.core, repoPath.replace('core/', ''))
   }
-  return path.join(process.cwd(), repoPath)
+  return path.join(root, repoPath)
 }
 
 const stripExt = (p: string) => p.replace(/\.tsx?$/, '')
@@ -135,4 +150,33 @@ export const ensureDir = (filePath: string) => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
+}
+
+export const promptUser = (question: string): Promise<boolean> => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close()
+      resolve(answer.toLowerCase() === 'y' || answer === '')
+    })
+  })
+}
+
+export const getPackageManager = (): 'npm' | 'yarn' | 'pnpm' | 'bun' => {
+  const root = getProjectRoot()
+  if (fs.existsSync(path.join(root, 'pnpm-lock.yaml'))) return 'pnpm'
+  if (fs.existsSync(path.join(root, 'yarn.lock'))) return 'yarn'
+  if (fs.existsSync(path.join(root, 'bun.lockb'))) return 'bun'
+  return 'npm'
+}
+
+export const installDependencies = (deps: string[], isDev = false) => {
+  if (deps.length === 0) return
+  const pm = getPackageManager()
+  const command = `${pm} ${pm === 'npm' ? 'install' : 'add'} ${isDev ? '-D ' : ''}${deps.join(' ')}`
+  console.log(`> ${command}`)
+  execSync(command, { stdio: 'inherit', cwd: getProjectRoot() })
 }
