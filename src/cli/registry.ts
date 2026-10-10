@@ -4,6 +4,7 @@ export interface RegistryItem {
   type: 'ui' | 'block' | 'template'
   githubUrl: string
   requires: string[]
+  dependencies?: string[]
 }
 
 const GITHUB_BASE = 'https://raw.githubusercontent.com/lithosui/Lithos_UI/main/src'
@@ -15,6 +16,7 @@ export const registry: Record<string, RegistryItem> = {
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Accordion.tsx`,
     requires: ['utils/cn.ts', 'components/ui/Button.tsx', 'components/ui/icons/IconChevronUp.tsx'],
+    dependencies: ['react-icons'],
   },
   alert: {
     slug: 'alert',
@@ -30,6 +32,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/icons/IconUndo.tsx',
       'components/ui/icons/IconClose.tsx',
     ],
+    dependencies: ['react-icons'],
   },
   avatar: {
     slug: 'avatar',
@@ -50,30 +53,16 @@ export const registry: Record<string, RegistryItem> = {
     name: 'Breadcrumb',
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Breadcrumb.tsx`,
-    requires: [
-      'utils/cn.ts',
-      'components/ui/icons/IconHome.tsx',
-      'components/ui/icons/IconBreadcrumbSeparator.tsx',
-      'components/ui/icons/IconFolder.tsx',
-      'components/ui/icons/IconSettings.tsx',
-      'components/ui/icons/IconFileText.tsx',
-    ],
+    requires: ['utils/cn.ts', 'components/ui/icons/IconHome.tsx', 'components/ui/icons/IconBreadcrumbSeparator.tsx'],
+    dependencies: ['react-icons'],
   },
   button: {
     slug: 'button',
     name: 'Button',
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Button.tsx`,
-    requires: [
-      'utils/cn.ts',
-      'utils/yiq.ts',
-      'core/types.ts',
-      'components/ui/icons/IconHome.tsx',
-      'components/ui/icons/IconSettings.tsx',
-      'components/ui/icons/IconDownload.tsx',
-      'clsx',
-      'tailwind-merge',
-    ],
+    requires: ['utils/cn.ts', 'utils/yiq.ts', 'core/types.ts'],
+    dependencies: ['clsx', 'tailwind-merge'],
   },
   calendar: {
     slug: 'calendar',
@@ -97,6 +86,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/calendar/useCalendarKeyboardNav.ts',
       'components/ui/calendar/useRainbowColors.ts',
     ],
+    dependencies: ['react-icons'],
   },
   card: {
     slug: 'card',
@@ -129,6 +119,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/icons/IconArrowUp.tsx',
       'components/ui/icons/IconCircle.tsx',
     ],
+    dependencies: ['react-icons'],
   },
   checkbox: {
     slug: 'checkbox',
@@ -145,6 +136,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/icons/IconHeartOutline.tsx',
       'components/ui/icons/IconBase.tsx',
     ],
+    dependencies: ['react-icons'],
   },
   dialog: {
     slug: 'dialog',
@@ -160,6 +152,7 @@ export const registry: Record<string, RegistryItem> = {
       'core/types.ts',
       'utils/cn.ts',
     ],
+    dependencies: ['react-icons'],
   },
   command: {
     slug: 'command',
@@ -174,6 +167,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/icons/IconSearch.tsx',
       'components/ui/icons/IconClose.tsx',
     ],
+    dependencies: ['react-icons'],
   },
   drawer: {
     slug: 'drawer',
@@ -196,9 +190,9 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/drawer/useDrawerSwipe.ts',
       'components/ui/Popover.ts',
       'components/ui/Dialog.tsx',
-      '@floating-ui/react',
       'core/hooks/useMediaQuery.ts',
     ],
+    dependencies: ['@floating-ui/react', 'react-icons'],
   },
   dropdown: {
     slug: 'dropdown',
@@ -232,6 +226,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/icons/IconSearch.tsx',
       'components/ui/icons/IconSettings.tsx',
     ],
+    dependencies: ['react-icons'],
   },
   kbd: {
     slug: 'kbd',
@@ -245,7 +240,8 @@ export const registry: Record<string, RegistryItem> = {
     name: 'Pagination',
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Pagination.tsx`,
-    requires: ['utils/cn.ts', 'components/ui/Button.tsx', 'components/ui/icons/IconChevronLeft.tsx', 'react-icons'],
+    requires: ['utils/cn.ts', 'components/ui/Button.tsx', 'components/ui/icons/IconChevronLeft.tsx'],
+    dependencies: ['react-icons'],
   },
   popover: {
     slug: 'popover',
@@ -253,7 +249,6 @@ export const registry: Record<string, RegistryItem> = {
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Popover.ts`,
     requires: [
-      '@floating-ui/react',
       'utils/cn.ts',
       'components/ui/Button.tsx',
       'components/ui/popover/Popover.tsx',
@@ -262,6 +257,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/popover/PopoverClose.tsx',
       'components/ui/popover/usePopover.ts',
     ],
+    dependencies: ['@floating-ui/react'],
   },
   select: {
     slug: 'select',
@@ -284,10 +280,10 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/select/SelectItem.tsx',
       'components/ui/select/useSelect.tsx',
       'components/ui/select/select.types.ts',
-      '@floating-ui/react',
       'core/hooks/useVirtualizer.ts',
       'core/hooks/useListKeyNavigation.ts',
     ],
+    dependencies: ['@floating-ui/react', 'react-icons'],
   },
   skeleton: {
     slug: 'skeleton',
@@ -302,6 +298,7 @@ export const registry: Record<string, RegistryItem> = {
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Spinner.tsx`,
     requires: ['utils/cn.ts', 'core/useAccentColor.tsx', 'utils/yiq.ts'],
+    dependencies: ['react-icons'],
   },
   table: {
     slug: 'table',
@@ -331,6 +328,7 @@ export const registry: Record<string, RegistryItem> = {
       'utils/yiq.ts',
       'utils/cn.ts',
     ],
+    dependencies: ['react-icons'],
   },
   toggle: {
     slug: 'toggle',
@@ -346,12 +344,12 @@ export const registry: Record<string, RegistryItem> = {
     githubUrl: `${GITHUB_BASE}/components/ui/Tooltip.ts`,
     requires: [
       'utils/cn.ts',
-      '@floating-ui/react',
       'components/ui/tooltip/Tooltip.tsx',
       'components/ui/tooltip/TooltipContent.tsx',
       'components/ui/tooltip/TooltipTrigger.tsx',
       'components/ui/tooltip/useTooltip.ts',
     ],
+    dependencies: ['@floating-ui/react'],
   },
 
   // Blocks
@@ -403,6 +401,7 @@ export const registry: Record<string, RegistryItem> = {
     type: 'block',
     githubUrl: `${GITHUB_BASE}/components/blocks/Navbar/1.tsx`,
     requires: ['components/ui/Button.tsx', 'components/ui/icons/IconMenu.tsx', 'components/ui/icons/IconClose.tsx'],
+    dependencies: ['react-icons'],
   },
   'pricing-1': {
     slug: 'pricing-1',
