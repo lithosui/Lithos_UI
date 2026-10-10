@@ -113,7 +113,14 @@ export const registry: Record<string, RegistryItem> = {
     name: 'Dialog',
     type: 'ui',
     githubUrl: `${GITHUB_BASE}/components/ui/Dialog.tsx`,
-    requires: ['components/ui/Button.tsx', 'core/hooks/useFocusTrap.ts', 'core/types.ts', 'utils/cn.ts'],
+    requires: [
+      'components/ui/Button.tsx',
+      'core/hooks/useFocusTrap.ts',
+      'core/types.ts',
+      'utils/cn.ts',
+      'components/ui/icons/IconClose.tsx',
+      'utils/colors.ts',
+    ],
   },
   command: {
     slug: 'command',
@@ -226,6 +233,7 @@ export const registry: Record<string, RegistryItem> = {
       'components/ui/select/select.types.ts',
       'core/hooks/useVirtualizer.ts',
       'core/hooks/useListKeyNavigation.ts',
+      'components/ui/icons/IconChevronDown.tsx',
     ],
     dependencies: ['@floating-ui/react'],
   },
