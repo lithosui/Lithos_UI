@@ -63,7 +63,7 @@ export const add = async (components: string[]) => {
   const root = getProjectRoot()
   const configPath = path.join(root, 'lithos.json')
   if (!fs.existsSync(configPath)) {
-    console.log('\\ni lithos.json not found. Initializing automatically...')
+    console.log('\ni lithos.json not found. Initializing automatically...')
     await init()
   }
 
@@ -73,12 +73,12 @@ export const add = async (components: string[]) => {
     const item = registry[compName]
     if (!item) {
       console.error(`✖ Component '${compName}' not found.`)
-      console.log('\\nAvailable components:')
+      console.log('\nAvailable components:')
       Object.keys(registry).forEach((k) => console.log(`- ${k}`))
       continue
     }
 
-    console.log(`\\nAdding ${item.name}...`)
+    console.log(`\nAdding ${item.name}...`)
 
     // We need to download the component itself, PLUS all transitive dependencies.
     const { files: allRequires, npmDeps } = getAllRequires(item)
@@ -112,7 +112,7 @@ export const add = async (components: string[]) => {
       const missingDeps = npmDeps.filter((d) => !installedDeps[d])
 
       if (missingDeps.length > 0) {
-        console.log(`\\nThis component requires the following packages to function:`)
+        console.log(`\nThis component requires the following packages to function:`)
         missingDeps.forEach((d) => console.log(` - ${d}`))
         const install = await promptUser('Would you like to install them now? (Y/n) ')
         if (install) {

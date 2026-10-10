@@ -62,7 +62,7 @@ export const init = async () => {
 
   if (!hasTailwind) {
     const installTw = await promptUser(
-      '\\nTailwind CSS is required but not found. Press <Enter> to install and configure it, or type "n" to skip: (Y/n) '
+      '\nTailwind CSS is required but not found. Press <Enter> to install and configure it, or type "n" to skip: (Y/n) '
     )
     if (installTw) {
       console.log('Installing Tailwind CSS (v4)...')
