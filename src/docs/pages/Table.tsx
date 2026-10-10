@@ -3,27 +3,49 @@ import { PropsAccordion } from '../../components/ui/PropsTable'
 import { CodeViewer } from '../../components/ui/CodeViewer'
 import { SetupGuide } from '../layout/SetupGuide'
 import { tableContainerPropsData, tablePartsPropsData, tablePropsData } from '../propsData/table'
+
 import { BasicTable } from '../examples/table/BasicTable'
+import BasicTableSource from '../examples/table/BasicTable?raw'
+
 import { AccentTable } from '../examples/table/AccentTable'
-import accentSource from '../examples/table/AccentTable.tsx?raw'
+import AccentTableSource from '../examples/table/AccentTable?raw'
+
 import { TableStates } from '../examples/table/TableStates'
+import TableStatesSource from '../examples/table/TableStates?raw'
+
 import { BulkActionsTable } from '../examples/table/BulkActions'
+import BulkActionsTableSource from '../examples/table/BulkActions?raw'
+
 import { RowActionsTable } from '../examples/table/RowActions'
+import RowActionsTableSource from '../examples/table/RowActions?raw'
+
 import { DropdownActionsTable } from '../examples/table/DropdownActions'
-import hookSource from '../examples/table/useInvoiceActions.ts?raw'
-import actionsSource from '../examples/table/InvoiceActions.tsx?raw'
-import rowActionsSource from '../examples/table/RowActions.tsx?raw'
-import dropdownSource from '../examples/table/DropdownActions.tsx?raw'
-import type { UsageCodeConfig } from '../utils/deriveUsageCode'
+import DropdownActionsTableSource from '../examples/table/DropdownActions?raw'
+
+import hookSource from '../examples/table/useInvoiceActions?raw'
+import actionsSource from '../examples/table/InvoiceActions?raw'
+
 import { ResponsiveTable } from '../examples/table/ResponsiveTable'
-import responsiveSource from '../examples/table/ResponsiveTable.tsx?raw'
-import basicSource from '../examples/table/BasicTable.tsx?raw'
-import statesSource from '../examples/table/TableStates.tsx?raw'
-import bulkActionsSource from '../examples/table/BulkActions.tsx?raw'
+import ResponsiveTableSource from '../examples/table/ResponsiveTable?raw'
+
+import type { UsageCodeConfig } from '../utils/deriveUsageCode'
+
 import { SortableTable } from '../examples/table/SortableTable'
 import sortableSource from '../examples/table/SortableTable.tsx?raw'
+
 import { GroupedHeadersTable } from '../examples/table/GroupedHeaders'
-import groupedHeadersSource from '../examples/table/GroupedHeaders.tsx?raw'
+import GroupedHeadersTableSource from '../examples/table/GroupedHeaders.tsx?raw'
+
+import {
+  DocHeader,
+  DocCallout,
+  DocHeading,
+  DocExample,
+  DocLeadText,
+  DocList,
+  DocSection,
+  Code,
+} from '../layout/DocPage'
 
 /** Bundle local example helpers so each PreviewBlock is independently copyable. */
 const tableExampleCode = (...sources: string[]): UsageCodeConfig => {
@@ -66,140 +88,179 @@ const tableNames = [
   'TableHeader',
   'TableRow',
 ]
-const heading = 'mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)'
-const subheading = 'mt-8 mb-4 text-xl font-black text-(--lithos-text)'
-const paragraph = 'mb-6 font-body text-base leading-relaxed text-(--lithos-text) opacity-80'
 
 export const TableDoc = () => (
   <div className="max-w-5xl mx-auto px-6 min-w-0">
-    <header className="mt-0">
-      <h1 className="mb-8 text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text)">Table</h1>
-      <p className="mt-2 max-w-2xl text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
-        Display structured data with contrasting headers, responsive layouts, sorting, and row actions.
-      </p>
-      <hr className="border-t-2 border-(--lithos-border) my-8" />
-    </header>
-    <h2 id="installation" className={heading}>
-      Installation
-    </h2>
-    <SetupGuide
-      componentNames={tableNames}
-      manualPath="../../components/ui/Table"
-      slug="table"
-      requires={['utils/cn.ts']}
+    <DocHeader
+      title="Table"
+      description="Display structured data with contrasting headers, responsive layouts, sorting, and row actions."
     />
-    <p className={paragraph}>
-      Import <code>lithos-ui/tokens.css</code> alongside your Tailwind stylesheet and configure the Lithos theme as
-      described in Installation. Basic uses the non-sticky default; States demonstrates a sticky header with
-      state-driven feedback. The examples also compose Badge, Button, Checkbox, Input, Spinner, Dialog, Dropdown,
-      Select, Toast, and the shared Lithos icon components. Wrap your application in <code>ToastProvider</code> to use
-      the States and action examples; load failures and action results use Toast notifications.
-    </p>
-    <section aria-labelledby="examples" className="mb-12">
-      <h2 id="examples" className={heading}>
-        Examples
-      </h2>
-      <h3 id="basic" className={subheading}>
-        Basic
-      </h3>
-      <p className={paragraph}>
-        Display invoices with a caption, row labels, and a totals footer. Text wraps naturally, and the container
-        scrolls horizontally when the content needs more space.
-      </p>
-      <PreviewBlock code={tableExampleCode(basicSource)}>
+
+    <DocSection>
+      <DocLeadText>
+        Basic table uses the non-sticky default; States demonstrates a sticky header with state-driven feedback. The
+        examples also compose <Code text="Badge" />, <Code text="Button" />, <Code text="Checkbox" />,{' '}
+        <Code text="Input" />, <Code text="Spinner" />, <Code text="Dialog" />, <Code text="Dropdown" />,{' '}
+        <Code text="Select" />, <Code text="Toast" />, and the shared Lithos icon components. Wrap your application in{' '}
+        <Code text="ToastProvider" /> to use the States and action examples; load failures and action results use Toast
+        notifications.
+      </DocLeadText>
+    </DocSection>
+
+    <DocSection>
+      <DocHeading id="installation">Installation</DocHeading>
+      <SetupGuide
+        slug="table"
+        componentNames={tableNames}
+        manualPath="../../components/ui/Table"
+        requires={['utils/cn.ts']}
+      />
+    </DocSection>
+
+    <DocHeading id="examples">Examples</DocHeading>
+
+    <DocExample
+      id="basic"
+      title="Basic"
+      description={
+        <>
+          Display invoices with a caption, row labels, and a totals footer. Text wraps naturally, and the container
+          scrolls horizontally when the content needs more space.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(BasicTableSource)}>
         <BasicTable />
       </PreviewBlock>
-      <h3 id="accent" className={subheading}>
-        Accent
-      </h3>
-      <p className={paragraph}>
-        Set <code>variant="accent"</code> on TableHeader to use the selected theme accent. Header text adapts through
-        Lithos's contrast engine. Change the theme accent to see the header update in light and Obsidian modes.
-      </p>
-      <PreviewBlock code={tableExampleCode(accentSource)}>
+    </DocExample>
+
+    <DocExample
+      id="accent"
+      title="Accent"
+      description={
+        <>
+          Set <Code text='variant="accent"' /> on TableHeader to use the selected theme accent. Header text adapts
+          through Lithos's contrast engine. Change the theme accent to see the header update in light and Obsidian
+          modes.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(AccentTableSource)}>
         <AccentTable />
       </PreviewBlock>
-      <h3 id="table-states" className={subheading}>
-        States
-      </h3>
-      <p className={paragraph}>
-        Use Preview state to switch between inventory, loading, empty, and error views. This demo combines compact,
-        striped rows with a sticky header and loading feedback. Add product and Retry restore the sample inventory.
-      </p>
-      <PreviewBlock code={tableExampleCode(statesSource)}>
+    </DocExample>
+
+    <DocExample
+      id="table-states"
+      title="States"
+      description={
+        <>
+          Use Preview state to switch between inventory, loading, empty, and error views. This demo combines compact,
+          striped rows with a sticky header and loading feedback. Add product and Retry restore the sample inventory.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(TableStatesSource)}>
         <TableStates />
       </PreviewBlock>
-      <h3 id="sortable-table" className={subheading}>
-        Sorting
-      </h3>
-      <p className={paragraph}>
-        Activate the Amount header to sort invoices from lowest to highest or highest to lowest. Amounts are sorted
-        numerically, and the direction is shown by an arrow and announced to assistive technology.
-      </p>
+    </DocExample>
+
+    <DocExample
+      id="sortable-table"
+      title="Sorting"
+      description={
+        <>
+          Activate the Amount header to sort invoices from lowest to highest or highest to lowest. Amounts are sorted
+          numerically, and the direction is shown by an arrow and announced to assistive technology.
+        </>
+      }
+    >
       <PreviewBlock code={tableExampleCode(sortableSource)}>
         <SortableTable />
       </PreviewBlock>
-      <h3 id="grouped-headers" className={subheading}>
-        Grouped Headers
-      </h3>
-      <p className={paragraph}>
-        Group Online and Retail under Units sold while Product spans both header rows. Scroll the table to see both
-        header rows stay visible together.
-      </p>
-      <PreviewBlock code={tableExampleCode(groupedHeadersSource)}>
+    </DocExample>
+
+    <DocExample
+      id="grouped-headers"
+      title="Grouped Headers"
+      description={
+        <>
+          Group Online and Retail under Units sold while Product spans both header rows. Scroll the table to see both
+          header rows stay visible together.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(GroupedHeadersTableSource)}>
         <GroupedHeadersTable />
       </PreviewBlock>
-      <h3 id="responsive" className={subheading}>
-        Responsive
-      </h3>
-      <p className={paragraph}>
-        Adjust the width slider to move lower-priority columns into expandable row details. Use each row's chevron to
-        reveal the hidden values. The layout responds to its container, including narrow panels on a desktop.
-      </p>
-      <PreviewBlock code={tableExampleCode(responsiveSource)}>
+    </DocExample>
+
+    <DocExample
+      id="responsive"
+      title="Responsive"
+      description={
+        <>
+          Adjust the width slider to move lower-priority columns into expandable row details. Use each row's chevron to
+          reveal the hidden values. The layout responds to its container, including narrow panels on a desktop.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(ResponsiveTableSource)}>
         <ResponsiveTable />
       </PreviewBlock>
-      <h3 id="bulk-actions" className={subheading}>
-        Bulk Actions
-      </h3>
-      <p className={paragraph}>
-        Select invoices across pages, then duplicate or delete the selection. The header checkbox selects only the
-        current page; selections remain when sorting or filtering. Edit is available when exactly one invoice is
-        selected. Action icons appear only while at least one invoice is selected.
-      </p>
-      <p className={paragraph}>
-        Changes stay in this demo. Duplicate preserves the current page, filter, and sort, so new rows may appear on
-        another page or be hidden by the filter. Toast notifications identify the affected invoices, including
-        selections outside the current view.
-      </p>
-      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, bulkActionsSource)}>
+    </DocExample>
+
+    <DocExample
+      id="bulk-actions"
+      title="Bulk Actions"
+      description={
+        <>
+          Select invoices across pages, then duplicate or delete the selection. The header checkbox selects only the
+          current page; selections remain when sorting or filtering. Edit is available when exactly one invoice is
+          selected. Action icons appear only while at least one invoice is selected. Changes stay in this demo.
+          Duplicate preserves the current page, filter, and sort, so new rows may appear on another page or be hidden by
+          the filter. Toast notifications identify the affected invoices, including selections outside the current view.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, BulkActionsTableSource)}>
         <BulkActionsTable />
       </PreviewBlock>
-      <h3 id="row-actions" className={subheading}>
-        Row Actions
-      </h3>
-      <p className={paragraph}>
-        Add an invoice or use a row's icon buttons to view details, edit the customer name, duplicate, or delete it.
-        View opens a dialog; Duplicate appends a row with a new ID and briefly shows a check. Changes stay in this demo.
-      </p>
-      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, rowActionsSource)}>
+    </DocExample>
+
+    <DocExample
+      id="row-actions"
+      title="Row Actions"
+      description={
+        <>
+          Add an invoice or use a row's icon buttons to view details, edit the customer name, duplicate, or delete it.
+          View opens a dialog; Duplicate appends a row with a new ID and briefly shows a check. Changes stay in this
+          demo.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, RowActionsTableSource)}>
         <RowActionsTable />
       </PreviewBlock>
-      <h3 id="dropdown-actions" className={subheading}>
-        Dropdown Actions
-      </h3>
-      <p className={paragraph}>
-        Open a row's menu to view details, edit the customer name, duplicate, or delete that invoice. The menu opens
-        outside the scroll container to avoid clipping and supports keyboard navigation. Changes stay in this demo.
-      </p>
-      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, dropdownSource)}>
+    </DocExample>
+
+    <DocExample
+      id="dropdown-actions"
+      title="Dropdown Actions"
+      description={
+        <>
+          Open a row's menu to view details, edit the customer name, duplicate, or delete that invoice. The menu opens
+          outside the scroll container to avoid clipping and supports keyboard navigation. Changes stay in this demo.
+        </>
+      }
+    >
+      <PreviewBlock code={tableExampleCode(hookSource, actionsSource, DropdownActionsTableSource)}>
         <DropdownActionsTable />
       </PreviewBlock>
-    </section>
-    <h2 id="anatomy" className={heading}>
-      Anatomy
-    </h2>
-    <div className="mb-12">
+    </DocExample>
+
+    <DocSection>
+      <DocHeading id="anatomy">Anatomy</DocHeading>
       <CodeViewer
         language="tsx"
         code={`<TableContainer>
@@ -223,44 +284,51 @@ export const TableDoc = () => (
   </Table>
 </TableContainer>`}
       />
-    </div>
-    <h2 id="accessibility" className={heading}>
-      Accessibility
-    </h2>
-    <ul className="mb-8 list-disc ps-6 space-y-3 font-body leading-relaxed">
-      <li>
-        Name the scroll region and give the table a caption or accessible label. Use scope on column and row headers.
-      </li>
-      <li>
-        Keep native table semantics. Sorting buttons and selection checkboxes provide keyboard interaction; rows are not
-        clickable controls.
-      </li>
-      <li>
-        TableRow selection is visual. Use labeled checkboxes to expose selection, and aria-sort on the active sorted
-        header.
-      </li>
-      <li>
-        Loading uses aria-busy with a status message outside the busy table. Empty and error rows span the current
-        number of visible columns.
-      </li>
-      <li>
-        For sticky headers, set a max-height on TableContainer. The entire header group sticks together, including
-        multi-row headers. Separate borders preserve the header divider while scrolling.
-      </li>
-      <li>
-        Text alignment follows writing direction. Use text-end and tabular-nums for numeric columns. Apply
-        whitespace-nowrap selectively, and break-all for unbroken identifiers where needed.
-      </li>
-      <li>
-        Use a portal-based Dropdown or Popover for menus that must escape the scroll container. Keep adequate contrast
-        when customizing cell or row colors.
-      </li>
-    </ul>
-    <h2 id="api" className={heading}>
-      API Reference
-    </h2>
-    <PropsAccordion title="Table Props" data={tablePropsData} />
-    <PropsAccordion title="TableContainer Props" data={tableContainerPropsData} />
-    <PropsAccordion title="Table Parts" data={tablePartsPropsData} />
+    </DocSection>
+
+    <DocSection>
+      <DocHeading id="accessibility">Accessibility</DocHeading>
+      <DocList>
+        <li>
+          Name the scroll region and give the table a caption or accessible label. Use scope on column and row headers.
+        </li>
+        <li>
+          Keep native table semantics. Sorting buttons and selection checkboxes provide keyboard interaction; rows are
+          not clickable controls.
+        </li>
+        <li>
+          TableRow selection is visual. Use labeled checkboxes to expose selection, and aria-sort on the active sorted
+          header.
+        </li>
+        <li>
+          Loading uses aria-busy with a status message outside the busy table. Empty and error rows span the current
+          number of visible columns.
+        </li>
+        <li>
+          For sticky headers, set a max-height on TableContainer. The entire header group sticks together, including
+          multi-row headers. Separate borders preserve the header divider while scrolling.
+        </li>
+        <li>
+          Text alignment follows writing direction. Use text-end and tabular-nums for numeric columns. Apply
+          whitespace-nowrap selectively, and break-all for unbroken identifiers where needed.
+        </li>
+        <li>
+          Use a portal-based Dropdown or Popover for menus that must escape the scroll container. Keep adequate contrast
+          when customizing cell or row colors.
+        </li>
+      </DocList>
+    </DocSection>
+
+    <DocSection>
+      <DocHeading id="api">API Reference</DocHeading>
+      <DocCallout>
+        <strong>Note:</strong> Border radius is configurable globally via the <code>--lithos-radius</code> CSS token, or
+        per-instance via <Code text="className" />.
+      </DocCallout>
+
+      <PropsAccordion title="Table Props" data={tablePropsData} />
+      <PropsAccordion title="TableContainer Props" data={tableContainerPropsData} />
+      <PropsAccordion title="Table Parts" data={tablePartsPropsData} />
+    </DocSection>
   </div>
 )

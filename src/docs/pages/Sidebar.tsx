@@ -2,16 +2,26 @@ import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { CodeViewer } from '../../components/ui/CodeViewer'
 import { SetupGuide } from '../layout/SetupGuide'
 import { PropsAccordion } from '../../components/ui/PropsTable'
-import { Typography } from '../../components/ui/Typography'
 
 import { removeImports } from '../examples/removeImports'
 import { ExamplePermanent } from '../examples/sidebar/permanent'
 import { ExampleMini } from '../examples/sidebar/mini'
 import { ExampleRightMini } from '../examples/sidebar/miniRight'
 
-import examplePermanentSource from '../examples/sidebar/permanent.tsx?raw'
-import exampleMiniSource from '../examples/sidebar/mini.tsx?raw'
+import examplePermanentSource from '../examples/sidebar/permanent?raw'
+import exampleMiniSource from '../examples/sidebar/mini?raw'
 import exampleRightMiniSource from '../examples/sidebar/miniRight?raw'
+
+import {
+  DocHeader,
+  DocCallout,
+  DocHeading,
+  DocExample,
+  DocLeadText,
+  DocList,
+  DocSection,
+  Code,
+} from '../layout/DocPage'
 
 import {
   useSidebarReturnPropsData,
@@ -25,6 +35,7 @@ import {
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/sidebar/Sidebar.tsx'
 const sidebarPath = '../../components/ui/Sidebar'
+
 const componentNames = [
   'Sidebar',
   'SidebarContent',
@@ -63,30 +74,22 @@ const usageRightMini = {
   manualPath,
 }
 
-export const SidebarDoc = () => {
-  return (
-    <div className="max-w-5xl mx-auto px-6">
-      <header className="mt-0">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-6">
-          Sidebar
-        </h1>
-        <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
-          A flexible navigation panel supporting permanent and collapsible mini modes with neo-brutalist styling.
-        </p>
-        <hr className="border-t-2 border-(--lithos-border) mt-6 mb-6" />
-      </header>
+export const SidebarDoc = () => (
+  <div className="max-w-5xl mx-auto px-6">
+    <DocHeader
+      title="Sidebar"
+      description="A flexible navigation panel supporting permanent and collapsible mini modes with neo-brutalist styling."
+    />
 
-      <section className="mb-12">
-        <p className="mb-8 text-lg md:text-xl text-(--lithos-text) max-w-3xl font-body">
-          The Sidebar component structures application layouts by grouping navigation links and controls. It supports a
-          static permanent layout as well as a collapsible mini mode for space-constrained interfaces.
-        </p>
-      </section>
+    <DocSection>
+      <DocLeadText>
+        The Sidebar component structures application layouts by grouping navigation links and controls. It supports a
+        static permanent layout as well as a collapsible mini mode for space-constrained interfaces.
+      </DocLeadText>
+    </DocSection>
 
-      <h2 id="installation" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Installation
-      </h2>
-
+    <DocSection>
+      <DocHeading id="installation">Installation</DocHeading>
       <SetupGuide
         slug="sidebar"
         componentNames={['Sidebar', 'SidebarContent', 'SidebarTrigger', 'SidebarItem', 'useSidebar']}
@@ -102,65 +105,60 @@ export const SidebarDoc = () => {
           'core/hooks/useResizer.ts',
         ]}
       />
+    </DocSection>
 
-      <h2 id="examples" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Examples
-      </h2>
+    <DocHeading id="examples">Examples</DocHeading>
 
-      <h3 id="permanent" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Permanent
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        The default mode. The sidebar remains strictly visible at its full expanded width. Recommended for large desktop
-        screens where navigation space is plentiful.
-      </p>
+    <DocExample
+      id="permanent"
+      title="Permanent"
+      description={
+        <>
+          The default mode. The sidebar remains strictly visible at its full expanded width. Recommended for large
+          desktop screens where navigation space is plentiful.
+        </>
+      }
+    >
+      <PreviewBlock code={usagePermanent} githubUrl={githubUrl} className="overflow-x-auto">
+        <ExamplePermanent />
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={usagePermanent} githubUrl={githubUrl} className="overflow-x-auto">
-          <ExamplePermanent />
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="mini"
+      title="Mini"
+      description={
+        <>
+          Allows toggling between an expanded state and a compact icon-only view using the <code>SidebarTrigger</code>{' '}
+          component.
+        </>
+      }
+    >
+      <PreviewBlock code={usageMini} githubUrl={githubUrl}>
+        <ExampleMini />
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="mini" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Mini
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Allows toggling between an expanded state and a compact icon-only view using the <code>SidebarTrigger</code>{' '}
-        component.
-      </p>
+    <h3 id="right-placement" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
+      Right placement
+    </h3>
+    <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
+      Positions the sidebar on the right side of the layout using the <code>placement="right"</code> prop. It
+      automatically adjusts internal element alignment, reverses icon directions, and aligns tooltips to keep the UI
+      intuitive.
+    </p>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={usageMini} githubUrl={githubUrl}>
-          <ExampleMini />
-        </PreviewBlock>
-      </div>
+    <div className="mt-8 mb-16">
+      <PreviewBlock code={usageRightMini} githubUrl={githubUrl}>
+        <ExampleRightMini />
+      </PreviewBlock>
+    </div>
 
-      <h3 id="right-placement" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Right placement
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Positions the sidebar on the right side of the layout using the <code>placement="right"</code> prop. It
-        automatically adjusts internal element alignment, reverses icon directions, and aligns tooltips to keep the UI
-        intuitive.
-      </p>
-
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={usageRightMini} githubUrl={githubUrl}>
-          <ExampleRightMini />
-        </PreviewBlock>
-      </div>
-
-      <h2 id="anatomy" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Anatomy
-      </h2>
-      <div className="mb-12">
-        <p className="mb-4 text-lg md:text-xl text-(--lithos-text) max-w-3xl font-body">
-          Sidebar is a compound component. Combine its structural primitives to compose custom headers, navigation
-          items, and collapse triggers.
-        </p>
-        <CodeViewer
-          language="tsx"
-          code={`<Sidebar>
+    <DocSection>
+      <DocHeading id="anatomy">Anatomy</DocHeading>
+      <CodeViewer
+        language="tsx"
+        code={`<Sidebar>
   <SidebarContent>
 
     <SidebarHeader>
@@ -171,49 +169,41 @@ export const SidebarDoc = () => {
     <SidebarItem></SidebarItem>
   </SidebarContent>
 </Sidebar>`}
-        />
-      </div>
+      />
+    </DocSection>
 
-      <section className="mt-12 mb-12">
-        <h2 id="accessibility" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          Accessibility
-        </h2>
-        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
-          <li>
-            Supports semantic HTML landmark roles (<code>aside</code>, <code>nav</code>, <code>section</code>) via the{' '}
-            <code>role</code> prop.
-          </li>
-          <li>
-            <Typography variant="code">SidebarItem</Typography> leverages the native{' '}
-            <Typography variant="code">Button</Typography> component to maintain keyboard focus indicators and click
-            handling.
-          </li>
-          <li>
-            Labels are displayed as <Typography variant="code">Tooltip</Typography>s in the{' '}
-            <Typography variant="code">SidebarItem</Typography>s when the{' '}
-            <Typography variant="code">Sidebar</Typography> is closed.
-          </li>
-        </ul>
-      </section>
+    <DocSection>
+      <DocHeading id="accessibility">Accessibility</DocHeading>
+      <DocList>
+        <li>
+          Supports semantic HTML landmark roles (<code>aside</code>, <code>nav</code>, <code>section</code>) via the{' '}
+          <Code text="role" /> prop.
+        </li>
+        <li>
+          <Code text="SidebarItem" /> leverages the native <Code text="Button" /> primitive to maintain keyboard focus
+          indicators and click handling.
+        </li>
+        <li>
+          Labels are displayed as <Code text="Tooltip" />s in the <Code text="SidebarItem" />s when the{' '}
+          <Code text="Sidebar" /> is closed.
+        </li>
+      </DocList>
+    </DocSection>
 
-      <section className="mb-12">
-        <h2 id="api" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          API Reference
-        </h2>
+    <DocSection>
+      <DocHeading id="api">API Reference</DocHeading>
+      <DocCallout>
+        <strong>Note:</strong> Border styles and theme colors are powered globally via <code>--lithos-border</code> and{' '}
+        <code>--lithos-surface</code> CSS variables. Override container layouts via <Code text="className" />.
+      </DocCallout>
 
-        <div className="mb-6 p-4 border-l-4 border-(--lithos-accent) bg-(--lithos-surface) text-sm font-body text-(--lithos-text)">
-          <strong>Note:</strong> Border styles and theme colors are powered globally via <code>--lithos-border</code>{' '}
-          and <code>--lithos-surface</code> CSS variables. Override container layouts via <code>className</code>.
-        </div>
-
-        <PropsAccordion title="Sidebar Props" data={sidebarPropsData} />
-        <PropsAccordion title="SidebarContent Props" data={sidebarContentPropsData} />
-        <PropsAccordion title="SidebarTrigger Props" data={sidebarTriggerPropsData} />
-        <PropsAccordion title="SidebarItem Props" data={sidebarItemPropsData} />
-        <PropsAccordion title="SidebarHeader Props" data={sidebarHeaderPropsData} />
-        <PropsAccordion title="SidebarTitle Props" data={sidebarTitlePropsData} />
-        <PropsAccordion title="useSidebar return" data={useSidebarReturnPropsData} isHook />
-      </section>
-    </div>
-  )
-}
+      <PropsAccordion title="Sidebar Props" data={sidebarPropsData} />
+      <PropsAccordion title="SidebarContent Props" data={sidebarContentPropsData} />
+      <PropsAccordion title="SidebarTrigger Props" data={sidebarTriggerPropsData} />
+      <PropsAccordion title="SidebarItem Props" data={sidebarItemPropsData} />
+      <PropsAccordion title="SidebarHeader Props" data={sidebarHeaderPropsData} />
+      <PropsAccordion title="SidebarTitle Props" data={sidebarTitlePropsData} />
+      <PropsAccordion title="useSidebar return" data={useSidebarReturnPropsData} isHook />
+    </DocSection>
+  </div>
+)

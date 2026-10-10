@@ -1,233 +1,148 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { CodeViewer } from '../../components/ui/CodeViewer'
-import { Accordion, AccordionGroup } from '../../components/ui/Accordion'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { SetupGuide } from '../layout/SetupGuide'
 import { accordionPropsData, accordionGroupPropsData } from '../propsData/accordion'
+import { removeImports } from '../examples/removeImports'
+
+import { DocHeader, DocCallout, DocHeading, DocExample, DocLeadText, DocList, DocSection } from '../layout/DocPage'
+
+import { DefaultExample } from '../examples/accordion/default'
+import DefaultExampleSource from '../examples/accordion/default?raw'
+
+import { DefaultGrouped } from '../examples/accordion/groupedDefault'
+import DefaultGrouppedSource from '../examples/accordion/groupedDefault?raw'
+
+import { GroupedMultiple } from '../examples/accordion/groupedMultiple'
+import GroupedMultipleSource from '../examples/accordion/groupedMultiple?raw'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Accordion.tsx'
 const manualPath = '../../components/ui/Accordion'
 
-export const AccordionDoc = () => {
-  const usageCode = {
-    body: `export const FAQItem = () => {
-  return (
-    <Accordion title='Is Lithos UI really free forever?'>
-      Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire architecture and all components are open-source.
-    </Accordion>
-  )
-}`,
-    componentNames: ['Accordion'],
-    manualPath,
-  }
+const usageCode = {
+  body: removeImports(DefaultExampleSource),
+  componentNames: ['Accordion'],
+  manualPath,
+}
 
-  const groupedCode = {
-    body: `export const FAQItem = () => {
-  return (
-    <AccordionGroup>
-      <Accordion title='Is Lithos UI really free forever?'>
-        Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire architecture and all components are open-source.
-      </Accordion>
-      <Accordion title='Is this just a fork of shadcn/ui?'>
-        No. Lithos UI is a wholly original architecture. While it shares the philosophy of copy-paste components, it is built on its own foundation: the Zero-Gap layout system, an automated YIQ contrast engine, and universal specificity overrides. It is engineered from scratch for structural stability, not cloned.
-      </Accordion>
-      <Accordion title='What is the Zero-Gap rule?'>
-        The Zero-Gap layout system means we strictly avoid CSS \`gap\` utilities for core layouts. Instead, we use explicit mathematically proportional margins to ensure perfect geometric stacking and rendering predictability across all viewports without flex/grid wrapping failures.
-      </Accordion>
-    </AccordionGroup>
-  )
-}`,
-    componentNames: ['Accordion', 'AccordionGroup'],
-    manualPath,
-  }
+const groupedCode = {
+  body: removeImports(DefaultGrouppedSource),
+  componentNames: ['Accordion', 'AccordionGroup'],
+  manualPath,
+}
 
-  const groupedMultipleCode = {
-    body: `export const FAQItem = () => {
-  return (
-    <AccordionGroup defaultActive={['faq-1', 'faq-3']} allowMultiple>
-      <Accordion title='Is Lithos UI really free forever?' value='faq-1'>
-        Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire architecture and all components are open-source.
-      </Accordion>
-      <Accordion title='Is this just a fork of shadcn/ui?' value='faq-2'>
-        No. Lithos UI is a wholly original architecture. While it shares the philosophy of copy-paste components, it is built on its own foundation: the Zero-Gap layout system, an automated YIQ contrast engine, and universal specificity overrides. It is engineered from scratch for structural stability, not cloned.
-      </Accordion>
-      <Accordion title='What is the Zero-Gap rule?' value='faq-3'>
-        The Zero-Gap layout system means we strictly avoid CSS \`gap\` utilities for core layouts. Instead, we use explicit mathematically proportional margins to ensure perfect geometric stacking and rendering predictability across all viewports without flex/grid wrapping failures.
-      </Accordion>
-    </AccordionGroup>
-  )
-}`,
-    componentNames: ['Accordion', 'AccordionGroup'],
-    manualPath,
-  }
+const groupedMultipleCode = {
+  body: removeImports(GroupedMultipleSource),
+  componentNames: ['Accordion', 'AccordionGroup'],
+  manualPath,
+}
 
-  return (
-    <div className="max-w-5xl mx-auto px-6">
-      <header className="mt-0">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-8">
-          Accordion
-        </h1>
-        <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
-          A vertically stacked set of interactive headings that expand and collapse content sections.
-        </p>
-        <hr className="border-t-2 border-(--lithos-border) mt-8 mb-8" />
-      </header>
+export const AccordionDoc = () => (
+  <div className="max-w-5xl mx-auto px-6">
+    <DocHeader
+      title="Accordion"
+      description="A vertically stacked set of interactive headings that expand and collapse content sections."
+    />
 
-      <section className="mb-12">
-        <p className="mb-8 text-lg md:text-xl text-(--lithos-text) max-w-3xl font-body">
-          The Accordion is a compound primitive designed for progressive disclosure. It supports standalone uncontrolled
-          usage or grouped co-op behavior with single or multi-item selection.
-        </p>
-      </section>
+    <DocSection>
+      <DocLeadText>
+        The Accordion is a compound primitive designed for progressive disclosure. It supports standalone uncontrolled
+        usage or grouped co-op behavior with single or multi-item selection.
+      </DocLeadText>
+      <DocCallout>
+        When using inside an AccordionGroup, ensure each Accordion receives a unique value prop to properly sync state.
+      </DocCallout>
+    </DocSection>
 
-      <div className="border-l-4 border-(--lithos-accent) pl-6 py-2 mb-8 bg-(--lithos-surface) p-4">
-        <p className="text-sm font-bold font-body opacity-80 text-(--lithos-text)">
-          When using inside an AccordionGroup, ensure each Accordion receives a unique value prop to properly sync
-          state.
-        </p>
-      </div>
-
-      <h2 id="installation" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Installation
-      </h2>
-
+    <DocSection>
+      <DocHeading id="installation">Installation</DocHeading>
       <SetupGuide
         slug="accordion"
         componentNames={['Accordion', 'AccordionGroup']}
         manualPath={manualPath}
         requires={['utils/cn.ts', 'components/ui/Button.tsx', 'components/ui/icons/IconChevronUp.tsx']}
       />
+    </DocSection>
 
-      <h2 id="examples" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Examples
-      </h2>
+    <DocHeading id="examples">Examples</DocHeading>
 
-      <h3 id="default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Default
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to create a single, independently expanding collapsible section for hiding supplementary content. It
-        renders as a bordered block with a chevron icon that rotates upon opening. Clicking the header toggles the
-        content visibility with a smooth expansion. Standard ARIA attributes (<code>aria-expanded</code>,{' '}
-        <code>aria-controls</code>) are automatically managed for screen reader support.
-      </p>
+    <DocExample
+      id="default"
+      title="Default"
+      description={
+        <>
+          Use this to create a single, independently expanding collapsible section for hiding supplementary content. It
+          renders as a bordered block with a chevron icon that rotates upon opening. Standard ARIA attributes (
+          <code>aria-expanded</code>, <code>aria-controls</code>) are automatically managed.
+        </>
+      }
+    >
+      <PreviewBlock code={usageCode} githubUrl={githubUrl}>
+        <DefaultExample />
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={usageCode} githubUrl={githubUrl}>
-          <Accordion title="Is Lithos UI really free forever?">
-            Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire
-            architecture and all components are open-source.
-          </Accordion>
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="grouped-default"
+      title="Grouped default"
+      description={
+        <>
+          Use this to manage multiple accordions where only one panel should be open at a time. Synchronizes states
+          across children. Requires a unique <code>value</code> prop on each child.
+        </>
+      }
+    >
+      <PreviewBlock code={groupedCode} githubUrl={githubUrl}>
+        <DefaultGrouped />
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="grouped-default" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Grouped default
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to manage multiple accordions where only one panel should be open at a time (standard accordion
-        behavior). It wraps multiple accordions to synchronize their states, rendering them as a stacked list. Clicking
-        an unopened panel automatically closes the previously active one. Requires a unique <code>value</code> prop on
-        each child. Keyboard navigation behaves standardly.
-      </p>
+    <DocExample
+      id="grouped-multiple"
+      title="Grouped multiple"
+      description={
+        <>
+          Allows multiple panels within the group to remain open at the same time using the <code>allowMultiple</code>{' '}
+          prop.
+        </>
+      }
+    >
+      <PreviewBlock code={groupedMultipleCode} githubUrl={githubUrl}>
+        <GroupedMultiple />
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={groupedCode} githubUrl={githubUrl}>
-          <AccordionGroup defaultActive="faq-1">
-            <Accordion title="Is Lithos UI really free forever?" value="faq-1">
-              Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire
-              architecture and all components are open-source.
-            </Accordion>
-            <Accordion title="Is this just a fork of shadcn/ui?" value="faq-2">
-              No. Lithos UI is a wholly original architecture. While it shares the philosophy of copy-paste components,
-              it is built on its own foundation: the Zero-Gap layout system, an automated YIQ contrast engine, and
-              universal specificity overrides. It is engineered from scratch for structural stability, not cloned.
-            </Accordion>
-            <Accordion title="What is the Zero-Gap rule?" value="faq-3">
-              The Zero-Gap layout system means we strictly avoid CSS `gap` utilities for core layouts. Instead, we use
-              explicit mathematically proportional margins to ensure perfect geometric stacking and rendering
-              predictability across all viewports without flex/grid wrapping failures.
-            </Accordion>
-          </AccordionGroup>
-        </PreviewBlock>
-      </div>
+    <DocSection>
+      <DocHeading id="anatomy">Anatomy</DocHeading>
+      <CodeViewer language="tsx" code={`<AccordionGroup>\n  <Accordion />\n</AccordionGroup>`} />
+    </DocSection>
 
-      <h3 id="grouped-multiple" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Grouped multiple
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this when users need to compare content across multiple sections simultaneously. It allows multiple panels
-        within the group to remain open at the same time. The visual design is identical to the grouped default, but
-        state synchronization is bypassed by providing the <code>allowMultiple</code> prop. Interaction and
-        accessibility remain fully supported.
-      </p>
+    <DocSection>
+      <DocHeading id="accessibility">Accessibility</DocHeading>
+      <DocList>
+        <li>
+          Uses <code>aria-expanded</code> to indicate the open/closed state of the accordion panel.
+        </li>
+        <li>
+          Uses <code>aria-controls</code> to link the button to the expandable content region.
+        </li>
+        <li>
+          Implements <code>aria-hidden</code> on the content region when collapsed.
+        </li>
+        <li>
+          Relies on the native <code>Button</code> element for proper keyboard focus management.
+        </li>
+      </DocList>
+    </DocSection>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={groupedMultipleCode} githubUrl={githubUrl}>
-          <AccordionGroup defaultActive={['faq-1', 'faq-3']} allowMultiple>
-            <Accordion title="Is Lithos UI really free forever?" value="faq-1">
-              Yes. Absolutely free, forever. There is no paid tier, no 'Pro' version, and no locked features. The entire
-              architecture and all components are open-source.
-            </Accordion>
-            <Accordion title="Is this just a fork of shadcn/ui?" value="faq-2">
-              No. Lithos UI is a wholly original architecture. While it shares the philosophy of copy-paste components,
-              it is built on its own foundation: the Zero-Gap layout system, an automated YIQ contrast engine, and
-              universal specificity overrides. It is engineered from scratch for structural stability, not cloned.
-            </Accordion>
-            <Accordion title="What is the Zero-Gap rule?" value="faq-3">
-              The Zero-Gap layout system means we strictly avoid CSS `gap` utilities for core layouts. Instead, we use
-              explicit mathematically proportional margins to ensure perfect geometric stacking and rendering
-              predictability across all viewports without flex/grid wrapping failures.
-            </Accordion>
-          </AccordionGroup>
-        </PreviewBlock>
-      </div>
-
-      <h2 id="anatomy" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Anatomy
-      </h2>
-      <div className="mb-12">
-        <CodeViewer
-          language="tsx"
-          code={`<AccordionGroup>
-  <Accordion />
-</AccordionGroup>`}
-        />
-      </div>
-
-      <section className="mb-12">
-        <h2 id="accessibility" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          Accessibility
-        </h2>
-        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
-          <li>
-            Uses <code>aria-expanded</code> to indicate the open/closed state of the accordion panel.
-          </li>
-          <li>
-            Uses <code>aria-controls</code> to link the button to the expandable content region.
-          </li>
-          <li>
-            Implements <code>aria-hidden</code> on the content region when collapsed.
-          </li>
-          <li>
-            Relies on the native <code>Button</code> element for proper keyboard focus management.
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-12">
-        <h2 id="api" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          API Reference
-        </h2>
-        <div className="mb-6 p-4 border-l-4 border-(--lithos-accent) bg-(--lithos-surface) text-sm font-body text-(--lithos-text)">
-          <strong>Note:</strong> Border radius is configurable globally via the <code>--lithos-radius</code> CSS token,
-          or per-instance via <code>className</code> (e.g. <code>rounded-full</code>). No custom prop is required.
-        </div>
-        <PropsAccordion title="Accordion Props" data={accordionPropsData} />
-        <div className="mt-4">
-          <PropsAccordion title="AccordionGroup Props" data={accordionGroupPropsData} />
-        </div>
-      </section>
-    </div>
-  )
-}
+    <DocSection>
+      <DocHeading id="api">API Reference</DocHeading>
+      <DocCallout>
+        <strong>Note:</strong> Border radius is configurable globally via the <code>--lithos-radius</code> CSS token, or
+        per-instance via <code>className</code>.
+      </DocCallout>
+      <PropsAccordion title="Accordion Props" data={accordionPropsData} />
+      <PropsAccordion title="AccordionGroup Props" data={accordionGroupPropsData} className="mt-4" />
+    </DocSection>
+  </div>
+)

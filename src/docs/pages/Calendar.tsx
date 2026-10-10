@@ -1,162 +1,82 @@
-import { useState } from 'react'
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
-import { Calendar } from '../../components/ui/Calendar'
-import type { CalendarValue } from '../../components/ui/calendar/calendar.types'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import { SetupGuide } from '../layout/SetupGuide'
 import { calendarPropsData } from '../propsData/calendar'
+import { removeImports } from '../examples/removeImports'
+
+import { SingleCalendar } from '../examples/calendar/single'
+import SingleCalendarSource from '../examples/calendar/single?raw'
+
+import { MultipleCalendar } from '../examples/calendar/multiple'
+import MultipleCalendarSource from '../examples/calendar/multiple?raw'
+
+import { MultiColorCalendar } from '../examples/calendar/multicolor'
+import MultiColorCalendarSource from '../examples/calendar/multicolor?raw'
+
+import { RainbowCalendar } from '../examples/calendar/rainbow'
+import RainbowCalendarSource from '../examples/calendar/rainbow?raw'
+
+import { RangeCalendar } from '../examples/calendar/range'
+import RangeCalendarSource from '../examples/calendar/range?raw'
+
+import { DisabledDatesCalendar } from '../examples/calendar/disabledDates'
+import DisabledDatesCalendarSource from '../examples/calendar/disabledDates?raw'
+
+import { BoundedYearsCalendar } from '../examples/calendar/boundedYears'
+import BoundedYearsCalendarSource from '../examples/calendar/boundedYears?raw'
+
+import { ControlledCalendar } from '../examples/calendar/controlled'
+import ControlledCalendarSource from '../examples/calendar/controlled?raw'
+
+import { DocHeader, DocCallout, DocHeading, DocExample, DocLeadText, DocList, DocSection } from '../layout/DocPage'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Calendar.tsx'
+const componentNames = ['Calendar']
+const manualPath = '../../components/ui/Calendar'
 
-const singleCode = {
-  body: `export const SingleCalendar = () => {
-  return <Calendar mode='single' />
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const multipleCode = {
-  body: `export const MultipleCalendar = () => {
-  return <Calendar mode='multiple' />
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const multiColorCode = {
-  body: `const gymColors = [
-  { dates: [4, 5], color: '#ff6b6b' },
-  { dates: [17, 18, 19], color: '#4dabf7' },
-]
-
-export const MultiColorCalendar = () => {
-  return (
-    <Calendar
-      mode='multiple'
-      dateColors={gymColors}
-    />
-  )
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const rainbowCode = {
-  body: `export const RainbowCalendar = () => {
-  return <Calendar mode="rainbow" />
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const rangeCode = {
-  body: `export const RangeCalendar = () => {
-  return <Calendar mode='range' />
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const disabledDatesCode = {
-  body: `const bookedDates = [10, 11, 18]
-
-export const DisabledDatesCalendar = () => {
-  return (
-    <Calendar
-      mode='single'
-      disabledDates={bookedDates}
-      minDate={new Date()}
-    />
-  )
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
-
-const boundedYearsCode = {
-  body: `export const BoundedYearsCalendar = () => {
-  return <Calendar mode='single' yearRange={[1940, new Date().getFullYear()]} />
-}`,
-  componentNames: ['Calendar'],
-  manualPath: '../../components/ui/Calendar',
-}
+const getCode = (source: string) => ({
+  body: removeImports(source),
+  componentNames,
+  manualPath,
+})
 
 const controlledCode = {
-  body: `export const ControlledCalendar = () => {
-  const [value, setValue] = useState<CalendarValue>(null)
-  const [month, setMonth] = useState(new Date())
-
-  return (
-    <Calendar
-      mode='single'
-      value={value}
-      onChange={setValue}
-      month={month}
-      onMonthChange={setMonth}
-    />
-  )
-}`,
+  body: removeImports(ControlledCalendarSource),
   componentNames: ['Calendar', 'useState', 'CalendarValue'],
   manualPath: {
     react: ['useState'],
-    others: '../../components/ui/Calendar',
+    others: manualPath,
   },
   types: ['CalendarValue'],
 }
 
-const ControlledCalendar = () => {
-  const [controlledValue, setControlledValue] = useState<CalendarValue>(null)
-  const [controlledMonth, setControlledMonth] = useState(new Date())
-
-  return (
-    <Calendar
-      mode="single"
-      value={controlledValue}
-      onChange={setControlledValue}
-      month={controlledMonth}
-      onMonthChange={setControlledMonth}
+export const CalendarDoc = () => (
+  <div className="max-w-5xl mx-auto px-6">
+    <DocHeader
+      title="Calendar"
+      description="A date grid for picking single dates, multiple dates, or ranges — with month/year jump, bounds, and disabled
+          dates."
     />
-  )
-}
 
-export const CalendarDoc = () => {
-  return (
-    <div className="max-w-5xl mx-auto px-6">
-      <header className="mt-0">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-(--lithos-text) mb-8">
-          Calendar
-        </h1>
-        <p className="mt-2 text-lg md:text-xl font-display opacity-70 text-(--lithos-text)">
-          A date grid for picking single dates, multiple dates, or ranges — with month/year jump, bounds, and disabled
-          dates.
-        </p>
-        <hr className="border-t-2 border-(--lithos-border) mt-8 mb-8" />
-      </header>
+    <DocSection>
+      <DocLeadText>
+        Calendar supports three selection modes via the <code>mode</code> prop: <code>single</code> for one date,{' '}
+        <code>multiple</code> for any set of individual dates, and <code>range</code> for a contiguous start-to-end
+        span. The displayed month and the selection are independently controlled or uncontrolled, so jumping years via
+        the header selects never disturbs the current selection.
+      </DocLeadText>
+      <DocCallout>
+        Pass <code>disabledDates</code>, <code>minDate</code>, or <code>maxDate</code> to block off booked or
+        out-of-range days. Disabled days are unclickable and skipped by keyboard navigation.
+      </DocCallout>
+    </DocSection>
 
-      <section className="mb-12">
-        <p className="mb-8 text-lg md:text-xl text-(--lithos-text) max-w-3xl font-body">
-          Calendar supports three selection modes via the <code>mode</code> prop: <code>single</code> for one date,{' '}
-          <code>multiple</code> for any set of individual dates, and <code>range</code> for a contiguous start-to-end
-          span. The displayed month and the selection are independently controlled or uncontrolled, so jumping years via
-          the header selects never disturbs the current selection.
-        </p>
-      </section>
-
-      <div className="border-l-4 border-(--lithos-accent) pl-6 py-2 mb-8 bg-(--lithos-surface) p-4">
-        <p className="text-sm font-bold font-body opacity-80 text-(--lithos-text)">
-          Pass <code>disabledDates</code>, <code>minDate</code>, or <code>maxDate</code> to block off booked or
-          out-of-range days. Disabled days are unclickable and skipped by keyboard navigation.
-        </p>
-      </div>
-
-      <h2 id="installation" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Installation
-      </h2>
-
+    <DocSection>
+      <DocHeading id="installation">Installation</DocHeading>
       <SetupGuide
-        componentNames={['Calendar']}
-        manualPath="../../components/ui/Calendar"
+        slug="calendar"
+        componentNames={componentNames}
+        manualPath={manualPath}
         requires={[
           'utils/cn.ts',
           'utils/yiq.ts',
@@ -167,186 +87,186 @@ export const CalendarDoc = () => {
           'components/ui/icons/IconChevronLeft.tsx',
         ]}
       />
+    </DocSection>
 
-      <h2 id="examples" className="mt-12 mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-        Examples
-      </h2>
+    <DocHeading id="examples">Examples</DocHeading>
 
-      <h3 id="single" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Single
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to select a single specific date from the calendar grid. It renders the standard monthly calendar
-        interface. Selecting a new date unselects the previous one. Does not limit bounds unless min/max props are
-        provided. Keyboard navigable via standard arrow keys; selected dates use <code>aria-pressed</code>.
-      </p>
+    <DocExample
+      id="single"
+      title="Single"
+      description={
+        <>
+          Use this to select a single specific date from the calendar grid. It renders the standard monthly calendar
+          interface. Selecting a new date unselects the previous one. Does not limit bounds unless min/max props are
+          provided. Keyboard navigable via standard arrow keys; selected dates use <code>aria-pressed</code>.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(SingleCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <SingleCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={singleCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="single" />
-          </div>
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="multiple"
+      title="Multiple"
+      description={
+        <>
+          Use this when the user needs to select several unconnected dates, such as picking individual days for an event
+          schedule. It allows multiple selection within the same grid. Clicking an already selected date toggles it off.
+          Navigation and accessibility behavior match the single selection mode.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(MultipleCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <MultipleCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="multiple" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Multiple
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this when the user needs to select several unconnected dates, such as picking individual days for an event
-        schedule. It allows multiple selection within the same grid. Clicking an already selected date toggles it off.
-        Navigation and accessibility behavior match the single selection mode.
-      </p>
+    <DocExample
+      id="multicolor"
+      title="Multicolor"
+      description={
+        <>
+          Use this to visually categorize selected dates into distinct groups, such as different shift types or
+          availability tiers. It accepts an array of objects mapping specific dates to custom hex colors. The YIQ
+          contrast engine ensures readability inside the colored selection indicators. Behavior is identical to multiple
+          selection mode.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(MultiColorCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <MultiColorCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={multipleCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="multiple" />
-          </div>
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="rainbow"
+      title="Rainbow"
+      description={
+        <>
+          Use this for playful or highly specific visual differentiation where each selected date is assigned a random
+          or sequential color. It behaves exactly like multiple selection but automatically applies a diverse color
+          palette to the selected dates. Does not alter structural layout or ARIA states.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(RainbowCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <RainbowCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="multicolor" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Multicolor
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to visually categorize selected dates into distinct groups, such as different shift types or
-        availability tiers. It accepts an array of objects mapping specific dates to custom hex colors. The YIQ contrast
-        engine ensures readability inside the colored selection indicators. Behavior is identical to multiple selection
-        mode.
-      </p>
+    <DocExample
+      id="range"
+      title="range"
+      description={
+        <>
+          Use this when the user needs to select a contiguous block of dates, such as a booking period or filter range.
+          It requires two clicks: one for the start date and one for the end date, visually connecting all dates in
+          between. Hovering before the second click highlights the prospective range.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(RangeCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <RangeCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={multiColorCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar
-              mode="multiple"
-              dateColors={[
-                { dates: [4, 5], color: '#ff6b6b' },
-                { dates: [17, 18, 19], color: '#4dabf7' },
-              ]}
-            />
-          </div>
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="disabled-dates"
+      title="Disabled dates"
+      description={
+        <>
+          Use this to prevent selection of specific days, such as past dates, fully booked days, or holidays. Pass an
+          array of dates or bounds to make them unclickable. They render with reduced opacity and a crossed-out visual
+          style. Disabled dates are explicitly marked with <code>aria-disabled="true"</code> for screen readers.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(DisabledDatesCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <DisabledDatesCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="rainbow" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Rainbow
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this for playful or highly specific visual differentiation where each selected date is assigned a random or
-        sequential color. It behaves exactly like multiple selection but automatically applies a diverse color palette
-        to the selected dates. Does not alter structural layout or ARIA states.
-      </p>
+    <DocExample
+      id="bounded-years"
+      title="Bounded years"
+      description={
+        <>
+          Use this to constrain the year dropdown navigation to a specific range, such as historical data (e.g., [1940,
+          2024]). It limits the selectable years in the header dropdown menu without affecting the month grid layout.
+          Prevents out-of-bounds navigation.
+        </>
+      }
+    >
+      <PreviewBlock code={getCode(BoundedYearsCalendarSource)} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <BoundedYearsCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={rainbowCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="rainbow" />
-          </div>
-        </PreviewBlock>
-      </div>
+    <DocExample
+      id="controlled"
+      title="Controlled"
+      description={
+        <>
+          Use this to explicitly manage the calendar's internal state (selected dates and visible month) from a parent
+          component. Pass <code>value</code> and <code>month</code> alongside their respective change handlers. Visually
+          identical to uncontrolled variants, but guarantees sync with external state logic.
+        </>
+      }
+    >
+      <PreviewBlock code={controlledCode} githubUrl={githubUrl}>
+        <div className="scale-[0.85] sm:scale-100">
+          <ControlledCalendar />
+        </div>
+      </PreviewBlock>
+    </DocExample>
 
-      <h3 id="range" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Range
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this when the user needs to select a contiguous block of dates, such as a booking period or filter range. It
-        requires two clicks: one for the start date and one for the end date, visually connecting all dates in between.
-        Hovering before the second click highlights the prospective range.
-      </p>
+    <DocSection>
+      <DocHeading id="accessibility">Accessibility</DocHeading>
+      <DocList>
+        <li>
+          Uses <code>role="grid"</code>, <code>role="row"</code>, and <code>role="gridcell"</code> to create a
+          semantically correct grid structure.
+        </li>
+        <li>
+          Uses <code>display: contents</code> on rows to preserve the zero-gap grid layout while maintaining standard
+          ARIA parent-child relationships.
+        </li>
+        <li>
+          Uses <code>aria-selected</code> on the gridcells to indicate active selections.
+        </li>
+        <li>
+          Applies <code>aria-disabled</code> to dates out of bounds or marked as disabled.
+        </li>
+        <li>
+          Fully keyboard navigable (arrow keys to move between days, PageUp/PageDown for months, Home/End for week
+          boundaries).
+        </li>
+      </DocList>
+    </DocSection>
 
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={rangeCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="range" />
-          </div>
-        </PreviewBlock>
-      </div>
-
-      <h3 id="disabled-dates" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Disabled dates
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to prevent selection of specific days, such as past dates, fully booked days, or holidays. Pass an
-        array of dates or bounds to make them unclickable. They render with reduced opacity and a crossed-out visual
-        style. Disabled dates are explicitly marked with <code>aria-disabled="true"</code> for screen readers.
-      </p>
-
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={disabledDatesCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="single" disabledDates={[10, 11, 18]} minDate={new Date()} />
-          </div>
-        </PreviewBlock>
-      </div>
-
-      <h3 id="bounded-years" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Bounded years
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to constrain the year dropdown navigation to a specific range, such as historical data (e.g., [1940,
-        2024]). It limits the selectable years in the header dropdown menu without affecting the month grid layout.
-        Prevents out-of-bounds navigation.
-      </p>
-
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={boundedYearsCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <Calendar mode="single" yearRange={[1940, new Date().getFullYear()]} />
-          </div>
-        </PreviewBlock>
-      </div>
-
-      <h3 id="controlled" className="mb-4 text-xl font-black tracking-tight text-(--lithos-text)">
-        Controlled
-      </h3>
-      <p className="text-base text-(--lithos-text) max-w-3xl font-body mb-4 opacity-80">
-        Use this to explicitly manage the calendar's internal state (selected dates and visible month) from a parent
-        component. Pass <code>value</code> and <code>month</code> alongside their respective change handlers. Visually
-        identical to uncontrolled variants, but guarantees sync with external state logic.
-      </p>
-
-      <div className="mt-8 mb-16">
-        <PreviewBlock code={controlledCode} githubUrl={githubUrl}>
-          <div className="scale-[0.85] sm:scale-100">
-            <ControlledCalendar />
-          </div>
-        </PreviewBlock>
-      </div>
-
-      <section className="mb-12">
-        <h2 id="accessibility" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          Accessibility
-        </h2>
-        <ul className="list-disc pl-6 text-lg font-body text-(--lithos-text)">
-          <li>
-            Uses <code>role="grid"</code>, <code>role="row"</code>, and <code>role="gridcell"</code> to create a
-            semantically correct grid structure.
-          </li>
-          <li>
-            Uses <code>display: contents</code> on rows to preserve the zero-gap grid layout while maintaining standard
-            ARIA parent-child relationships.
-          </li>
-          <li>
-            Uses <code>aria-selected</code> on the gridcells to indicate active selections.
-          </li>
-          <li>
-            Applies <code>aria-disabled</code> to dates out of bounds or marked as disabled.
-          </li>
-          <li>
-            Fully keyboard navigable (arrow keys to move between days, PageUp/PageDown for months, Home/End for week
-            boundaries).
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-12">
-        <h2 id="api" className="mb-4 text-2xl font-black tracking-tight text-(--lithos-text)">
-          API Reference
-        </h2>
-        <PropsAccordion title="Calendar Props" data={calendarPropsData} />
-      </section>
-    </div>
-  )
-}
+    <DocSection>
+      <DocHeading id="api">API Reference</DocHeading>
+      <DocCallout>
+        <strong>Note:</strong> Border radius is configurable globally via the <code>--lithos-radius</code> CSS token, or
+        per-instance via <code>className</code>.
+      </DocCallout>
+      <PropsAccordion title="Calendar Props" data={calendarPropsData} />
+    </DocSection>
+  </div>
+)

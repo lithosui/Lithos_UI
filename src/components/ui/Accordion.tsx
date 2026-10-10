@@ -8,32 +8,96 @@ import { Button } from './Button'
 import { cn, type LithosClass } from '../../utils/cn'
 import { IconChevronUp } from './icons/IconChevronUp'
 
-interface AccordionContextType {
+/**
+ * Context payload provided by `AccordionGroup` to manage accordion state across multiple items.
+ */
+export interface AccordionContextType {
+  /**
+   * Toggles the open/closed state of a specific accordion item by its identifier.
+   */
   toggleItem: (item: string) => void
+  /**
+   * Checks whether a specific accordion item is currently expanded.
+   */
   isItemOpen: (value: string) => boolean
+}
+
+/**
+ * Props for the `Accordion` component.
+ */
+export interface AccordionProps extends Omit<ComponentPropsWithRef<'div'>, 'title' | 'className'> {
+  /**
+   * Initial expanded state when used standalone in uncontrolled mode.
+   * @default false
+   */
+  defaultOpen?: boolean | undefined
+
+  /**
+   * Content displayed inside the accordion header trigger.
+   */
+  title: ReactNode
+
+  /**
+   * Custom CSS class names applied to internal structural slots.
+   */
+  classes?: {
+    /** Classes for the outer container element. */
+    container?: LithosClass
+
+    /** Classes for the header trigger button. */
+    header?: LithosClass
+
+    /** Classes for the expandable content container. */
+    content?: LithosClass
+  }
+
+  /**
+   * Controls the expanded state externally (controlled mode).
+   */
+  open?: boolean
+
+  /**
+   * Unique identifier for the item when wrapped within an `AccordionGroup`.
+   */
+  value?: string
+
+  /**
+   * Class name for the outer container element (shortcut/override for `classes.container`).
+   */
+  className?: LithosClass
+}
+
+/**
+ * Props for the `AccordionGroup` component.
+ */
+export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+  /**
+   * Allows multiple accordion items to remain open simultaneously.
+   * @default false
+   */
+  allowMultiple?: boolean
+
+  /**
+   * Identifier(s) of the item(s) to be expanded initially.
+   * Pass a string for single mode, or an array of strings when `allowMultiple` is `true`.
+   */
+  defaultActive?: string | string[]
+
+  /**
+   * Class name applied to the group wrapper element.
+   */
+  className?: LithosClass
 }
 
 const AccordionContext = createContext<AccordionContextType | null>(null)
 
-export interface AccordionProps extends Omit<ComponentPropsWithRef<'div'>, 'title' | 'className'> {
-  defaultOpen?: boolean | undefined
-  title: ReactNode
-  classes?: {
-    container?: LithosClass
-    header?: LithosClass
-    content?: LithosClass
-  }
-  open?: boolean
-  value?: string
-  className?: LithosClass
-}
-
-export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  allowMultiple?: boolean
-  defaultActive?: string | string[]
-  className?: LithosClass
-}
-
+/**
+ * Container component that coordinates state across multiple `Accordion` items.
+ * Handles single-expansion vs. multi-expansion modes via context.
+ *
+ * @param props - Component props for controlling active items and grouping layout.
+ * @returns An accordion group provider wrapping child elements.
+ */
 export const AccordionGroup = ({
   allowMultiple = false,
   children,
@@ -89,6 +153,13 @@ const defaultClasses = {
   header: 'justify-between text-lg text-start p-3 rounded-none',
 }
 
+/**
+ * An expandable/collapsible content disclosure panel.
+ * Supports controlled, uncontrolled, and grouped modes.
+ *
+ * @param props - Customization and state props for the accordion item.
+ * @returns An accessible accordion item with animated disclosure panel.
+ */
 export const Accordion = ({
   defaultOpen = false,
   open,
