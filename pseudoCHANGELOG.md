@@ -26,10 +26,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - **Toast:** Added JSDoc comments to the `Toast` types and the `addToast` function now
   accepts a `label` that is used on the `Toast` close button. ([#357](https://github.com/lithosui/Lithos_UI/pull/357))
+- The `Dialog` hook was renamed from `useDialogContext` to `useDialog`.
+- Renamed the `useDropdown` context interface from `DropdownContext` to `DropdownContextType`.
+- Renamed `AddonAlign` type to `InputAddonAlign` and now it's exported.
+- The `Table` primitive now exports the `TableElementProps` type.
 
 ### Fixed (0.1.3)
 
 - The `Tooltip` arrow appeared detached from the floating element when using a non-sharp radius.
+- Added missing default value of the `backdropClass` `Drawer` prop
+  _('bg-black/50')_
 
 ### Removed (0.1.3)
 
