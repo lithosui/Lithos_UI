@@ -1,4 +1,4 @@
-![Lithos UI logo](public\full_logo.webp)
+![Lithos UI logo](public/full_logo.webp)
 
 **Build frontends that refuse to break.**
 
