@@ -14,6 +14,7 @@ import { Alert } from '../components/ui/Alert'
 import { Accordion } from '../components/ui/Accordion'
 import { Breadcrumb } from '../components/ui/Breadcrumb'
 import { Calendar } from '../components/ui/Calendar'
+import { DatePicker } from '../components/ui/DatePicker'
 import { Carousel, CarouselSlide } from '../components/ui/Carousel'
 import { Checkbox } from '../components/ui/Checkbox'
 import {
@@ -362,6 +363,15 @@ const componentsList = [
     name: 'Command',
     to: '/docs/command',
     preview: <CommandPreview />,
+  },
+  {
+    name: 'Date Picker',
+    to: '/docs/date-picker',
+    preview: (
+      <div className="w-[120%] scale-[0.7] origin-center pointer-events-none">
+        <DatePicker placeholder="Pick date" />
+      </div>
+    ),
   },
   {
     name: 'Dialog',
