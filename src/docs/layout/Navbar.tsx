@@ -32,6 +32,7 @@ const groupedLinks = [
       { label: 'Carousel', href: '/docs/carousel' },
       { label: 'Checkbox', href: '/docs/checkbox' },
       { label: 'Command', href: '/docs/command' },
+      { label: 'Date Picker', href: '/docs/date-picker' },
       { label: 'Dialog', href: '/docs/dialog' },
       { label: 'Drawer', href: '/docs/drawer' },
       { label: 'Dropdown', href: '/docs/dropdown' },

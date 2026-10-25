@@ -22,6 +22,7 @@ import { TemplatePreviewPage } from './pages/TemplatePreviewPage'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { ButtonDoc } from './docs/pages/Button'
 import { CalendarDoc } from './docs/pages/Calendar'
+import { DatePickerDoc } from './docs/pages/DatePicker'
 import { CardDoc } from './docs/pages/Card'
 import { CarouselDoc } from './docs/pages/Carousel'
 import { CheckboxDoc } from './docs/pages/Checkbox'
@@ -87,6 +88,7 @@ const renderDocRoutes = () => {
     { path: 'breadcrumb', component: BreadcrumbDoc },
     { path: 'button', component: ButtonDoc },
     { path: 'calendar', component: CalendarDoc },
+    { path: 'date-picker', component: DatePickerDoc },
     { path: 'card', component: CardDoc },
     { path: 'carousel', component: CarouselDoc },
     { path: 'icons', component: IconsDoc },
