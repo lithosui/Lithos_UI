@@ -17,6 +17,7 @@ const components = [
   'carousel',
   'checkbox',
   'command',
+  'date-picker',
   'dialog',
   'drawer',
   'dropdown',
