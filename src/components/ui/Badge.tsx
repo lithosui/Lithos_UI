@@ -3,12 +3,11 @@
  * - Dynamic contrast text resolution based on YIQ color space calculated from custom HEX or preset variant backgrounds.
  * - Integrates theme-aware accentColor fallback with hard-edged neo-brutalist border and shadow geometry.
  */
-import type { ComponentPropsWithRef } from 'react'
 import { getContrastText } from '../../utils/yiq'
 import { colors } from '../../utils/colors'
 import { useAccentColor } from '../../core/useAccentColor'
-import type { HexColor } from '../../core/types'
-import { cn, type LithosClass } from '../../utils/cn'
+import type { HexColor, LithosElementProps } from '../../core/types'
+import { cn } from '../../utils/cn'
 
 /**
  * Size scale variant determining padding and typography dimensions for the badge.
@@ -23,17 +22,12 @@ export type BadgeIntents = 'default' | 'accent' | 'success' | 'error' | 'warning
 /*
  * Props for the `Badge` component.
  */
-export interface BadgeProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+export interface BadgeProps extends LithosElementProps<'span'> {
   /**
    * Semantic style intent variant.
    * @default 'default'
    */
   intent?: BadgeIntents
-
-  /**
-   * Custom CSS class names applied to the badge container.
-   */
-  className?: LithosClass
 
   /**
    * Size scale for spacing and typography.
@@ -75,14 +69,14 @@ export const Badge = ({
   const contrastedColor = getContrastText(bgColor)
 
   const classes = cn(
-    'uppercase font-(--font-mono) font-bold border-2 border-(--lithos-border) shadow-[1px_1px_0_0_var(--lithos-border)] py-1 w-max rounded-(--lithos-radius)',
+    'inline-flex items-center uppercase font-(--font-mono) font-bold border-2 border-(--lithos-border) shadow-[1px_1px_0_0_var(--lithos-border)] py-1 w-max rounded-(--lithos-radius)',
     sizeStyles[size],
     className
   )
 
   return (
-    <div className={classes} style={{ backgroundColor: bgColor, color: contrastedColor }} {...props}>
+    <span className={classes} style={{ backgroundColor: bgColor, color: contrastedColor }} {...props}>
       {children}
-    </div>
+    </span>
   )
 }
