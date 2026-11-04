@@ -13,7 +13,7 @@ import { CheckboxGroupContext } from './useCheckboxGroup'
 /**
  * Internal base component rendering the standard checkbox box, label, and interactive states.
  *
- * @param props - Base checkbox properties including showCheck toggle and styling configuration.
+ * @param props - Base checkbox properties including showCheck toggle and styling configuration. - {@link BaseCheckboxProps}
  * @returns Checkbox container label element.
  */
 export const BaseCheckbox = ({

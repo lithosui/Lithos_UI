@@ -84,7 +84,7 @@ const sizeStyles: Record<AlertSize, { container: string; title: string; headerGa
  * Inline persistent notification plaque component featuring neo-brutalist styling,
  * dynamic contrast calculation, and optional action buttons.
  *
- * @param props - Alert configuration props including intent, variant, size, title, and callbacks.
+ * @param props - Alert configuration props including intent, variant, size, title, and callbacks. - {@link AlertProps}
  * @returns Persistent alert container element.
  */
 export const Alert = ({

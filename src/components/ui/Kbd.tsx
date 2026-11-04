@@ -64,7 +64,7 @@ const variantStyles: Record<KbdVariant, string> = {
 /**
  * Keyboard key primitive component featuring neo-brutalist mechanical keycap styling and YIQ contrast integrity.
  *
- * @param props - Keycap properties including sizes, variants, custom colors, and children.
+ * @param props - Keycap properties including sizes, variants, custom colors, and children. - {@link KbdProps}
  * @returns Kbd element.
  */
 export const Kbd = ({ children, size = 'md', variant = 'default', color, className, style, ...rest }: KbdProps) => {
@@ -97,7 +97,7 @@ export const Kbd = ({ children, size = 'md', variant = 'default', color, classNa
  * KbdGroup lays out multiple `Kbd` primitives together in keyboard shortcut sequences.
  * Adheres strictly to the Zero-Gap Rule using explicit margins and support for attached strips.
  *
- * @param props - Group properties including attached layout toggles and custom classes.
+ * @param props - Group properties including attached layout toggles and custom classes. - {@link KbdGroupProps}
  * @returns Group container element.
  */
 export const KbdGroup = ({ attached = false, className, children, ...rest }: KbdGroupProps) => {

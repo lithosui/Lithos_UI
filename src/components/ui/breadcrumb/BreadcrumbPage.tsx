@@ -8,7 +8,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Non-interactive text span component indicating the current active page in the breadcrumb trail.
  *
- * @param props - Span element attributes and styling.
+ * @param props - Span element attributes and styling. - {@link BreadcrumbPageProps}
  * @returns Active page span indicator element.
  */
 export const BreadcrumbPage = ({ className, children, ...rest }: BreadcrumbPageProps) => {

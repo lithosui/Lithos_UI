@@ -11,7 +11,7 @@ import type { DrawerTitleProps } from './drawer.types'
 /**
  * Heading title component for drawers linked to accessibility attributes.
  *
- * @param props - Drawer title properties including IDs, custom classes, and text children.
+ * @param props - Drawer title properties including IDs, custom classes, and text children. - {@link DrawerTitleProps}
  * @returns Heading h2 element or DialogTitle when in responsive desktop mode.
  */
 export const DrawerTitle = ({ id, className, children, ...props }: DrawerTitleProps) => {

@@ -13,7 +13,7 @@ import { CheckboxGroupContext } from './useCheckboxGroup'
 /**
  * Icon toggle checkbox component swapping visual icon states for like/favorite interactions.
  *
- * @param props - Icon checkbox configuration properties including custom icon components.
+ * @param props - Icon checkbox configuration properties including custom icon components. - {@link IconCheckboxProps}
  * @returns Icon toggle container element.
  */
 export const IconCheckbox = ({

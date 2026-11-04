@@ -9,7 +9,7 @@ import { useCommand } from './CommandContext'
 /**
  * Empty results feedback component displayed when search queries return zero matching options.
  *
- * @param props - Empty container properties including custom message children and styling classes.
+ * @param props - Empty container properties including custom message children and styling classes. - {@link CommandEmptyProps}
  * @returns Empty status feedback element or null if results exist or palette is closed.
  */
 export const CommandEmpty = ({ className, children = 'No results found.', ...rest }: CommandEmptyProps) => {

@@ -11,7 +11,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Header title bar component for modal dialogs featuring optional icons and close triggers.
  *
- * @param props - Header configuration properties including leading icons, hideClose flags, and title content.
+ * @param props - Header configuration properties including leading icons, hideClose flags, and title content. - {@link DialogHeaderProps}
  * @returns Header container element.
  */
 export const DialogHeader = ({ icon, hideClose = false, className, children, ...rest }: DialogHeaderProps) => {

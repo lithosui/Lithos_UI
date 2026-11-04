@@ -15,7 +15,7 @@ import type { TabsProps, TabsListProps, TabsTriggerProps, TabsContentProps } fro
 /**
  * Root Tabs component that provides state management and context for subcomponents.
  *
- * @param props - {@link TabsProps}
+ * @param props - Tabs properties for controlled selection and visual variant. - {@link TabsProps}
  * @returns The rendered Tabs root wrapper.
  */
 export const Tabs = ({
@@ -59,7 +59,7 @@ export const Tabs = ({
 /**
  * Container component for tab triggers.
  *
- * @param props - {@link TabsListProps}
+ * @param props - Tab list element properties and styling. - {@link TabsListProps}
  * @returns The rendered tab list container.
  */
 export const TabsList = ({ className, children, ...rest }: TabsListProps) => {
@@ -85,7 +85,7 @@ export const TabsList = ({ className, children, ...rest }: TabsListProps) => {
 /**
  * Button component that activates a specific tab panel.
  *
- * @param props - {@link TabsTriggerProps}
+ * @param props - Tab trigger properties for its associated tab value and button attributes. - {@link TabsTriggerProps}
  * @returns The rendered tab trigger button.
  */
 export const TabsTrigger = ({ value, className, children, ...rest }: TabsTriggerProps) => {
@@ -127,7 +127,7 @@ export const TabsTrigger = ({ value, className, children, ...rest }: TabsTrigger
 /**
  * Panel component that renders content when its associated tab trigger is active.
  *
- * @param props - {@link TabsContentProps}
+ * @param props - Tab panel properties for its associated value and content. - {@link TabsContentProps}
  * @returns The rendered tab content panel or null if inactive.
  */
 export const TabsContent = ({ value, className, children, ...rest }: TabsContentProps) => {

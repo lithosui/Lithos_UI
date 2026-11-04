@@ -52,7 +52,7 @@ const sizeStyles = {
  * Inline status indicator badge component featuring neo-brutalist styling,
  * monospace uppercase typography, and automated contrast text resolution.
  *
- * @param props - Badge configuration props including size, intent, color, and children content.
+ * @param props - Badge configuration props including size, intent, color, and children content. - {@link BadgeProps}
  * @returns Status badge container element.
  */
 export const Badge = ({

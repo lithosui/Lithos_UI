@@ -16,7 +16,7 @@ import { IconArrowUp } from '../icons/IconArrowUp'
 /**
  * Direction-aware interactive button component for triggering carousel slide transitions.
  *
- * @param props - Configuration properties including direction, label, and click handler.
+ * @param props - Configuration properties including direction, label, and click handler. - {@link CarouselButtonProps}
  * @returns Button navigation element.
  */
 export const CarouselButton = ({ direction = 'forwards', children, label, onClick, ...props }: CarouselButtonProps) => {
@@ -48,7 +48,7 @@ const DEFAULT_NEXT_LABEL = 'Next slide'
 /**
  * Previous slide navigation trigger button component.
  *
- * @param props - Button properties.
+ * @param props - Button properties. - {@link ButtonVariantProp}
  * @returns Previous navigation button element.
  */
 export const CarouselPrev = (props: ButtonVariantProp) => (
@@ -58,7 +58,7 @@ export const CarouselPrev = (props: ButtonVariantProp) => (
 /**
  * Next slide navigation trigger button component.
  *
- * @param props - Button properties.
+ * @param props - Button properties. - {@link ButtonVariantProp}
  * @returns Next navigation button element.
  */
 export const CarouselNext = (props: ButtonVariantProp) => (

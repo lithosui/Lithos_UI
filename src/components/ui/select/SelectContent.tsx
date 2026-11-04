@@ -19,7 +19,7 @@ import type { SelectContentProps } from './select.types'
 /**
  * Floating panel content viewport component for select dropdowns featuring keyboard navigation, typeahead, and optional list virtualization.
  *
- * @param props - Content properties including virtualization thresholds, item heights, and looping flags.
+ * @param props - Content properties including virtualization thresholds, item heights, and looping flags. - {@link SelectContentProps}
  * @returns Floating options container element.
  */
 export const SelectContent = ({

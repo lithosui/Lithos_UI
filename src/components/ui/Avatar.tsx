@@ -99,7 +99,7 @@ const getInitials = (value: string) =>
 /**
  * Avatar component used to display user profile pictures or fallback initials.
  *
- * @param props - {@link AvatarProps}
+ * @param props - Avatar properties for image content, initials, visual variant, and size. - {@link AvatarProps}
  * @returns The rendered avatar element.
  */
 export const Avatar = ({
@@ -147,7 +147,7 @@ export const Avatar = ({
 /**
  * AvatarGroupCount component used to display the remaining overflow count in an avatar group.
  *
- * @param props - {@link AvatarGroupCountProps}
+ * @param props - Avatar count properties for the displayed total and size. - {@link AvatarGroupCountProps}
  * @returns The rendered overflow count element.
  */
 export const AvatarGroupCount = ({ count, size = 'md', className = '', ...props }: AvatarGroupCountProps) => {
@@ -167,7 +167,7 @@ export const AvatarGroupCount = ({ count, size = 'md', className = '', ...props 
 /**
  * AvatarGroup component used to display a clustered group of avatars with an optional overflow count.
  *
- * @param props - {@link AvatarGroupProps}
+ * @param props - Avatar group properties for the items, visible limit, and size. - {@link AvatarGroupProps}
  * @returns The rendered group of avatars.
  */
 export const AvatarGroup = ({ items, max = 4, size = 'md', className = '', ...props }: AvatarGroupProps) => {

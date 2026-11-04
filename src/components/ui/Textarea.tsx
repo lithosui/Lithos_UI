@@ -1,6 +1,6 @@
 import type { LithosElementProps } from '../../core/types'
 import { createContext, useContext, useEffect, useId, useMemo, useState } from 'react'
-import type { ComponentPropsWithRef, Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import { cn } from '../../utils/cn'
 import { colors } from '../../utils/colors'
 
@@ -94,12 +94,18 @@ export const Textarea = ({
   )
 }
 
-export interface FieldProps extends ComponentPropsWithRef<'div'> {
+/** Props for the `Field` wrapper, including the optional control ID. */
+export interface FieldProps extends LithosElementProps<'div'> {
   /** ID of the labeled control. Generated automatically when omitted. */
   controlId?: string
 }
 
-/** Groups a Textarea with its label and optional description. */
+/**
+ * Groups a Textarea with its label and optional description.
+ *
+ * @param props - Wrapper properties including the optional control ID and children. - {@link FieldProps}
+ * @returns A field context wrapper.
+ */
 export const Field = ({ controlId, className, children, ...props }: FieldProps) => {
   const generatedId = useId()
   const id = controlId ?? generatedId
@@ -118,8 +124,16 @@ export const Field = ({ controlId, className, children, ...props }: FieldProps) 
   )
 }
 
-/** Native label connected to the Textarea inside Field. */
-export const FieldLabel = ({ className, htmlFor, ...props }: Omit<ComponentPropsWithRef<'label'>, 'color'>) => {
+/** Props for the `FieldLabel` native label element. */
+export type FieldLabelProps = Omit<LithosElementProps<'label'>, 'color'>
+
+/**
+ * Native label connected to the Textarea inside Field.
+ *
+ * @param props - Label properties, including native label attributes. - {@link FieldLabelProps}
+ * @returns A label associated with the field control.
+ */
+export const FieldLabel = ({ className, htmlFor, ...props }: FieldLabelProps) => {
   const field = useContext(FieldContext)
   return (
     <label
@@ -130,8 +144,16 @@ export const FieldLabel = ({ className, htmlFor, ...props }: Omit<ComponentProps
   )
 }
 
-/** Helper or validation text linked automatically to the Textarea inside Field. */
-export const FieldDescription = ({ className, ...props }: Omit<ComponentPropsWithRef<'p'>, 'id' | 'color'>) => {
+/** Props for the `FieldDescription` helper or validation text. */
+export type FieldDescriptionProps = Omit<LithosElementProps<'p'>, 'id' | 'color'>
+
+/**
+ * Helper or validation text linked automatically to the Textarea inside Field.
+ *
+ * @param props - Description properties, including paragraph attributes. - {@link FieldDescriptionProps}
+ * @returns A paragraph associated with the field control.
+ */
+export const FieldDescription = ({ className, ...props }: FieldDescriptionProps) => {
   const field = useContext(FieldContext)
   const setHasDescription = field?.setHasDescription
   useEffect(() => {

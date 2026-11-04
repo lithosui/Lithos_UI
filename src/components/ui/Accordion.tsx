@@ -86,7 +86,7 @@ const AccordionContext = createContext<AccordionContextType | null>(null)
  * Container component that coordinates state across multiple `Accordion` items.
  * Handles single-expansion vs. multi-expansion modes via context.
  *
- * @param props - Component props for controlling active items and grouping layout.
+ * @param props - Component props for controlling active items and grouping layout. - {@link AccordionGroupProps}
  * @returns An accordion group provider wrapping child elements.
  */
 export const AccordionGroup = ({
@@ -148,7 +148,7 @@ const defaultClasses = {
  * An expandable/collapsible content disclosure panel.
  * Supports controlled, uncontrolled, and grouped modes.
  *
- * @param props - Customization and state props for the accordion item.
+ * @param props - Customization and state props for the accordion item. - {@link AccordionProps}
  * @returns An accessible accordion item with animated disclosure panel.
  */
 export const Accordion = ({

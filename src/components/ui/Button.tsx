@@ -66,7 +66,7 @@ const variantClass: Record<ButtonVariant, string> = {
  * Interactive button component featuring neo-brutalist click physics,
  * semantic variants, optional icon slots, and disabled states.
  *
- * @param props - Button configuration props including variant, type, icons, and event handlers.
+ * @param props - Button configuration props including variant, type, icons, and event handlers. - {@link ButtonProps}
  * @returns Interactive button element.
  */
 export const Button = ({
@@ -131,7 +131,7 @@ export interface ButtonGroupProps extends LithosElementProps<'div'> {
  * `attached` fuses adjacent buttons into a single hard-bordered strip by collapsing the shared
  * border and popping the hovered/focused item's shadow above its neighbors via `z-10`.
  *
- * @param props - Group configuration props including layout mode, attached style, and children.
+ * @param props - Group configuration props including layout mode, attached style, and children. - {@link ButtonGroupProps}
  * @returns Button group container element.
  */
 export const ButtonGroup = ({

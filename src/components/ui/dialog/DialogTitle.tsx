@@ -9,7 +9,7 @@ import { useDialog } from './useDialog'
 /**
  * Heading title component linked to dialog accessibility attributes.
  *
- * @param props - Title properties including custom class names and text children.
+ * @param props - Title properties including custom class names and text children. - {@link DialogTitleProps}
  * @returns Heading h2 element.
  */
 export const DialogTitle = ({ className, children, ...rest }: DialogTitleProps) => {
