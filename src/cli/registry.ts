@@ -722,8 +722,16 @@ export const registry: Record<string, RegistryItem> = {
     slug: 'tabs',
     name: 'Tabs',
     type: 'ui',
-    githubUrl: `${GITHUB_BASE}/components/ui/Tabs.tsx`,
-    requires: ['components/ui/Button.tsx', 'core/types.ts', 'utils/cn.ts', 'utils/yiq.ts'],
+    githubUrl: `${GITHUB_BASE}/components/ui/Tabs.ts`,
+    requires: [
+      'components/ui/Button.tsx',
+      'core/types.ts',
+      'utils/cn.ts',
+      'utils/yiq.ts',
+      'components/ui/tabs/Tabs.tsx',
+      'components/ui/tabs/useTabs.ts',
+      'components/ui/tabs/tabs.types.ts',
+    ],
     dependencies: ['clsx', 'tailwind-merge'],
   },
   'testimonials-1': {

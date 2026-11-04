@@ -3,36 +3,21 @@
  * - Context-driven architecture: manages active state across internal boundaries using React Context.
  * - Supports three visual variants: Default (brutalist block), Underline (clean bottom border), and Vertical (side-stacked list).
  * - Underline variant explicitly strips the base `.lithos-click` borders in favor of a minimal bottom stroke.
- * - Implements native WAI-ARIA roles (\`tablist\`, \`tab\`, \`tabpanel\`) out of the box.
+ * - Implements native WAI-ARIA roles (`tablist`, `tab`, `tabpanel`) out of the box.
  */
-import { createContext, useContext, useState, type ComponentPropsWithRef } from 'react'
-import { cn, type LithosClass } from '../../utils/cn'
-import { Button } from './Button'
 
-interface TabsContextValue {
-  value: string
-  onValueChange: (value: string) => void
-  variant?: 'default' | 'underline' | 'vertical'
-}
+import { useState } from 'react'
+import { cn } from '../../../utils/cn'
+import { Button } from '../Button'
+import { TabsContext, useTabs } from './useTabs'
+import type { TabsProps, TabsListProps, TabsTriggerProps, TabsContentProps } from './tabs.types'
 
-const TabsContext = createContext<TabsContextValue | undefined>(undefined)
-
-const useTabs = () => {
-  const context = useContext(TabsContext)
-  if (!context) {
-    throw new Error('Tabs components must be used within a Tabs provider')
-  }
-  return context
-}
-
-export interface TabsProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  defaultValue?: string
-  value?: string
-  onValueChange?: (value: string) => void
-  variant?: 'default' | 'underline' | 'vertical'
-  className?: LithosClass
-}
-
+/**
+ * Root Tabs component that provides state management and context for subcomponents.
+ *
+ * @param props - {@link TabsProps}
+ * @returns The rendered Tabs root wrapper.
+ */
 export const Tabs = ({
   defaultValue,
   value: controlledValue,
@@ -71,10 +56,12 @@ export const Tabs = ({
   )
 }
 
-export interface TabsListProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  className?: LithosClass
-}
-
+/**
+ * Container component for tab triggers.
+ *
+ * @param props - {@link TabsListProps}
+ * @returns The rendered tab list container.
+ */
 export const TabsList = ({ className, children, ...rest }: TabsListProps) => {
   const { variant } = useTabs()
 
@@ -95,11 +82,12 @@ export const TabsList = ({ className, children, ...rest }: TabsListProps) => {
   )
 }
 
-export interface TabsTriggerProps extends Omit<ComponentPropsWithRef<'button'>, 'className'> {
-  value: string
-  className?: LithosClass
-}
-
+/**
+ * Button component that activates a specific tab panel.
+ *
+ * @param props - {@link TabsTriggerProps}
+ * @returns The rendered tab trigger button.
+ */
 export const TabsTrigger = ({ value, className, children, ...rest }: TabsTriggerProps) => {
   const { value: selectedValue, onValueChange, variant } = useTabs()
   const isSelected = selectedValue === value
@@ -136,11 +124,12 @@ export const TabsTrigger = ({ value, className, children, ...rest }: TabsTrigger
   )
 }
 
-export interface TabsContentProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  value: string
-  className?: LithosClass
-}
-
+/**
+ * Panel component that renders content when its associated tab trigger is active.
+ *
+ * @param props - {@link TabsContentProps}
+ * @returns The rendered tab content panel or null if inactive.
+ */
 export const TabsContent = ({ value, className, children, ...rest }: TabsContentProps) => {
   const { value: selectedValue, variant } = useTabs()
   const isSelected = selectedValue === value
