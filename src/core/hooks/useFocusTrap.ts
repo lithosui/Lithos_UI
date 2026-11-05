@@ -1,5 +1,5 @@
 /**
- * @fileoverview Shared focus-trap behavior for overlay primitives (Dialog today, Popover/Select later).
+ * @fileoverview Shared focus-trap behavior for overlay primitives.
  * - Cycles Tab/Shift+Tab within the container so focus can never escape to the page behind the overlay.
  * - Restores focus to the previously-focused element on deactivation, matching Toast's error-focus pattern.
  */
@@ -8,6 +8,26 @@ import { useEffect, type RefObject } from 'react'
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
+/** Options for the {@link useFocusTrap} hook. */
+export interface FocusTrapOptions {
+  /** Reference to the container element that traps the focus. */
+  containerRef: RefObject<HTMLElement | null>
+
+  /** Flag indicating whether the focus trap is currently active. */
+  active: boolean
+
+  /** Optional reference to the specific element that should receive initial focus upon activation. */
+  initialFocusRef?: RefObject<HTMLElement | null>
+}
+
+/**
+ * A hook that traps keyboard focus within a specified container element.
+ *
+ * - Cycles Tab/Shift+Tab within the container so focus can never escape to the background.
+ * - Restores focus to the previously-focused element upon deactivation.
+ *
+ * @param options - Configuration options provided as {@link FocusTrapOptions}.
+ */
 export const useFocusTrap = (
   containerRef: RefObject<HTMLElement | null>,
   active: boolean,

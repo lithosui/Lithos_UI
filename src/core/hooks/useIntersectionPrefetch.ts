@@ -1,7 +1,14 @@
 import { useEffect, useRef, type RefObject } from 'react'
 
+/** Options for the {@link useIntersectionPrefetch} hook. */
 export interface IntersectionPrefetchProps {
+  /** A function returning a promise that loads the dynamic route or component chunk. */
   importRoute: () => Promise<unknown>
+
+  /**
+   * The margin around the root element to trigger the prefetch early.
+   * @default '200px'
+   * */
   rootMargin?: string | undefined
 }
 
@@ -10,8 +17,8 @@ export interface IntersectionPrefetchProps {
  * when the target element enters or approaches the viewport using an IntersectionObserver.
  *
  * @template T - The HTML element type to attach the ref to (defaults to HTMLElement).
- * @param {IntersectionPrefetchProps} options - Configuration options for the prefetch hook.
- * @returns {RefObject<T | null>} A ref to be attached to the DOM element you want to observe.
+ * @param options - Configuration options provided as {@link IntersectionPrefetchProps}.
+ * @returns A ref to be attached to the DOM element you want to observe.
  */
 export const useIntersectionPrefetch = <T extends HTMLElement = HTMLElement>({
   importRoute,
