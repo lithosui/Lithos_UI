@@ -48,7 +48,7 @@ export const Dialog = ({
   const panelRef = useRef<HTMLDivElement | null>(null)
   const titleId = useId()
 
-  useFocusTrap(panelRef, open, initialFocusRef)
+  useFocusTrap({ containerRef: panelRef, active: open, initialFocusRef })
 
   useEffect(() => {
     if (!open) return

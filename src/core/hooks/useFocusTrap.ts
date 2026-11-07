@@ -13,11 +13,14 @@ export interface FocusTrapOptions {
   /** Reference to the container element that traps the focus. */
   containerRef: RefObject<HTMLElement | null>
 
-  /** Flag indicating whether the focus trap is currently active. */
+  /**
+   * Flag indicating whether the focus trap is currently active.
+   * @default true
+   */
   active: boolean
 
   /** Optional reference to the specific element that should receive initial focus upon activation. */
-  initialFocusRef?: RefObject<HTMLElement | null>
+  initialFocusRef?: RefObject<HTMLElement | null> | undefined
 }
 
 /**
@@ -28,11 +31,7 @@ export interface FocusTrapOptions {
  *
  * @param options - Configuration options provided as {@link FocusTrapOptions}.
  */
-export const useFocusTrap = (
-  containerRef: RefObject<HTMLElement | null>,
-  active: boolean,
-  initialFocusRef?: RefObject<HTMLElement | null> | undefined
-) => {
+export const useFocusTrap = ({ containerRef, active = true, initialFocusRef }: FocusTrapOptions) => {
   useEffect(() => {
     if (!active) return
 
