@@ -22,6 +22,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added evenly and unevenly distributed stepped examples with labeled stops and snapping.
 - Simplified Slider event/style handling and brightness state updates; app filter cleanup now runs when the brightness demo unmounts instead of resetting on each adjustment.
 
+### Changed (0.1.5)
+
+- Added new icons -> `IconAlertCircle`, `IconBell` and `IconInfo`.
+- Added new `Toast` features:
+  - Choose between different transitions: `slide-up`, `slide-down`, `scale`, `face` or `none`.
+  - `ToastProvider` now accepts a `renderToast` prop used to create a custom `Toast` layout. The element returned by that function is wrapped by the `ToastItem`.
+  - Added swipe-on-dismiss feature.
+  - Now the `Toast` time is paused when the toast is not visible. (e.g: Browser tab change)
+  - Added support for icons on the `Toast`, by default they appear on the left of the title. You can costumize it by passing a custom layout.
+  - Now the `addToast` accepts `loading`, `success` and `error` props. These are used to manage async `Toast` messages. If you don't want the `intent` change on success/error pass `preserveIntent: true`.
+  - Added a progress bar that can be enabled by passing `showProgress: true` to the `addToast` function. _(disabled if using an async `Toast`)_
+  - `showProgress`, `transition`, `icon` props can be passed to the `ToastProvider` to use them globally. _(these props can also be passed to the `addToast` to override the global values)_
+
+### Fixed (0.1.5)
+
+- `ToastItem` text color resolution failed if you passed a non hex color.
+
+### Removed (0.1.5)
+
 ## [0.1.4]
 
 ### Added (0.1.4)
