@@ -80,11 +80,11 @@ describe('Badge Component', () => {
     expect(badge).toHaveClass('custom-class', 'shadow-lg')
   })
 
-  it('forwards ref to the underlying div element', () => {
-    const ref = createRef<HTMLDivElement | null>()
+  it('forwards ref to the underlying span element', () => {
+    const ref = createRef<HTMLSpanElement | null>()
     render(<Badge ref={ref}>Ref Badge</Badge>)
 
-    expect(ref.current).toBeInstanceOf(HTMLDivElement)
+    expect(ref.current).toBeInstanceOf(HTMLSpanElement)
     expect(ref.current?.textContent).toBe('Ref Badge')
   })
 

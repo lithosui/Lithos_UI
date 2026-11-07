@@ -15,7 +15,7 @@ import type { DropdownItemProps } from './dropdown.types'
 /**
  * Individual action item button component for dropdown menus.
  *
- * @param props - Item configuration properties including click handlers, disabled states, and children content.
+ * @param props - Item configuration properties including click handlers, disabled states, and children content. - {@link DropdownItemProps}
  * @returns Menu item button element.
  */
 export const DropdownItem = ({ children, disabled, onClick, onKeyDown, className, ...props }: DropdownItemProps) => {

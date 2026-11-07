@@ -24,7 +24,7 @@ import { menuItemClass } from './Dropdown'
 /**
  * Nested submenu container component managing floating sub-panels and hover/focus triggers.
  *
- * @param props - Submenu configuration properties including triggers, placements, and disabled states.
+ * @param props - Submenu configuration properties including triggers, placements, and disabled states. - {@link DropdownSubProps}
  * @returns Nested floating node submenu element.
  */
 export const DropdownSub = ({ children, trigger, placement = 'right-start', disabled, ...props }: DropdownSubProps) => {

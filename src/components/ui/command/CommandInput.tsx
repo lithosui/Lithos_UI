@@ -12,7 +12,7 @@ import { useCommand } from './CommandContext'
 /**
  * Text search input component for filtering command palette options.
  *
- * @param props - Input configuration properties including placeholders, icons, and clear triggers.
+ * @param props - Input configuration properties including placeholders, icons, and clear triggers. - {@link CommandInputProps}
  * @returns Combobox wrapper input element.
  */
 export const CommandInput = ({

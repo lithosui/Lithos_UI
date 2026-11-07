@@ -9,7 +9,7 @@ import type { DropdownGroupProps } from './dropdown.types'
 /**
  * Section container component organizing related dropdown items under optional group headings.
  *
- * @param props - Group configuration properties including section labels and child items.
+ * @param props - Group configuration properties including section labels and child items. - {@link DropdownGroupProps}
  * @returns Group container div element.
  */
 export const DropdownGroup = ({ children, label, className, ...props }: DropdownGroupProps) => {

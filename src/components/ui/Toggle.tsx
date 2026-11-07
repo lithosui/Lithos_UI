@@ -5,7 +5,7 @@
  * - Binary contrast: thumb and track invert as one hard state change.
  */
 import { Button } from './Button'
-import { cn, type LithosClass } from '../../utils/cn'
+import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
 /** Props configuration interface for the `Toggle` component. */
@@ -21,15 +21,12 @@ export interface ToggleProps extends LithosElementProps<'button'> {
    * @default 'Theme Changed'
    */
   label?: string
-
-  /** Custom CSS classes applied to the root button element. */
-  className?: LithosClass
 }
 
 /**
  * Kinetic toggle switch primitive component featuring neo-brutalist track and thumb physics.
  *
- * @param props - Toggle properties including checked states, onToggle handlers, labels, and custom classes.
+ * @param props - Toggle properties including checked states, onToggle handlers, labels, and custom classes. - {@link ToggleProps}
  * @returns Toggle switch button element.
  */
 export const Toggle = ({ checked, onToggle, label = 'Theme Changed', className, ...rest }: ToggleProps) => {

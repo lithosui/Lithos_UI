@@ -18,7 +18,7 @@ import './toast.css'
  * Wraps the application tree to supply `addToast` and `removeToast` functions,
  * rendering active toasts inside a fixed DOM portal.
  *
- * @param props - Configuration props for default duration, position, and children.
+ * @param props - Configuration props for default duration, position, and children. - {@link ToastProviderProps}
  * @returns Provider wrapper with portal rendering for active toast items.
  */
 export const ToastProvider = ({

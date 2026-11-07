@@ -7,11 +7,11 @@
  *   edge stays visible against the page regardless of fill color; `outlined` moves border/shadow
  *   onto the accent color itself since the fill no longer carries it.
  */
-import type { ComponentPropsWithRef, CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { getContrastText } from '../../utils/yiq'
 import { colors } from '../../utils/colors'
-import type { HexColor } from '../../core/types'
-import { cn, type LithosClass } from '../../utils/cn'
+import type { HexColor, LithosElementProps } from '../../core/types'
+import { cn } from '../../utils/cn'
 import { Button } from './Button'
 import { IconUndo } from './icons/IconUndo'
 import { IconClose } from './icons/IconClose'
@@ -34,7 +34,7 @@ export type AlertSize = 'sm' | 'md' | 'lg'
 /**
  * Props for the `Alert` component.
  */
-export interface AlertProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+export interface AlertProps extends LithosElementProps<'div'> {
   /**
    * Semantic style intent variant.
    * @default 'default'
@@ -72,11 +72,6 @@ export interface AlertProps extends Omit<ComponentPropsWithRef<'div'>, 'classNam
    * Callback function triggered when clicking the undo button. Renders the undo button if provided.
    */
   onUndo?: () => void
-
-  /**
-   * Custom CSS class names applied to the alert container.
-   */
-  className?: LithosClass
 }
 
 const sizeStyles: Record<AlertSize, { container: string; title: string; headerGap: string; message: string }> = {
@@ -89,7 +84,7 @@ const sizeStyles: Record<AlertSize, { container: string; title: string; headerGa
  * Inline persistent notification plaque component featuring neo-brutalist styling,
  * dynamic contrast calculation, and optional action buttons.
  *
- * @param props - Alert configuration props including intent, variant, size, title, and callbacks.
+ * @param props - Alert configuration props including intent, variant, size, title, and callbacks. - {@link AlertProps}
  * @returns Persistent alert container element.
  */
 export const Alert = ({

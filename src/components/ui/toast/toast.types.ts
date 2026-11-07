@@ -187,9 +187,6 @@ export interface ToastProviderProps extends ToastSharedOptions, LithosElementPro
 
   /** Custom renderer function for custom toast layouts across the provider. */
   renderToast?: ToastRender
-
-  /** Custom CSS class names applied to the floating toast container wrapper. */
-  className?: LithosClass
 }
 
 /** Context payload contract for dispatching and removing toast notifications. */

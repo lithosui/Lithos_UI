@@ -8,7 +8,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Interactive link component for intermediary breadcrumb path steps.
  *
- * @param props - Anchor element properties including href and click handler.
+ * @param props - Anchor element properties including href and click handler. - {@link BreadcrumbLinkProps}
  * @returns Anchor link navigation element.
  */
 export const BreadcrumbLink = ({ href, onClick, className, children, ...rest }: BreadcrumbLinkProps) => {

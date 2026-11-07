@@ -12,7 +12,7 @@ import type { PopoverTriggerProps } from './popover.types'
 /**
  * Reference trigger element component attaching accessibility attributes and toggle interactions.
  *
- * @param props - Trigger properties including asChild composition flags and event handlers.
+ * @param props - Trigger properties including asChild composition flags and event handlers. - {@link PopoverTriggerProps}
  * @returns Trigger button element or cloned child element.
  */
 export const PopoverTrigger = ({

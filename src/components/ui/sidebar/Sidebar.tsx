@@ -12,7 +12,7 @@ import { SidebarContext } from './useSidebar'
  * Root context provider container for the Lithos UI sidebar system.
  * Manages open/collapsed states, breakpoints, sizing, and gesture responsiveness.
  *
- * @param props - Configuration options including mode, placement, breakpoints, and children.
+ * @param props - Configuration options including mode, placement, breakpoints, and children. - {@link SidebarProps}
  * @returns Sidebar context provider wrapper wrapping the sidebar tree.
  */
 export const Sidebar = ({

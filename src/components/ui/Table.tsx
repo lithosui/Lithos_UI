@@ -79,7 +79,7 @@ export type TableCaptionProps = TableElementProps<'caption'>
 /**
  * Scrollable container wrapper component for data tables.
  *
- * @param props - Container properties including custom classes and ARIA attributes.
+ * @param props - Container properties including custom classes and ARIA attributes. - {@link TableContainerProps}
  * @returns Region container div element.
  */
 export const TableContainer = ({ className, ...props }: TableContainerProps) => (
@@ -98,7 +98,7 @@ export const TableContainer = ({ className, ...props }: TableContainerProps) => 
 /**
  * Root table element component providing native semantics, spacing rules, and density scales.
  *
- * @param props - Table properties including sizes, striping, hover effects, and sticky header toggles.
+ * @param props - Table properties including sizes, striping, hover effects, and sticky header toggles. - {@link TableProps}
  * @returns Native table element.
  */
 export const Table = ({
@@ -130,7 +130,7 @@ export const Table = ({
 /**
  * Table header group section component (`<thead>`).
  *
- * @param props - Header properties including color theme variants and custom classes.
+ * @param props - Header properties including color theme variants and custom classes. - {@link TableHeaderProps}
  * @returns Native thead element.
  */
 export const TableHeader = ({ variant = 'default', className, ...props }: TableHeaderProps) => (
@@ -149,7 +149,7 @@ export const TableHeader = ({ variant = 'default', className, ...props }: TableH
 /**
  * Table body group section component (`<tbody>`).
  *
- * @param props - Body properties including custom classes.
+ * @param props - Body properties including custom classes. - {@link TableBodyProps}
  * @returns Native tbody element.
  */
 export const TableBody = ({ className, ...props }: TableBodyProps) => (
@@ -159,7 +159,7 @@ export const TableBody = ({ className, ...props }: TableBodyProps) => (
 /**
  * Table footer group section component (`<tfoot>`).
  *
- * @param props - Footer properties including custom classes.
+ * @param props - Footer properties including custom classes. - {@link TableFooterProps}
  * @returns Native tfoot element.
  */
 export const TableFooter = ({ className, ...props }: TableFooterProps) => (
@@ -176,7 +176,7 @@ export const TableFooter = ({ className, ...props }: TableFooterProps) => (
 /**
  * Table row component (`<tr>`) supporting visual selection states.
  *
- * @param props - Row properties including selection flags and custom classes.
+ * @param props - Row properties including selection flags and custom classes. - {@link TableRowProps}
  * @returns Native tr element.
  */
 export const TableRow = ({ selected = false, className, ...props }: TableRowProps) => (
@@ -194,7 +194,7 @@ export const TableRow = ({ selected = false, className, ...props }: TableRowProp
 /**
  * Table header cell component (`<th>`).
  *
- * @param props - Header cell properties including custom classes.
+ * @param props - Header cell properties including custom classes. - {@link TableHeadProps}
  * @returns Native th element.
  */
 export const TableHead = ({ className, ...props }: TableHeadProps) => (
@@ -211,7 +211,7 @@ export const TableHead = ({ className, ...props }: TableHeadProps) => (
 /**
  * Table standard data cell component (`<td>`).
  *
- * @param props - Cell properties including custom classes.
+ * @param props - Cell properties including custom classes. - {@link TableCellProps}
  * @returns Native td element.
  */
 export const TableCell = ({ className, ...props }: TableCellProps) => (
@@ -228,7 +228,7 @@ export const TableCell = ({ className, ...props }: TableCellProps) => (
 /**
  * Table caption description component (`<caption>`).
  *
- * @param props - Caption properties including custom classes.
+ * @param props - Caption properties including custom classes. - {@link TableCaptionProps}
  * @returns Native caption element.
  */
 export const TableCaption = ({ className, ...props }: TableCaptionProps) => (
