@@ -25,6 +25,7 @@ const COMPONENTS: UnreleasedComponentConfig[] = [
   { slug: 'slider', name: 'Slider' },
   { slug: 'marquee', name: 'Marquee' },
   { slug: 'textarea', name: 'Textarea' },
+  { slug: 'label', name: 'Label' },
 ]
 
 export const UNRELEASED_REGISTRY: Record<string, UnreleasedComponentEntry> = Object.fromEntries(
