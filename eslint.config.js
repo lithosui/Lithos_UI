@@ -37,4 +37,4 @@ export default tseslint.config(
       ],
     },
   }
-)
+);
