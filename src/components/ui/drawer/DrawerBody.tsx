@@ -11,7 +11,7 @@ import type { DrawerBodyProps } from './drawer.types.ts'
 /**
  * Scrollable body content container component for drawers.
  *
- * @param props - Drawer body properties including custom class names and children elements.
+ * @param props - Drawer body properties including custom class names and children elements. - {@link DrawerBodyProps}
  * @returns Scrollable container div element or DialogBody when in responsive desktop mode.
  */
 export const DrawerBody = ({ className, children, ...props }: DrawerBodyProps) => {

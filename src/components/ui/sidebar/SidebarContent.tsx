@@ -20,7 +20,7 @@ const containersMap = {
  * Structural container for sidebar items and content blocks, supporting touch gestures, resizing, and semantic landmarks.
  *
  * @template T - Polymorphic element type override.
- * @param props - Configuration props for gestures, resizer handles, and styling.
+ * @param props - Configuration props for gestures, resizer handles, and styling. - {@link SidebarContentProps}
  * @returns Semantic landmark container wrapping sidebar content.
  */
 export const SidebarContent = <T extends ElementType = 'aside'>({

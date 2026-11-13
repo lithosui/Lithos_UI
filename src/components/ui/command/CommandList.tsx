@@ -9,7 +9,7 @@ import { useCommand } from './CommandContext'
 /**
  * Scrollable container listbox component enclosing command items and groups.
  *
- * @param props - List container properties including custom class names and children.
+ * @param props - List container properties including custom class names and children. - {@link CommandListProps}
  * @returns Listbox container element.
  */
 export const CommandList = ({ className, children, ...rest }: CommandListProps) => {

@@ -3,10 +3,10 @@
  * - Discriminated union types supporting both button and polymorphic `asChild` child delegation (`SidebarItemProps`).
  * - Accessible landmark role mappings, layout modes, and strict type safety for compound sidebar subcomponents.
  */
-import type { ReactNode, ComponentPropsWithRef, ElementType, Dispatch, SetStateAction } from 'react'
+import type { ReactNode, ElementType, Dispatch, SetStateAction } from 'react'
 import type { LithosClass } from '../../../utils/cn'
 import type { ButtonProps } from '../Button'
-import type { AsChildProps } from '../../../core/types'
+import type { AsChildProps, LithosElementProps } from '../../../core/types'
 import type { TooltipProps } from '../Tooltip'
 import type { TypographyVariants, TypographyProps } from '../Typography'
 
@@ -46,7 +46,7 @@ export type SidebarPlacement = 'left' | 'right'
 /**
  * Props for the root `Sidebar` provider wrapper.
  */
-export interface SidebarProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+export interface SidebarProps extends LithosElementProps<'div'> {
   /** Controls whether the mini sidebar is expanded. */
   open?: boolean
 
@@ -64,9 +64,6 @@ export interface SidebarProps extends Omit<ComponentPropsWithRef<'div'>, 'classN
 
   /** Children nodes. */
   children?: ReactNode
-
-  /** Additional CSS classes for the root container. */
-  className?: LithosClass
 
   /**
    * Layout side where the sidebar is positioned in the application.
@@ -121,10 +118,7 @@ export type SidebarContentProps<T extends ElementType = 'aside'> = {
    * @default 8
    */
   openThresholdOffset?: number
-
-  /** Additional CSS classes. */
-  className?: LithosClass
-} & Omit<ComponentPropsWithRef<T>, 'className'>
+} & LithosElementProps<T>
 
 /** Base properties shared across all SidebarTrigger variants. */
 export type BaseSidebarTriggerProps = {
@@ -201,9 +195,7 @@ export type SidebarItemProps<T extends ElementType = 'button'> = AsChildProps<
  * Component props for the SidebarHeader, accepts every HTMLDivElement
  * properties.
  */
-export interface SidebarHeaderProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
-  className?: LithosClass
-}
+export type SidebarHeaderProps = LithosElementProps<'div'>
 
 /**
  * Component props for the SidebarTitle, accepts same props as the Typography

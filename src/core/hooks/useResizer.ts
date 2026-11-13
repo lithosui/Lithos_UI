@@ -6,6 +6,13 @@ import { useState, useRef, useCallback, useMemo, type PointerEvent, type DragEve
 import type { UseResizerOptions, UseResizerReturn, SurfaceGestureHandlers } from '../types'
 import { calculateGestureDelta } from '../utils/gestureMath'
 
+/**
+ * Hook that manages fluid layout width resizing, min/max clamping,
+ * and snap-point alignment for sidebars, split views, and panels.
+ *
+ * @param options - Configuration options provided as {@link UseResizerOptions}.
+ * @returns An object containing gesture handlers, computed width styles, and state flags as {@link UseResizerReturn}.
+ */
 export const useResizer = ({
   placement,
   baseWidthPx = 224,

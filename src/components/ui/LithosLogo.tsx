@@ -1,6 +1,8 @@
-import { useState, useEffect, type HTMLAttributes } from 'react'
+import { useState, useEffect } from 'react'
+import type { LithosElementProps } from '../../core/types'
+import { cn } from '../../utils/cn'
 
-export interface LithosLogoProps extends HTMLAttributes<HTMLSpanElement> {
+export interface LithosLogoProps extends LithosElementProps<'span'> {
   accentColor?: string
   collapsed?: boolean
   collapseOnScroll?: boolean
@@ -335,7 +337,9 @@ export const LithosLogo = ({
     (collapsed !== undefined ? collapsed : collapseOnScroll ? isScrolled : false) && (!interactive || !isHovered)
 
   const widthClass = isEffectivelyCollapsed ? 'w-8 md:w-9' : 'w-[150px] md:w-[168px]'
-  const cleanClassName = className ? className.replace(/\bw-auto\b/g, '').trim() : ''
+  const cleanClassName = cn(className)
+    .replace(/\bw-auto\b/g, '')
+    .trim()
 
   return (
     <span

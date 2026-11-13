@@ -10,7 +10,7 @@ import { CheckboxGroupContext } from './useCheckboxGroup'
 /**
  * Group container component managing multi-select checkbox state coordination.
  *
- * @param props - Group configuration properties including value array, change callback, and layout mode.
+ * @param props - Group configuration properties including value array, change callback, and layout mode. - {@link CheckboxGroupProps}
  * @returns Checkbox group container element.
  */
 export const CheckboxGroup = ({

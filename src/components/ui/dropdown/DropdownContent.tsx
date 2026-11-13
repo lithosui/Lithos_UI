@@ -14,7 +14,7 @@ import type { DropdownContentProps } from './dropdown.types'
 /**
  * Floating panel content viewport component containing interactive dropdown menu items.
  *
- * @param props - Content properties including looping behaviors, close handlers, and custom classes.
+ * @param props - Content properties including looping behaviors, close handlers, and custom classes. - {@link DropdownContentProps}
  * @returns Dropdown floating content container element.
  */
 export const DropdownContent = ({

@@ -4,7 +4,7 @@
  * - Supports accessibility hiding (`aria-hidden="true"` and `inert`) and responsive motion preference adjustments.
  */
 import type { CSSProperties } from 'react'
-import { cn, type LithosClass } from '../../utils/cn'
+import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
 /** Animation behavior configurations for skeleton loaders. */
@@ -18,9 +18,6 @@ export type SkeletonTone = 'neutral' | 'accent'
 
 /** Props configuration interface for the root `Skeleton` component. */
 export interface SkeletonProps extends Omit<LithosElementProps<'span'>, 'children' | 'dangerouslySetInnerHTML'> {
-  /** Custom CSS classes applied to the skeleton element. */
-  className?: LithosClass
-
   /** Children are explicitly disallowed for skeleton placeholders. */
   children?: never
 
@@ -57,9 +54,6 @@ export interface SkeletonProps extends Omit<LithosElementProps<'span'>, 'childre
 
 /** Props configuration interface for the `SkeletonText` component. */
 export interface SkeletonTextProps extends Omit<LithosElementProps<'div'>, 'children' | 'dangerouslySetInnerHTML'> {
-  /** Custom CSS classes applied to the text block container. */
-  className?: LithosClass
-
   /** Children are explicitly disallowed for skeleton text blocks. */
   children?: never
 
@@ -115,7 +109,7 @@ const animations: Record<Exclude<SkeletonAnimation, boolean>, string> = {
 /**
  * Skeleton placeholder primitive component rendering animated loading shapes with neo-brutalist styling.
  *
- * @param props - Skeleton properties including variants, animations, tones, widths, and heights.
+ * @param props - Skeleton properties including variants, animations, tones, widths, and heights. - {@link SkeletonProps}
  * @returns Skeleton span element.
  */
 export const Skeleton = ({
@@ -153,7 +147,7 @@ export const Skeleton = ({
 /**
  * SkeletonText layout component rendering multi-line paragraph loading placeholders with custom line counts and trailing widths.
  *
- * @param props - Skeleton text properties including line quantities, last line widths, tones, and animations.
+ * @param props - Skeleton text properties including line quantities, last line widths, tones, and animations. - {@link SkeletonTextProps}
  * @returns Skeleton text container div element.
  */
 export const SkeletonText = ({

@@ -9,7 +9,7 @@ import { useCommand } from './CommandContext'
 /**
  * Loading indicator status component displayed during asynchronous data retrieval.
  *
- * @param props - Loading container properties including custom message children and styling classes.
+ * @param props - Loading container properties including custom message children and styling classes. - {@link CommandLoadingProps}
  * @returns Loading status indicator element or null if palette is closed.
  */
 export const CommandLoading = ({ className, children = 'Searching...', ...rest }: CommandLoadingProps) => {

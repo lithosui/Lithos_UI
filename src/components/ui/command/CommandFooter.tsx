@@ -10,7 +10,7 @@ import { useCommand } from './CommandContext'
 /**
  * Footer toolbar component displaying navigation guide hints and item counts.
  *
- * @param props - Footer properties including navigation hint toggles, item count displays, and custom children.
+ * @param props - Footer properties including navigation hint toggles, item count displays, and custom children. - {@link CommandFooterProps}
  * @returns Footer container element or hidden state if palette is closed.
  */
 export const CommandFooter = ({

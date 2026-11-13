@@ -11,7 +11,7 @@ import type { CarouselControlsProps } from './carousel.types'
 /**
  * Toolbar header or footer component containing the carousel title and previous/next navigation buttons.
  *
- * @param props - Container properties including custom class names.
+ * @param props - Container properties including custom class names. - {@link CarouselControlsProps}
  * @returns Controls toolbar container element.
  */
 export const CarouselControls = ({ className, ...rest }: CarouselControlsProps) => {

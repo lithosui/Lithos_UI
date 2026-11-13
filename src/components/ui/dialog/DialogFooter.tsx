@@ -9,7 +9,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Footer container component for action buttons inside modal dialogs.
  *
- * @param props - Dialog footer properties including custom class names and action children.
+ * @param props - Dialog footer properties including custom class names and action children. - {@link DialogFooterProps}
  * @returns Footer action container div element.
  */
 export const DialogFooter = ({ className, children, ...rest }: DialogFooterProps) => {

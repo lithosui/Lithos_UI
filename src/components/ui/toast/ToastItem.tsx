@@ -24,7 +24,7 @@ import { useSwipe } from '../../../core/hooks/useSwipe'
  * Renders an accessible alert panel with dynamic color contrast, pause-on-hover timers,
  * progress indicator, and custom transition animations.
  *
- * @param props - Customization, item data payload, and removal callback props.
+ * @param props - Customization, item data payload, and removal callback props. - {@link ToastItemProps}
  * @returns Accessible toast notification element.
  */
 export const ToastItem = ({ toast, renderToast, className }: ToastItemProps) => {

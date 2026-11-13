@@ -8,7 +8,7 @@ import { cn } from '../../../utils/cn'
 /**
  * List item wrapper component for individual breadcrumb steps.
  *
- * @param props - Element attributes including children and styling.
+ * @param props - Element attributes including children and styling. - {@link BreadcrumbItemProps}
  * @returns List item node element.
  */
 export const BreadcrumbItem = ({ className, children, ...rest }: BreadcrumbItemProps) => {

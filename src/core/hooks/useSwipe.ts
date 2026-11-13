@@ -15,6 +15,13 @@ import {
 import type { UseSwipeOptions, UseSwipeReturn, SurfaceGestureHandlers, SurfacePlacement } from '../types'
 import { calculateGestureDelta } from '../utils/gestureMath'
 
+/**
+ * Hook to handle unidirectional swipe-to-dismiss gestures
+ * via CSS transforms on drawers, modals, toasts, and overlays.
+ *
+ * @param options - Configuration options provided as {@link UseSwipeOptions}.
+ * @returns An object containing gesture handlers, computed transformation styles, and swipe state flags as {@link UseSwipeReturn}.
+ */
 export const useSwipe = ({
   placement,
   open,

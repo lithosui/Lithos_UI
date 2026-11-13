@@ -9,7 +9,7 @@ import { useCommand } from './CommandContext'
 /**
  * Separator divider component for partitioning sections within the command list.
  *
- * @param props - Divider properties including custom class names.
+ * @param props - Divider properties including custom class names. - {@link CommandSeparatorProps}
  * @returns Separator divider element or null if no items are visible.
  */
 export const CommandSeparator = ({ className, ...rest }: CommandSeparatorProps) => {

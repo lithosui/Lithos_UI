@@ -9,7 +9,7 @@ import type { CommandBadgeProps } from './command.types'
 /**
  * Metadata badge component aligned to the right of command items.
  *
- * @param props - Badge properties including sizing and variants.
+ * @param props - Badge properties including sizing and variants. - {@link CommandBadgeProps}
  * @returns Badge element.
  */
 export const CommandBadge = ({ className, size = 'sm', ...rest }: CommandBadgeProps) => (

@@ -8,7 +8,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Scrollable content body container component for modal dialogs.
  *
- * @param props - Dialog body properties including custom class names and children elements.
+ * @param props - Dialog body properties including custom class names and children elements. - {@link DialogBodyProps}
  * @returns Scrollable container div element.
  */
 export const DialogBody = ({ className, children, ...rest }: DialogBodyProps) => (

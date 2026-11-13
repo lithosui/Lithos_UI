@@ -19,7 +19,7 @@ const iconClass = {
 /**
  * Pagination dot or number indicator component for jumping directly to specific carousel slides.
  *
- * @param props - Pagination properties including accessibility label templates.
+ * @param props - Pagination properties including accessibility label templates. - {@link CarouselPaginationProps}
  * @returns Pagination container element.
  */
 export const CarouselPagination = ({ className, label = 'Move to the slide $', ...rest }: CarouselPaginationProps) => {

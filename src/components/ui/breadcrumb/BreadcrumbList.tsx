@@ -8,7 +8,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Ordered list container component wrapping the breadcrumb trail steps.
  *
- * @param props - Ordered list attributes and custom classes.
+ * @param props - Ordered list attributes and custom classes. - {@link BreadcrumbListProps}
  * @returns Ordered list wrapper element.
  */
 export const BreadcrumbList = ({ className, children, ...rest }: BreadcrumbListProps) => {

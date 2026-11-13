@@ -11,7 +11,7 @@ import type { DrawerFooterProps } from './drawer.types'
 /**
  * Footer action container component for drawer buttons.
  *
- * @param props - Drawer footer properties including custom class names and action children.
+ * @param props - Drawer footer properties including custom class names and action children. - {@link DrawerFooterProps}
  * @returns Footer action container element or DialogFooter when in responsive desktop mode.
  */
 export const DrawerFooter = ({ className, children, ...props }: DrawerFooterProps) => {

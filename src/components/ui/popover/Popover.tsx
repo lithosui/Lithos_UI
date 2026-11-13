@@ -9,7 +9,7 @@ import type { PopoverProps } from './popover.types'
 /**
  * Root container component for popovers, instantiating floating context state and managing modal options.
  *
- * @param props - Popover options and child elements.
+ * @param props - Popover options and child elements. - {@link PopoverProps}
  * @returns Popover context provider element.
  */
 export const Popover = ({ children, modal = false, ...restOptions }: PopoverProps) => {

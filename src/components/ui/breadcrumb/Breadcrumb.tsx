@@ -18,7 +18,7 @@ import { BreadcrumbEllipsis } from './BreacrumbEllipsis'
  * Accessible breadcrumb navigation component supporting structured data arrays,
  * collapsible truncation, custom separators, and automated active page styling.
  *
- * @param props - Configuration properties including items array, truncation limits, and display settings.
+ * @param props - Configuration properties including items array, truncation limits, and display settings. - {@link BreadcrumbProps}
  * @returns Accessible navigation landmark element.
  */
 export const Breadcrumb = ({

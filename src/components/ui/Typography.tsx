@@ -4,10 +4,10 @@
  * - Supports polymorphic rendering via the `as` prop or automatic semantic mapping from `variant`.
  * - Contrast integrity: custom hex colors automatically route background and contrast foreground text through the YIQ engine.
  */
-import type { ComponentPropsWithRef, ReactNode, ElementType } from 'react'
-import { cn, type LithosClass } from '../../utils/cn'
+import type { ReactNode, ElementType } from 'react'
+import { cn } from '../../utils/cn'
 import { getContrastText } from '../../utils/yiq'
-import { isHexColor, type HexColor } from '../../core/types'
+import { isHexColor, type HexColor, type LithosElementProps } from '../../core/types'
 
 const elementsMap = {
   h1: 'h1',
@@ -60,9 +60,6 @@ export interface TypographyOwnProps<T extends TypographyComponent = 'p'> {
    */
   variant?: TypographyVariants
 
-  /** Custom CSS classes applied to the typography element. */
-  className?: LithosClass
-
   /** Text content or nested child elements. */
   children?: ReactNode
 
@@ -74,12 +71,12 @@ export interface TypographyOwnProps<T extends TypographyComponent = 'p'> {
  * Props configuration interface for the polymorphic `Typography` component combining own props and native element attributes.
  */
 export type TypographyProps<T extends TypographyComponent = 'p'> = TypographyOwnProps<T> &
-  Omit<ComponentPropsWithRef<T>, keyof TypographyOwnProps<T>>
+  Omit<LithosElementProps<T>, keyof TypographyOwnProps<T>>
 
 /**
  * Polymorphic typography primitive component rendering text elements with design system tokens and YIQ contrast integrity.
  *
- * @param props - Typography properties including polymorphic tags, variants, custom colors, and children.
+ * @param props - Typography properties including polymorphic tags, variants, custom colors, and children. - {@link TypographyProps}
  * @returns Rendered HTML typography element.
  */
 export const Typography = <T extends TypographyComponent = 'p'>({

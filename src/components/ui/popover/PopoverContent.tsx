@@ -11,7 +11,7 @@ import type { PopoverContentProps } from './popover.types'
 /**
  * Floating surface panel component rendering popover content with transitions and portaling.
  *
- * @param props - Content properties including portaling toggles, transition durations, and custom classes.
+ * @param props - Content properties including portaling toggles, transition durations, and custom classes. - {@link PopoverContentProps}
  * @returns Floating container element or null if unmounted.
  */
 export const PopoverContent = ({
