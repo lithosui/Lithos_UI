@@ -202,6 +202,13 @@ export const DOC_PAGES: readonly DocPageConfig[] = [
     loader: () => import('../docs/pages/Kbd').then((m) => ({ default: m.KbdDoc })),
   },
   {
+    path: 'label',
+    to: '/docs/label',
+    label: 'Label',
+    category: 'Components',
+    loader: () => import('../docs/pages/Label').then((m) => ({ default: m.LabelDoc })),
+  },
+  {
     path: 'marquee',
     to: '/docs/marquee',
     label: 'Marquee',

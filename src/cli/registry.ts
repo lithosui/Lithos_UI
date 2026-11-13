@@ -579,6 +579,14 @@ export const registry: Record<string, RegistryItem> = {
     requires: ['utils/cn.ts'],
     dependencies: ['clsx', 'tailwind-merge'],
   },
+  label: {
+    slug: 'label',
+    name: 'Label',
+    type: 'ui',
+    githubUrl: `${GITHUB_BASE}/components/ui/Label.tsx`,
+    requires: ['core/types.ts', 'utils/cn.ts'],
+    dependencies: ['clsx', 'tailwind-merge'],
+  },
   'landing-1': {
     slug: 'landing-1',
     name: 'SaaS Standard Landing Page',

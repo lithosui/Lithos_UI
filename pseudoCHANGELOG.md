@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added evenly and unevenly distributed stepped examples with labeled stops and snapping.
 - Simplified Slider event/style handling and brightness state updates; app filter cleanup now runs when the brightness demo unmounts instead of resetting on each adjustment.
 
+- **Label:** Added a native form label with theme-aware sizing, inherited font styling, four sizes, required and disabled styling, and decorative icons placed to the left or above the text.
+- Added Label documentation, standalone examples including text cards for icon placement, code-only Anatomy, props reference, lazy route, navigation, showcase, package exports, CLI installation, and behavior/accessibility tests.
+- Registered Label as an unreleased component for documentation notices and navigation badges.
+
 ### Changed (0.1.5)
 
 - Added new icons -> `IconAlertCircle`, `IconBell` and `IconInfo`.
