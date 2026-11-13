@@ -20,7 +20,7 @@ const Dialog = lazy(() => import('../Dialog').then((mod) => ({ default: mod.Dial
 /**
  * Root overlay drawer component managing temporary slide-out panels, touch gestures, and responsive dialog fallback modes.
  *
- * @param props - Drawer configuration properties including placement, mode, transitions, and state callbacks.
+ * @param props - Drawer configuration properties including placement, mode, transitions, and state callbacks. - {@link DrawerProps}
  * @returns Drawer portal container element.
  */
 export const Drawer = ({

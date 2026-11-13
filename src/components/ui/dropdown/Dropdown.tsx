@@ -33,7 +33,7 @@ const DropdownProvider = ({ children }: { children: ReactNode }) => {
 /**
  * Root container component for dropdown menus, establishing popover positioning and menu contexts.
  *
- * @param props - Dropdown configuration properties and child menu components.
+ * @param props - Dropdown configuration properties and child menu components. - {@link DropdownProps}
  * @returns Dropdown root wrapper element.
  */
 export const Dropdown = ({ children, ...props }: DropdownProps) => (

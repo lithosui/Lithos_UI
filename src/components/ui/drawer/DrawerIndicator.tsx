@@ -16,7 +16,7 @@ const indicatorClasses: Record<DrawerPlacement, string> = {
 /**
  * Visual drag indicator handle component for swipeable drawers.
  *
- * @param props - Indicator properties including placement edge, gesture handlers, and accessible labels.
+ * @param props - Indicator properties including placement edge, gesture handlers, and accessible labels. - {@link DrawerIndicatorProps}
  * @returns Indicator handle element.
  */
 export const DrawerIndicator = ({

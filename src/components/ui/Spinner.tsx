@@ -91,7 +91,7 @@ const variantClass: Record<SpinnerVariant, string> = {
 /**
  * Spinner primitive component rendering animated loading indicators with flexible icon styles and spin directions.
  *
- * @param props - Spinner properties including sizes, variants, icons, colors, and anticlockwise settings.
+ * @param props - Spinner properties including sizes, variants, icons, colors, and anticlockwise settings. - {@link SpinnerProps}
  * @returns Spinner status wrapper div element.
  */
 export const Spinner = ({

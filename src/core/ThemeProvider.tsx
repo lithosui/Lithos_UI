@@ -4,11 +4,15 @@ import { ThemeContext } from './ThemeProviderContext'
 import { getContrastText } from '../utils/yiq'
 import { isHexColor, type HexColor } from './types'
 
+/** Props for the {@link ThemeProvider} component. */
 export interface LithosThemeProps {
+  /** Optional configuration override for accent color and border radius. */
   config?: {
     accentColor: string
     radius: number
   }
+
+  /** React child nodes wrapped by the theme provider. */
   children: ReactNode
 }
 
@@ -51,6 +55,13 @@ const syncThemeProperty = (key: string, value: string, eventName?: string) => {
   if (eventName) window.dispatchEvent(new Event(eventName))
 }
 
+/**
+ * Provides global theme context, manages CSS custom properties, persistence,
+ * and smooth animated view transitions for Lithos UI components.
+ *
+ * @param props - Configuration properties provided as {@link LithosThemeProps}.
+ * @returns The rendered theme provider wrapper.
+ */
 export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Initialize from localStorage using direct string comparison

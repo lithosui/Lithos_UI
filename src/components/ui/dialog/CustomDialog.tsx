@@ -14,7 +14,7 @@ import { Button } from '../Button'
  * Flexible cancel/action composition of Dialog.
  * Exposes offset shadow and button styling for custom prompts like destructive deletes.
  *
- * @param props - Composite dialog configuration properties including titles, messages, and action callbacks.
+ * @param props - Composite dialog configuration properties including titles, messages, and action callbacks. - {@link CustomDialogProps}
  * @returns Pre-composed dialog element.
  */
 export const CustomDialog = ({

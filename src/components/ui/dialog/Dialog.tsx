@@ -27,7 +27,7 @@ const variantClass: Record<DialogVariant, string> = {
 /**
  * Root modal dialog overlay component rendering content inside a portal with focus trapping and accessibility support.
  *
- * @param props - Dialog container configuration properties including open state, sizing, variants, and close handlers.
+ * @param props - Dialog container configuration properties including open state, sizing, variants, and close handlers. - {@link DialogProps}
  * @returns Dialog portal container element or null if closed.
  */
 export const Dialog = ({
@@ -48,7 +48,7 @@ export const Dialog = ({
   const panelRef = useRef<HTMLDivElement | null>(null)
   const titleId = useId()
 
-  useFocusTrap(panelRef, open, initialFocusRef)
+  useFocusTrap({ containerRef: panelRef, active: open, initialFocusRef })
 
   useEffect(() => {
     if (!open) return

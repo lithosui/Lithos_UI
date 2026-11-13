@@ -9,7 +9,7 @@ import type { CommandShortcutProps } from './command.types'
 /**
  * Keyboard shortcut badge component for command items.
  *
- * @param props - Shortcut properties including size scales, variants, and keys.
+ * @param props - Shortcut properties including size scales, variants, and keys. - {@link CommandShortcutProps}
  * @returns Shortcut container span element.
  */
 export const CommandShortcut = ({

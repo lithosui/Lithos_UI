@@ -1,17 +1,42 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 
-interface UseVirtualizerOptions {
+/** Options for the {@link useVirtualizer} hook. */
+export interface UseVirtualizerOptions {
+  /** The total number of items to virtualize. */
   count: number
+
+  /** The fixed height (in pixels) of each virtualized item. */
   itemHeight: number
+
+  /**
+   * The number of additional items to render outside the visible viewport.
+   * @default 5
+   */
   overscan?: number
+
+  /**
+   * The initial index to scroll to upon mount.
+   * @default 0
+   */
   initialIndex?: number
 }
 
+/** Represents a single virtualized item position and index. */
 export interface VirtualItem {
+  /** The data index of the virtualized item. */
   index: number
+
+  /** The absolute top position (in pixels) relative to the container. */
   start: number
 }
 
+/**
+ * A custom hook that provides high-performance list virtualization for large datasets.
+ *
+ * @template T - The HTML container element type (defaults to HTMLUListElement).
+ * @param options - Configuration options provided as {@link UseVirtualizerOptions}.
+ * @returns An object containing the container ref callback, virtual items array as {@link VirtualItem}, total scroll height, and scroll utility methods.
+ */
 export const useVirtualizer = <T extends HTMLElement = HTMLUListElement>({
   count,
   itemHeight,

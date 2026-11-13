@@ -10,7 +10,7 @@ import type { SidebarHeaderProps } from './sidebar.types'
 /**
  * Top container header component for the sidebar, adjusting alignment based on open/collapsed state.
  *
- * @param props - Header props including children and class names.
+ * @param props - Header props including children and class names. - {@link SidebarHeaderProps}
  * @returns Header layout container component.
  */
 export const SidebarHeader = ({ children, className, ...rest }: SidebarHeaderProps) => {

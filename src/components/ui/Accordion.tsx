@@ -3,9 +3,10 @@
  * - Dual-mode state architecture: works seamlessly as an uncontrolled/standalone item via local state, or co-op inside `AccordionGroup` via Context API.
  * - Dynamic shadow offset shifts from 2px to 4px on open state to retain hard geometry.
  */
-import { useId, createContext, useContext, useState, type ComponentPropsWithRef, type ReactNode } from 'react'
+import { useId, createContext, useContext, useState, type ReactNode } from 'react'
 import { Button } from './Button'
 import { cn, type LithosClass } from '../../utils/cn'
+import type { LithosElementProps } from '../../core/types'
 import { IconChevronUp } from './icons/IconChevronUp'
 
 /**
@@ -25,7 +26,7 @@ export interface AccordionContextType {
 /**
  * Props for the `Accordion` component.
  */
-export interface AccordionProps extends Omit<ComponentPropsWithRef<'div'>, 'title' | 'className'> {
+export interface AccordionProps extends Omit<LithosElementProps<'div'>, 'title'> {
   /**
    * Initial expanded state when used standalone in uncontrolled mode.
    * @default false
@@ -60,17 +61,12 @@ export interface AccordionProps extends Omit<ComponentPropsWithRef<'div'>, 'titl
    * Unique identifier for the item when wrapped within an `AccordionGroup`.
    */
   value?: string
-
-  /**
-   * Class name for the outer container element (shortcut/override for `classes.container`).
-   */
-  className?: LithosClass
 }
 
 /**
  * Props for the `AccordionGroup` component.
  */
-export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
+export interface AccordionGroupProps extends LithosElementProps<'div'> {
   /**
    * Allows multiple accordion items to remain open simultaneously.
    * @default false
@@ -82,11 +78,6 @@ export interface AccordionGroupProps extends Omit<ComponentPropsWithRef<'div'>, 
    * Pass a string for single mode, or an array of strings when `allowMultiple` is `true`.
    */
   defaultActive?: string | string[]
-
-  /**
-   * Class name applied to the group wrapper element.
-   */
-  className?: LithosClass
 }
 
 const AccordionContext = createContext<AccordionContextType | null>(null)
@@ -95,7 +86,7 @@ const AccordionContext = createContext<AccordionContextType | null>(null)
  * Container component that coordinates state across multiple `Accordion` items.
  * Handles single-expansion vs. multi-expansion modes via context.
  *
- * @param props - Component props for controlling active items and grouping layout.
+ * @param props - Component props for controlling active items and grouping layout. - {@link AccordionGroupProps}
  * @returns An accordion group provider wrapping child elements.
  */
 export const AccordionGroup = ({
@@ -157,7 +148,7 @@ const defaultClasses = {
  * An expandable/collapsible content disclosure panel.
  * Supports controlled, uncontrolled, and grouped modes.
  *
- * @param props - Customization and state props for the accordion item.
+ * @param props - Customization and state props for the accordion item. - {@link AccordionProps}
  * @returns An accessible accordion item with animated disclosure panel.
  */
 export const Accordion = ({

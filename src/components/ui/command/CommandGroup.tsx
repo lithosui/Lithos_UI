@@ -10,7 +10,7 @@ import { useCommand, GroupContext } from './CommandContext'
 /**
  * Section group container component organizing command items under optional headings with visibility filtering.
  *
- * @param props - Group properties including headings, custom classes, and nested command items.
+ * @param props - Group properties including headings, custom classes, and nested command items. - {@link CommandGroupProps}
  * @returns Group section container element or null if no child items match the active search.
  */
 export const CommandGroup = ({ heading, className, children, ...rest }: CommandGroupProps) => {

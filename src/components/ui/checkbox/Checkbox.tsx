@@ -8,7 +8,7 @@ import { BaseCheckbox } from './BaseCheckbox'
 /**
  * Standard checkbox component featuring a visible check mark icon when selected.
  *
- * @param props - Checkbox configuration properties.
+ * @param props - Checkbox configuration properties. - {@link CheckboxProps}
  * @returns Standard checkbox element.
  */
 export const Checkbox = (props: CheckboxProps) => <BaseCheckbox showCheck {...props} />

@@ -11,7 +11,7 @@ import type { CarouselTrackProps } from './carousel.types'
 /**
  * Scrollable track container component holding the carousel slides and registering drag gesture event handlers.
  *
- * @param props - Track container properties including children and custom class names.
+ * @param props - Track container properties including children and custom class names. - {@link CarouselTrackProps}
  * @returns Scrollable track container element.
  */
 export const CarouselTrack = ({ children, className }: CarouselTrackProps) => {
