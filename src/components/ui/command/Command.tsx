@@ -11,7 +11,7 @@ import { CommandContext } from './CommandContext'
 /**
  * Root container component for the command palette suite, establishing context state and keyboard navigation logic.
  *
- * @param props - Command container properties including controlled value, filtering functions, and children.
+ * @param props - Command container properties including controlled value, filtering functions, and children. - {@link CommandProps}
  * @returns Command container application element.
  */
 export const Command = ({

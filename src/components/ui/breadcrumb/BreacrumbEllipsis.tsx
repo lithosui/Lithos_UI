@@ -9,7 +9,7 @@ import { Button } from '../Button'
 /**
  * Ellipsis control button component for toggling hidden breadcrumb items in collapsible mode.
  *
- * @param props - Button properties including expansion state and click toggle handler.
+ * @param props - Button properties including expansion state and click toggle handler. - {@link BreadcrumbEllipsisProps}
  * @returns Ellipsis button interactive component.
  */
 export const BreadcrumbEllipsis = ({ onClick, isExpanded, className, children, ...rest }: BreadcrumbEllipsisProps) => {

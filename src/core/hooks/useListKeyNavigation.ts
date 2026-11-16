@@ -1,24 +1,56 @@
 import { useCallback, type KeyboardEvent } from 'react'
 
+/** Options for the {@link useListKeyNavigation} hook. */
 export interface UseListKeyNavigationOptions {
+  /** A function that returns the total count of items in the list. */
   getItemCount: () => number
+
+  /** A function that determines whether an item at a given index is disabled. */
   isItemDisabled: (index: number) => boolean
+
+  /**
+   * Whether keyboard navigation should loop from the last item to the first and vice versa.
+   * @default true
+   * */
   loop?: boolean
 }
 
+/** Options for the handleKeyDown event handler returned by the navigation hook. */
 export interface HandleKeyDownOptions {
+  /** The keyboard event triggered on the element. */
   event: KeyboardEvent<HTMLElement>
+
+  /** The currently active or focused item index, or null if none is active. */
   activeIndex: number | null
+
+  /** Callback function to update the active item index. */
   setActiveIndex: (index: number) => void
+
+  /** Optional callback invoked when an item is selected via Enter or Space. */
   onSelect?: (index: number) => void
+
+  /** Optional callback invoked to open a submenu for the given index. */
   onOpenSubmenu?: (index: number) => void
+
+  /** Optional callback invoked to close a submenu. */
   onCloseSubmenu?: () => void
+
+  /** Optional callback invoked to close the entire component/menu. */
   onClose?: () => void
 
-  // allow ArrowRight and ArrowLeft (useful for menus)
+  /** Whether to allow ArrowRight and ArrowLeft keys for horizontal navigation (useful for menus). */
   enableHorizontalNav?: boolean
 }
 
+/**
+ * A hook that manages keyboard navigation for lists, menus, and comboboxes.
+ *
+ * Provides utilities to calculate navigable indexes and handle keydown events
+ * for arrows, Home, End, Enter, Space, Escape, and Tab keys.
+ *
+ * @param options - Configuration options provided as {@link UseListKeyNavigationOptions}.
+ * @returns An object containing `getNextNavigableIndex` and `handleKeyDown` utilities.
+ */
 export const useListKeyNavigation = ({ getItemCount, isItemDisabled, loop = true }: UseListKeyNavigationOptions) => {
   const getNextNavigableIndex = useCallback(
     (currentIndex: number | null, direction: 'down' | 'up') => {

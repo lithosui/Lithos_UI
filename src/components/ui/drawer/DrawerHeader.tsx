@@ -11,7 +11,7 @@ import type { DrawerHeaderProps } from './drawer.types'
 /**
  * Header title bar component for drawers.
  *
- * @param props - Drawer header properties including custom class names and header children.
+ * @param props - Drawer header properties including custom class names and header children. - {@link DrawerHeaderProps}
  * @returns Header container element or DialogHeader when in responsive desktop mode.
  */
 export const DrawerHeader = ({ className, children, ...props }: DrawerHeaderProps) => {

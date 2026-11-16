@@ -9,7 +9,7 @@ import type { DropdownSeparatorProps } from './dropdown.types'
 /**
  * Divider line component for partitioning sections within dropdown menus.
  *
- * @param props - Separator properties including custom class names.
+ * @param props - Separator properties including custom class names. - {@link DropdownSeparatorProps}
  * @returns Separator divider element.
  */
 export const DropdownSeparator = ({ className, ...props }: DropdownSeparatorProps) => {

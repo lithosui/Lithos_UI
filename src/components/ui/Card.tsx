@@ -33,7 +33,7 @@ export interface CardProps extends LithosElementProps<'div'> {
  * Card container primitive featuring hard-edged neo-brutalist shadow geometry and variant themes.
  * Root renders raw children with no padding, allowing edge-to-edge images.
  *
- * @param props - Card properties including interactive mode, variant style, and children.
+ * @param props - Card properties including interactive mode, variant style, and children. - {@link CardProps}
  * @returns Card container element.
  */
 export const Card = ({ interactive = false, variant = 'default', className, children, ...rest }: CardProps) => {
@@ -81,7 +81,7 @@ export interface CardImageProps extends LithosElementProps<'img'> {
 /**
  * Image component for cards, supporting standard block headers or absolute background placement.
  *
- * @param props - Image properties including source, alt text, and background mode.
+ * @param props - Image properties including source, alt text, and background mode. - {@link CardImageProps}
  * @returns Image element.
  */
 export const CardImage = ({ isBackground = false, className, ...rest }: CardImageProps) => {
@@ -106,7 +106,7 @@ export interface CardContentProps extends LithosElementProps<'div'> {
 /**
  * Body content container component for the card, managing internal padding scale.
  *
- * @param props - Content properties including padding spacing and children.
+ * @param props - Content properties including padding spacing and children. - {@link CardContentProps}
  * @returns Content container element.
  */
 export const CardContent = ({ spacing = 'md', className, children, ...rest }: CardContentProps) => {
@@ -133,7 +133,7 @@ export type CardTitleProps = LithosElementProps<'h3'>
 /**
  * Heading component for card titles, featuring bold uppercase typography.
  *
- * @param props - Heading element attributes and custom classes.
+ * @param props - Heading element attributes and custom classes. - {@link CardTitleProps}
  * @returns Card title heading element.
  */
 export const CardTitle = ({ className, children, ...rest }: CardTitleProps) => {
@@ -154,7 +154,7 @@ export type CardDescriptionProps = LithosElementProps<'p'>
 /**
  * Paragraph text description component for cards.
  *
- * @param props - Paragraph element attributes and custom classes.
+ * @param props - Paragraph element attributes and custom classes. - {@link CardDescriptionProps}
  * @returns Card description paragraph element.
  */
 export const CardDescription = ({ className, children, ...rest }: CardDescriptionProps) => {
@@ -178,7 +178,7 @@ export interface CardFooterProps extends LithosElementProps<'div'> {
 /**
  * Footer action container component for the bottom of cards, separated by a top border.
  *
- * @param props - Footer properties including spacing scale and action buttons.
+ * @param props - Footer properties including spacing scale and action buttons. - {@link CardFooterProps}
  * @returns Footer container element.
  */
 export const CardFooter = ({ spacing = 'md', className, children, ...rest }: CardFooterProps) => {

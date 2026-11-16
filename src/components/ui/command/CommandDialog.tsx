@@ -9,7 +9,7 @@ import type { CommandDialogProps } from './command.types'
 /**
  * Modal dialog wrapper component for displaying the command palette as an overlay.
  *
- * @param props - Dialog properties including open states, close handlers, and command children.
+ * @param props - Dialog properties including open states, close handlers, and command children. - {@link CommandDialogProps}
  * @returns Modal dialog wrapper element.
  */
 export const CommandDialog = ({ open, onClose, className, children, ...rest }: CommandDialogProps) => {

@@ -9,7 +9,7 @@ import { cn } from '../../../utils/cn'
 /**
  * Separator element component placed between individual breadcrumb steps.
  *
- * @param props - Element attributes for the list item container.
+ * @param props - Element attributes for the list item container. - {@link BreadcrumbItemProps}
  * @returns Separator node element.
  */
 export const BreadcrumbSeparator = ({ children, className, ...rest }: BreadcrumbItemProps) => {

@@ -13,7 +13,7 @@ import type { SelectTriggerProps } from './select.types'
 /**
  * Anchor trigger button component opening and closing the select dropdown popover.
  *
- * @param props - Trigger properties including placeholder texts, labels, and custom classes.
+ * @param props - Trigger properties including placeholder texts, labels, and custom classes. - {@link SelectTriggerProps}
  * @returns Trigger button element wrapper.
  */
 export const SelectTrigger = ({

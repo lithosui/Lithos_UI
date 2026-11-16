@@ -12,7 +12,7 @@ import type { PopoverCloseProps } from './popover.types'
 /**
  * Action close trigger component that dismisses the active popover on click or interaction.
  *
- * @param props - Close trigger properties including asChild composition flags and click handlers.
+ * @param props - Close trigger properties including asChild composition flags and click handlers. - {@link PopoverCloseProps}
  * @returns Close button element or cloned child element.
  */
 export const PopoverClose = ({

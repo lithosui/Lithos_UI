@@ -20,7 +20,7 @@ import { useCommand, useGroup } from './CommandContext'
 /**
  * Individual option item component representing selectable actions inside the command palette.
  *
- * @param props - Item configuration properties including values, keywords, disabled states, and selection callbacks.
+ * @param props - Item configuration properties including values, keywords, disabled states, and selection callbacks. - {@link CommandItemProps}
  * @returns Option option element or null if hidden by search filters.
  */
 export const CommandItem = ({

@@ -14,7 +14,7 @@ import type { SelectItemProps } from './select.types'
 /**
  * Individual option item component representing selectable choices inside the select dropdown.
  *
- * @param props - Item properties including unique values, disabled states, and custom classes.
+ * @param props - Item properties including unique values, disabled states, and custom classes. - {@link SelectItemProps}
  * @returns Option list item element.
  */
 export const SelectItem = ({ value, disabled, children, className, index, style, ...rest }: SelectItemProps) => {

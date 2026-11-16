@@ -1,5 +1,4 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
-import { CodeViewer } from '../../components/ui/CodeViewer'
 import { PropsAccordion } from '../../components/ui/PropsTable'
 import {
   Code,
@@ -150,11 +149,6 @@ export const LabelDoc = () => (
         </PreviewBlock>
       </DocExample>
     ))}
-
-    <DocSection>
-      <DocHeading id="anatomy">Anatomy</DocHeading>
-      <CodeViewer language="tsx" code={`<Label />`} />
-    </DocSection>
 
     <DocSection>
       <DocHeading id="accessibility">Accessibility</DocHeading>

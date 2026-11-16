@@ -78,7 +78,7 @@ const focusClass =
 /**
  * Pagination component for navigating data sets across multiple page intervals.
  *
- * @param props - Pagination configuration properties including counts, active pages, variants, and event handlers.
+ * @param props - Pagination configuration properties including counts, active pages, variants, and event handlers. - {@link PaginationProps}
  * @returns Pagination navigation element.
  */
 export const Pagination = ({

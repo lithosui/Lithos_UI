@@ -25,7 +25,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip'
  * Automatically wraps in a tooltip when the sidebar is collapsed in mini mode.
  *
  * @template T - Polymorphic element type override.
- * @param props - Item props including icon, active state, polymorphic `asChild`, and typography options.
+ * @param props - Item props including icon, active state, polymorphic `asChild`, and typography options. - {@link SidebarItemProps}
  * @returns Interactive sidebar button or tooltip-wrapped element.
  */
 export const SidebarItem = <T extends ElementType = 'button'>({

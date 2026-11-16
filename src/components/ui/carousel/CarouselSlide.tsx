@@ -12,7 +12,7 @@ import type { CarouselSlideProps } from './carousel.types'
 /**
  * Individual slide container component for carousel content items, managing snap points and accessibility focus boundaries.
  *
- * @param props - Slide configuration properties including custom labels and styling classes.
+ * @param props - Slide configuration properties including custom labels and styling classes. - {@link CarouselSlideProps}
  * @returns Slide group container element.
  */
 export const CarouselSlide = ({ label, className, children, ...rest }: CarouselSlideProps) => {

@@ -18,7 +18,7 @@ import { CarouselTrack } from './CarouselTrack'
  * Carousel slide presentation container component supporting multi-axis scrolling,
  * touch gestures, auto-play rotation, and accessible keyboard navigation.
  *
- * @param props - Carousel configuration properties including mode, loop settings, and intervals.
+ * @param props - Carousel configuration properties including mode, loop settings, and intervals. - {@link CarouselProps}
  * @returns Carousel region container element.
  */
 export const Carousel = ({
