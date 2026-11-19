@@ -14,4 +14,4 @@ export default defineConfig({
       exclude: ['src/docs/**', 'src/pages/**', 'src/showroom/**', '**/*.test.{ts,tsx}'],
     },
   },
-});
+})
