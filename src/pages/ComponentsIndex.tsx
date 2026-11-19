@@ -46,6 +46,7 @@ import {
   IconSearch,
 } from '../components/ui/icons'
 import { Input } from '../components/ui/Input'
+import { Label } from '../components/ui/Label'
 import { Textarea } from '../components/ui/Textarea'
 import { Kbd, KbdGroup } from '../components/ui/Kbd'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
@@ -326,6 +327,15 @@ const getComponentPreview = (name: string) => {
           <Kbd size="sm">⌘</Kbd>
           <Kbd size="sm">K</Kbd>
         </KbdGroup>
+      )
+    case 'Label':
+      return (
+        <div inert aria-hidden="true" className="w-40">
+          <Label htmlFor="label-preview" required className="mb-2">
+            Name
+          </Label>
+          <Input id="label-preview" placeholder="Your name" size="sm" required />
+        </div>
       )
     case 'Marquee':
       return (
