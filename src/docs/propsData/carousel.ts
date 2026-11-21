@@ -9,7 +9,8 @@ export const carouselPropsData: PropItem[] = [
   },
   {
     name: 'controlsPosition',
-    type: '"top" | "bottom"',
+    type: 'CarouselControlsPosition',
+    typeDefinition: "type CarouselControlsPosition = 'top' | 'bottom'",
     defaultValue: '"top"',
     required: false,
     description: 'Positioning of the prev/next arrow buttons.',
@@ -30,7 +31,8 @@ export const carouselPropsData: PropItem[] = [
   },
   {
     name: 'slideSelector',
-    type: '"dots" | "numbers"',
+    type: 'CarouselSlideSelector',
+    typeDefinition: "type CarouselSlideSelector = 'dots' | 'numbers'",
     defaultValue: '"dots"',
     required: false,
     description: 'The style of the sliders selectors.',
@@ -58,7 +60,8 @@ export const carouselPropsData: PropItem[] = [
   },
   {
     name: 'playDirection',
-    type: '"forwards" | "backwards"',
+    type: 'CarouselDirection',
+    typeDefinition: "type CarouselDirection = 'forwards' | 'backwards'",
     defaultValue: '"forwards"',
     required: false,
     description: 'Direction of infinite scroll movement.',
@@ -79,7 +82,8 @@ export const carouselPropsData: PropItem[] = [
   },
   {
     name: 'mode',
-    type: '"horizontal" | "vertical"',
+    type: 'CarouselMode',
+    typeDefinition: "type CarouselMode = 'horizontal' | 'vertical'",
     defaultValue: '"horizontal"',
     required: false,
     description: 'Changes the layout and scroll direction from horizontal to vertical.',
@@ -257,7 +261,8 @@ export const useCarouselPropsData: PropItem[] = [
   },
   {
     name: 'slideSelector',
-    type: 'SliderSelector',
+    type: 'CarouselSlideSelector',
+    typeDefinition: "type CarouselSlideSelector = 'dots' | 'numbers'",
     defaultValue: '"dots"',
     description: 'Indicates the used slider selector ("dots" | "number").',
   },

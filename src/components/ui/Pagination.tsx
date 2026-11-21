@@ -10,6 +10,21 @@ import type { LithosElementProps } from '../../core/types'
 export type PaginationVariant = 'classic' | 'dots' | 'bordered' | 'track' | 'compact' | 'progress'
 
 /**
+ * Border radius shape configuration for the pagination buttons.
+ */
+export type PaginationShape = 'square' | 'pill'
+
+/**
+ * Flex alignment layout position of the pagination control bar.
+ */
+export type PaginationPosition = 'left' | 'center' | 'right'
+
+/**
+ * Size scale variant for the pagination buttons.
+ */
+export type PaginationSize = 'sm' | 'md' | 'lg'
+
+/**
  * Props configuration interface for the `Pagination` component.
  */
 export interface PaginationProps extends Omit<LithosElementProps<'nav'>, 'children' | 'onChange'> {
@@ -29,13 +44,13 @@ export interface PaginationProps extends Omit<LithosElementProps<'nav'>, 'childr
   variant?: PaginationVariant
 
   /** Border radius shape configuration for the pagination buttons. */
-  shape?: 'square' | 'pill'
+  shape?: PaginationShape
 
   /** Flex alignment layout position of the pagination control bar. */
-  position?: 'left' | 'center' | 'right'
+  position?: PaginationPosition
 
   /** Size scale variant for the pagination buttons. */
-  size?: 'sm' | 'md' | 'lg'
+  size?: PaginationSize
 
   /** Displays fast backward/forward navigation controls that jump directly to the first or last page. */
   showEdges?: boolean

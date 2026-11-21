@@ -1,5 +1,7 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const sizeDefinition = "type AvatarSizes = 'sm' | 'md' | 'lg'"
+
 export const avatarPropsData: PropItem[] = [
   {
     name: 'src',
@@ -16,7 +18,8 @@ export const avatarPropsData: PropItem[] = [
   },
   {
     name: 'variant',
-    type: "'default' | 'solid'",
+    type: 'AvatarVariants',
+    typeDefinition: "type AvatarVariants = 'default' | 'solid'",
     defaultValue: "'default'",
     required: false,
     description:
@@ -24,7 +27,8 @@ export const avatarPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'AvatarSizes',
+    typeDefinition: sizeDefinition,
     defaultValue: "'md'",
     required: false,
     description: 'Scales the circle diameter and initials font size.',
@@ -46,7 +50,8 @@ export const avatarGroupCountPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'AvatarSizes',
+    typeDefinition: sizeDefinition,
     defaultValue: "'md'",
     required: false,
     description: 'Scales the circle diameter and font size to match adjacent Avatars.',
@@ -62,7 +67,11 @@ export const avatarGroupCountPropsData: PropItem[] = [
 export const avatarGroupPropsData: PropItem[] = [
   {
     name: 'items',
-    type: '{ src?: string; alt: string }[]',
+    type: 'AvatarGroupItem[]',
+    typeDefinition: `interface AvatarGroupItem {
+  src?: string
+  alt: string
+}`,
     required: true,
     description: 'Full list to render. Items beyond max are collapsed into a single AvatarGroupCount.',
   },
@@ -75,7 +84,8 @@ export const avatarGroupPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'AvatarSizes',
+    typeDefinition: sizeDefinition,
     defaultValue: "'md'",
     required: false,
     description: 'Scales every Avatar and the AvatarGroupCount together.',

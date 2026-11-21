@@ -4,12 +4,20 @@ export const breadcrumbPropsData: PropItem[] = [
   {
     name: 'items',
     type: 'BreadcrumbItemData[]',
+    typeDefinition: `interface BreadcrumbItemData {
+  label: string
+  href?: string
+  icon?: ReactNode
+  active?: boolean
+  onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
+}`,
     required: false,
     description: 'Array of data objects to dynamically render breadcrumb segments.',
   },
   {
     name: 'mode',
-    type: "'collapsible'",
+    type: 'BreadcrumbMode',
+    typeDefinition: "type BreadcrumbMode = 'default' | 'collapsible'",
     required: false,
     description: 'Navigation mode. Set to "collapsible" to auto-hide middle items behind an ellipsis button.',
   },

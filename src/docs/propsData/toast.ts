@@ -1,5 +1,20 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const iconConfigDef = `type ToastIconConfig =
+| ReactNode
+| ((props: IconProps) => ReactNode)
+| {
+    default?: ReactNode | ((props: IconProps) => ReactNode)
+    success?: ReactNode | ((props: IconProps) => ReactNode)
+    error?: ReactNode | ((props: IconProps) => ReactNode)
+    loading?: ReactNode | ((props: IconProps) => ReactNode)
+    warning?: ReactNode | ((props: IconProps) => ReactNode)
+    info?: ReactNode | ((props: IconProps) => ReactNode)
+    accent?: ReactNode | ((props: IconProps) => ReactNode)
+  }`
+
+const transitionDef = "type ToastTransition = 'slide-up' | 'slide-down' | 'fade' | 'scale' | 'none'"
+
 export const toastProviderPropsData: PropItem[] = [
   {
     name: 'children',
@@ -9,13 +24,24 @@ export const toastProviderPropsData: PropItem[] = [
   },
   {
     name: 'duration',
-    type: 'number | DurationObjType',
+    type: 'ToastDuration',
+    typeDefinition: `type ToastDuration = number | ToastDurationMap
+
+type ToastDurationMap = {
+  success?: number
+  error?: number
+  warning?: number
+  info?: number
+  default?: number
+  accent?: number
+}`,
     defaultValue: '5000',
     description: 'Global duration in ms. Accepts a single number or an object with per-type values.',
   },
   {
     name: 'position',
-    type: "'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'",
+    type: 'ToastPosition',
+    typeDefinition: "type ToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'",
     defaultValue: "'bottom-right'",
     description: 'Corner position on the viewport where toasts will be.',
   },
@@ -27,13 +53,15 @@ export const toastProviderPropsData: PropItem[] = [
   },
   {
     name: 'transition',
-    type: "'slide-up' | 'slide-down' | 'fade' | 'scale' | 'none'",
+    type: 'ToastTransition',
+    typeDefinition: transitionDef,
     defaultValue: "Depends on position ('slide-up' for bottom, 'slide-down' for top)",
     description: 'Default entrance animation transition style.',
   },
   {
     name: 'icon',
     type: 'ToastIconConfig',
+    typeDefinition: iconConfigDef,
     description: 'Global default icon configuration used by every toast.',
   },
   {
@@ -61,7 +89,8 @@ export const toastPropsData: PropItem[] = [
   },
   {
     name: 'intent',
-    type: '"default" | "success" | "error" | "warning" | "info" | "accent"',
+    type: 'ToastIntent',
+    typeDefinition: "type ToastIntent = 'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
     defaultValue: '"default"',
     description: 'Defines the structural intent and default styling variant.',
   },
@@ -90,7 +119,8 @@ export const toastPropsData: PropItem[] = [
   },
   {
     name: 'transition',
-    type: "'slide-up' | 'slide-down' | 'fade' | 'scale' | 'none'",
+    type: 'ToastTransition',
+    typeDefinition: transitionDef,
     description: 'Custom entrance animation transition style for this specific toast.',
   },
   {
@@ -119,6 +149,7 @@ export const toastPropsData: PropItem[] = [
   {
     name: 'icon',
     type: 'ToastIconConfig',
+    typeDefinition: iconConfigDef,
     description: 'Custom icon component reference or rendered React element override.',
   },
   {

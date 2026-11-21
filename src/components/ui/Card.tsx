@@ -7,10 +7,14 @@
 import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
-/**
- * Visual styling variant for the card component.
- */
+/** Visual styling variant for the card component. */
 export type CardVariants = 'default' | 'accent' | 'image' | 'solid'
+
+/** Enables interactive hover effects. */
+export type CardInteractive = boolean | 'elevate'
+
+/** Internal padding spacing scale. */
+export type CardSpacing = 'sm' | 'md' | 'lg'
 
 /**
  * Props for the root `Card` container component.
@@ -20,7 +24,7 @@ export interface CardProps extends LithosElementProps<'div'> {
    * Enables interactive hover effects (shadow enlargement or elevation translation).
    * @default false
    */
-  interactive?: boolean | 'elevate'
+  interactive?: CardInteractive
 
   /**
    * Visual theme variant style.
@@ -100,7 +104,7 @@ export const CardImage = ({ isBackground = false, className, ...rest }: CardImag
  */
 export interface CardContentProps extends LithosElementProps<'div'> {
   /** Internal padding spacing scale. */
-  spacing?: 'sm' | 'md' | 'lg'
+  spacing?: CardSpacing
 }
 
 /**
@@ -172,7 +176,7 @@ export const CardDescription = ({ className, children, ...rest }: CardDescriptio
  */
 export interface CardFooterProps extends LithosElementProps<'div'> {
   /** Internal padding spacing scale. */
-  spacing?: 'sm' | 'md' | 'lg'
+  spacing?: CardSpacing
 }
 
 /**

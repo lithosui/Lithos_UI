@@ -14,14 +14,10 @@ import { colors } from '../../utils/colors'
 import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
-/**
- * Standard sizing scales supported by input components.
- */
+/** Standard sizing scales supported by input components. */
 export type InputSizes = 'default' | 'sm' | 'md' | 'lg'
 
-/**
- * Props configuration interface for the root `Input` component.
- */
+/** Props configuration interface for the root `Input` component. */
 export interface InputProps extends Omit<LithosElementProps<'input'>, 'size'> {
   /** Triggers invalid error state formatting and applies the shared error intent border color. */
   invalid?: boolean
@@ -30,9 +26,7 @@ export interface InputProps extends Omit<LithosElementProps<'input'>, 'size'> {
   size?: InputSizes
 }
 
-/**
- * Props configuration interface for the `InputGroup` compound wrapper.
- */
+/** Props configuration interface for the `InputGroup` compound wrapper. */
 export interface InputGroupProps extends LithosElementProps<'div'> {
   /** Optional leading adornment element or icon pinned to the start edge. */
   startAdornment?: ReactNode
@@ -41,22 +35,19 @@ export interface InputGroupProps extends LithosElementProps<'div'> {
   endAdornment?: ReactNode
 }
 
-/**
- * Props configuration interface for the `InputGroupInput` bare field component.
- */
+/** Props configuration interface for the `InputGroupInput` bare field component. */
 export type InputGroupInputProps = InputProps
 
-/**
- * Alignment directions supported by input group add-on elements.
- */
-export type InputAddonAlign = 'inline-start' | 'inline-end'
+/** Alignment directions supported by input group add-on elements. */
+export type InputAddonAlignment = 'inline-start' | 'inline-end'
 
-/**
- * Props configuration interface for the `InputGroupAddon` component.
- */
+/** @deprecated Use {@link InputAddonAlignment}. */
+export type InputAddonAlign = InputAddonAlignment
+
+/** Props configuration interface for the `InputGroupAddon` component. */
 export interface InputGroupAddonProps extends LithosElementProps<'div'> {
   /** Flex placement alignment orientation edge for the add-on. */
-  align?: InputAddonAlign
+  align?: InputAddonAlignment
 }
 
 const inputSizeStyles = {

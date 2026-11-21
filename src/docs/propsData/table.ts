@@ -3,7 +3,8 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const tablePropsData: PropItem[] = [
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'TableSize',
+    typeDefinition: "type TableSize = 'sm' | 'md' | 'lg'",
     defaultValue: "'md'",
     description: 'Cell padding density. Individual cells can override padding with className.',
   },
@@ -60,7 +61,8 @@ export const tableContainerPropsData: PropItem[] = [
 export const tablePartsPropsData: PropItem[] = [
   {
     name: 'TableHeader.variant',
-    type: "'default' | 'accent'",
+    type: 'TableHeaderVariant',
+    typeDefinition: "type TableHeaderVariant = 'default' | 'accent'",
     defaultValue: "'default'",
     description:
       'Default uses inverse theme colors. Accent uses the current accent color and its YIQ-derived text color.',
@@ -79,12 +81,14 @@ export const tablePartsPropsData: PropItem[] = [
   },
   {
     name: 'TableHead.scope',
-    type: "'col' | 'row' | 'colgroup' | 'rowgroup'",
+    type: 'TableHeadScope',
+    typeDefinition: "type TableHeadScope = 'col' | 'row' | 'colgroup' | 'rowgroup'",
     description: 'Native header association. Use col for column headers and row for row labels.',
   },
   {
     name: 'TableHead.aria-sort',
-    type: "'none' | 'ascending' | 'descending' | 'other'",
+    type: 'TableHeadSort',
+    typeDefinition: "type TableHeadSort = 'none' | 'ascending' | 'descending' | 'other'",
     description: 'Set on the currently sorted header. Put a real button inside the header to change sorting.',
   },
   {

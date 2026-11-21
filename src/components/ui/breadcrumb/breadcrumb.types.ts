@@ -5,6 +5,9 @@
 import type { MouseEventHandler, ReactNode } from 'react'
 import type { LithosElementProps } from '../../../core/types'
 
+/** Available Breadcrumb modes */
+export type BreadcrumbMode = 'default' | 'collapsible'
+
 /**
  * Data payload structure defining an individual breadcrumb step item.
  */
@@ -33,7 +36,7 @@ export interface BreadcrumbProps extends LithosElementProps<'nav'> {
   items?: BreadcrumbItemData[]
 
   /** Enables collapsible mode for long breadcrumb lists. */
-  mode?: 'collapsible'
+  mode?: BreadcrumbMode
 
   /** Custom separator node rendered between items. */
   separator?: ReactNode

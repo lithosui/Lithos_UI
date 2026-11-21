@@ -28,20 +28,20 @@ export type AsChildProps<
   TargetElement extends ElementType = DefaultElement,
 > =
   | (BaseProps &
-      Omit<ComponentPropsWithRef<DefaultElement>, keyof BaseProps> & {
+      Omit<LithosElementProps<DefaultElement>, keyof BaseProps> & {
         asChild?: false
       })
   | (BaseProps &
-      Omit<ComponentPropsWithRef<TargetElement>, keyof BaseProps> & {
+      Omit<LithosElementProps<TargetElement>, keyof BaseProps> & {
         /** Delegates rendering to its direct child element merging props and event handlers. */
         asChild: true
         children: ReactNode
       })
 
 /**
- * Base props interface extending native element attributes with LithosClass support.
+ * Base props interface extending element attributes with LithosClass support.
  */
-export type LithosElementProps<T extends keyof HTMLElementTagNameMap> = Omit<ComponentPropsWithRef<T>, 'className'> & {
+export type LithosElementProps<T extends ElementType> = Omit<ComponentPropsWithRef<T>, 'className'> & {
   className?: LithosClass
 }
 

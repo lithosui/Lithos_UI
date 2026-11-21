@@ -9,9 +9,7 @@ import { cn, type LithosClass } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 import { IconChevronUp } from './icons/IconChevronUp'
 
-/**
- * Context payload provided by `AccordionGroup` to manage accordion state across multiple items.
- */
+/** Context payload provided by `AccordionGroup` to manage accordion state across multiple items. */
 export interface AccordionContextType {
   /**
    * Toggles the open/closed state of a specific accordion item by its identifier.
@@ -21,6 +19,12 @@ export interface AccordionContextType {
    * Checks whether a specific accordion item is currently expanded.
    */
   isItemOpen: (value: string) => boolean
+}
+
+export interface AccordionClasses {
+  container?: LithosClass
+  header?: LithosClass
+  content?: LithosClass
 }
 
 /**
@@ -41,16 +45,7 @@ export interface AccordionProps extends Omit<LithosElementProps<'div'>, 'title'>
   /**
    * Custom CSS class names applied to internal structural slots.
    */
-  classes?: {
-    /** Classes for the outer container element. */
-    container?: LithosClass
-
-    /** Classes for the header trigger button. */
-    header?: LithosClass
-
-    /** Classes for the expandable content container. */
-    content?: LithosClass
-  }
+  classes?: AccordionClasses
 
   /**
    * Controls the expanded state externally (controlled mode).
