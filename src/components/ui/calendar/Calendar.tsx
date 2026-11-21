@@ -26,8 +26,7 @@
  *   (endpoints and the days between) renders in one uniform accent color, since a range is a single
  *   contiguous selection, not a set of independently colorable dates.
  */
-import { useMemo, useState } from 'react'
-import { Button } from '../Button'
+import { useContext, useMemo, useState } from 'react'
 import { cn } from '../../../utils/cn'
 import { IconChevronLeft } from '../icons/IconChevronLeft'
 import {
@@ -47,6 +46,7 @@ import { inferSeedDate, getEmptyValue, asRange, asArray } from './calendar.utils
 import { useRainbowColors } from './useRainbowColors'
 import { useCalendarKeyboardNav } from './useCalendarKeyboardNav'
 import { CalendarGrid } from './CalendarGrid'
+import { CalendarContext } from './CalendarContext'
 import { Select } from '../Select'
 
 import type { DateRange, CalendarValue, CalendarProps } from './calendar.types'
@@ -82,8 +82,11 @@ export const Calendar = ({
   yearRange,
   classes = {},
   className,
+  bordered: propBordered,
   ...rest
 }: CalendarProps) => {
+  const calendarContext = useContext(CalendarContext)
+  const bordered = propBordered ?? calendarContext?.bordered ?? true
   const isValueControlled = value !== undefined
   const [localValue, setLocalValue] = useState<CalendarValue>(() => defaultValue ?? getEmptyValue(mode))
   const currentValue = isValueControlled ? value! : localValue
@@ -204,22 +207,27 @@ export const Calendar = ({
   return (
     <div
       className={cn(
-        'inline-block border-2 border-(--lithos-border) bg-(--lithos-surface) shadow-[2px_2px_0_0_var(--lithos-shadow)] p-3 rounded-(--lithos-radius)',
+        'inline-block w-full',
+        bordered &&
+          'border-2 border-(--lithos-border) bg-(--lithos-surface) shadow-[2px_2px_0_0_var(--lithos-shadow)] p-3 rounded-(--lithos-radius)',
         classes.container,
         className
       )}
       {...rest}
     >
       <div className={cn('flex items-center justify-between mb-3', classes.header)}>
-        <Button
-          variant="text"
+        <button
+          type="button"
           aria-label="Previous month"
           disabled={isPrevDisabled}
           onClick={() => changeMonth(addMonths(displayedMonth, -1))}
-          className={cn('translate-x-0 translate-y-0 active:translate-x-0 active:translate-y-0 p-1', classes.nav)}
+          className={cn(
+            'p-1 text-(--lithos-text) bg-transparent hover:bg-transparent active:bg-transparent rounded-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
+            classes.nav
+          )}
         >
           <NavIcon direction="prev" />
-        </Button>
+        </button>
 
         <div className="flex items-center">
           <Select
@@ -241,15 +249,18 @@ export const Calendar = ({
           />
         </div>
 
-        <Button
-          variant="text"
+        <button
+          type="button"
           aria-label="Next month"
           disabled={isNextDisabled}
           onClick={() => changeMonth(addMonths(displayedMonth, 1))}
-          className={cn('translate-x-0 translate-y-0 active:translate-x-0 active:translate-y-0 p-1', classes.nav)}
+          className={cn(
+            'p-1 text-(--lithos-text) bg-transparent hover:bg-transparent active:bg-transparent rounded-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
+            classes.nav
+          )}
         >
           <NavIcon direction="next" />
-        </Button>
+        </button>
       </div>
 
       <span className="sr-only" aria-live="polite">

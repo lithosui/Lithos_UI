@@ -4,4 +4,6 @@
  */
 
 export { Calendar } from './calendar/Calendar'
+export { CalendarContext } from './calendar/CalendarContext'
+export type { CalendarContextValue } from './calendar/CalendarContext'
 export type * from './calendar/calendar.types'

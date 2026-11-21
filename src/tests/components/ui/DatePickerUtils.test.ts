@@ -1,0 +1,229 @@
+import { describe, it, expect } from 'vitest'
+import {
+  isValidDate,
+  formatDate,
+  formatDateNumeric,
+  formatDateRange,
+  formatDateRangeNumeric,
+  formatDateInput,
+  formatDateRangeInput,
+  parseDateString,
+  parseDateRangeString,
+  getDisplayValue,
+  getDefaultPresets,
+  isYearGreaterThanCurrent,
+  isDateInputInvalid,
+  isSingleDateStringInvalid,
+} from '../../../components/ui/date-picker/date-picker.utils'
+
+describe('DatePicker date-picker.utils', () => {
+  it('identifies valid dates correctly', () => {
+    expect(isValidDate(new Date(2026, 9, 25))).toBe(true)
+    expect(isValidDate(new Date('invalid'))).toBe(false)
+    expect(isValidDate(null)).toBe(false)
+    expect(isValidDate(undefined)).toBe(false)
+    expect(isValidDate('2026-10-25')).toBe(false)
+  })
+
+  it('formats dates consistently', () => {
+    const date = new Date(2026, 9, 25)
+    const formatted = formatDate(date, 'en-US')
+    expect(formatted).toContain('2026')
+    expect(formatted).toContain('25')
+
+    expect(formatDate(null)).toBe('')
+    expect(formatDate(undefined)).toBe('')
+    expect(formatDate(new Date('invalid'))).toBe('')
+  })
+
+  it('formats date ranges correctly', () => {
+    const from = new Date(2026, 9, 10)
+    const to = new Date(2026, 9, 15)
+
+    expect(formatDateRange(null)).toBe('')
+    expect(formatDateRange({ from, to: null }, 'en-US')).toBe(formatDate(from, 'en-US'))
+    expect(formatDateRange({ from, to: from }, 'en-US')).toBe(formatDate(from, 'en-US'))
+
+    const rangeFormatted = formatDateRange({ from, to }, 'en-US')
+    expect(rangeFormatted).toContain(' - ')
+    expect(rangeFormatted).toContain('2026')
+
+    expect(formatDateRangeNumeric(null)).toBe('')
+    expect(formatDateRangeNumeric({ from, to: null })).toBe('10/10/2026 - ')
+    expect(formatDateRangeNumeric({ from, to })).toBe('10/10/2026 - 15/10/2026')
+  })
+
+  it('parses valid date strings and rejects invalid inputs', () => {
+    const iso = parseDateString('2026-10-25')
+    expect(iso).not.toBeNull()
+    expect(iso?.getFullYear()).toBe(2026)
+    expect(iso?.getMonth()).toBe(9)
+    expect(iso?.getDate()).toBe(25)
+
+    const us = parseDateString('10/25/2026')
+    expect(us).not.toBeNull()
+    expect(us?.getFullYear()).toBe(2026)
+    expect(us?.getMonth()).toBe(9)
+    expect(us?.getDate()).toBe(25)
+
+    const text = parseDateString('Aug 15, 2026')
+    expect(text).not.toBeNull()
+    expect(text?.getFullYear()).toBe(2026)
+    expect(text?.getMonth()).toBe(7)
+    expect(text?.getDate()).toBe(15)
+
+    expect(parseDateString('')).toBeNull()
+    expect(parseDateString('not-a-date')).toBeNull()
+  })
+
+  it('parses DD/MM/YYYY format with various delimiters', () => {
+    const slashes = parseDateString('25/10/2026')
+    expect(slashes).not.toBeNull()
+    expect(slashes?.getDate()).toBe(25)
+    expect(slashes?.getMonth()).toBe(9)
+    expect(slashes?.getFullYear()).toBe(2026)
+
+    const dashes = parseDateString('31-12-2026')
+    expect(dashes).not.toBeNull()
+    expect(dashes?.getDate()).toBe(31)
+    expect(dashes?.getMonth()).toBe(11)
+    expect(dashes?.getFullYear()).toBe(2026)
+
+    const dots = parseDateString('15.04.2026')
+    expect(dots).not.toBeNull()
+    expect(dots?.getDate()).toBe(15)
+    expect(dots?.getMonth()).toBe(3)
+    expect(dots?.getFullYear()).toBe(2026)
+  })
+
+  it('formats date input with auto-slashes, limits length, and supports editing and deleting', () => {
+    expect(formatDateInput('2')).toBe('2')
+    expect(formatDateInput('25')).toBe('25/')
+    expect(formatDateInput('25/1')).toBe('25/1')
+    expect(formatDateInput('25/10')).toBe('25/10/')
+    expect(formatDateInput('25/10/2026')).toBe('25/10/2026')
+    expect(formatDateInput('1111111111111111111111111111111')).toBe('11/11/1111')
+
+    expect(formatDateInput('25/10/202', '25/10/2026')).toBe('25/10/202')
+    expect(formatDateInput('25/10/', '25/10/2026')).toBe('25/10/')
+    expect(formatDateInput('25/10', '25/10/')).toBe('25/10')
+    expect(formatDateInput('25/1', '25/10')).toBe('25/1')
+    expect(formatDateInput('25/', '25/1')).toBe('25/')
+    expect(formatDateInput('25', '25/')).toBe('25')
+    expect(formatDateInput('2', '25')).toBe('2')
+    expect(formatDateInput('', '2')).toBe('')
+
+    expect(formatDateInput('14/10/2026', '25/10/2026')).toBe('14/10/2026')
+    expect(formatDateInput('25/03/2026', '25/10/2026')).toBe('25/03/2026')
+    expect(formatDateInput('25/10/2027', '25/10/2026')).toBe('25/10/2027')
+  })
+
+  it('formats date range input with auto-slashes and range separator', () => {
+    expect(formatDateRangeInput('25/10/2026')).toBe('25/10/2026 - ')
+    expect(formatDateRangeInput('2510202631122026')).toBe('25/10/2026 - 31/12/2026')
+    expect(formatDateRangeInput('25/10/2026 - 31/12/202', '25/10/2026 - 31/12/2026')).toBe('25/10/2026 - 31/12/202')
+    expect(formatDateRangeInput('', '25/10/2026 - 31/12/2026')).toBe('')
+  })
+
+  it('handles empty strings and whitespace properly', () => {
+    expect(parseDateString('')).toBeNull()
+    expect(parseDateString('   ')).toBeNull()
+    expect(parseDateRangeString('')).toBeNull()
+    expect(parseDateRangeString('   ')).toBeNull()
+    expect(formatDate(null)).toBe('')
+    expect(formatDate(undefined)).toBe('')
+    expect(formatDateNumeric(null)).toBe('')
+    expect(formatDateNumeric(undefined)).toBe('')
+    expect(formatDateRange(null)).toBe('')
+  })
+
+  it('parses date range strings properly', () => {
+    const range = parseDateRangeString('10/10/2026 - 15/10/2026')
+    expect(range).not.toBeNull()
+    expect(range?.from?.getDate()).toBe(10)
+    expect(range?.to?.getDate()).toBe(15)
+
+    const singleRange = parseDateRangeString('10/10/2026')
+    expect(singleRange).not.toBeNull()
+    expect(singleRange?.from?.getDate()).toBe(10)
+    expect(singleRange?.to).toBeNull()
+
+    expect(parseDateRangeString('')).toBeNull()
+  })
+
+  it('determines display values across modes', () => {
+    expect(getDisplayValue(undefined, 'single', 'en-US', 'Custom Placeholder')).toBe('Custom Placeholder')
+    expect(getDisplayValue(undefined, 'range', 'en-US')).toBe('DD/MM/YYYY - DD/MM/YYYY')
+
+    const date = new Date(2026, 9, 25)
+    expect(getDisplayValue(date, 'single')).toBe('25/10/2026')
+    expect(getDisplayValue(date, 'single', 'en-US', undefined, 'natural')).toContain('Oct 25')
+
+    const from = new Date(2026, 9, 10)
+    const to = new Date(2026, 9, 20)
+    expect(getDisplayValue({ from, to }, 'range')).toBe('10/10/2026 - 20/10/2026')
+    expect(getDisplayValue({ from, to }, 'range', 'en-US', undefined, 'natural')).toContain('Oct 10')
+
+    expect(getDisplayValue([], 'multiple', 'en-US')).toBe('Select dates')
+    expect(getDisplayValue([date], 'multiple')).toBe('25/10/2026')
+    expect(getDisplayValue([from, to], 'multiple', 'en-US')).toBe('2 dates selected')
+  })
+
+  it('returns default presets for single and range modes', () => {
+    const singlePresets = getDefaultPresets('single')
+    expect(singlePresets.length).toBeGreaterThan(0)
+    expect(singlePresets.some((p) => p.label === 'Today')).toBe(true)
+
+    const rangePresets = getDefaultPresets('range')
+    expect(rangePresets.length).toBeGreaterThan(0)
+    expect(rangePresets.some((p) => p.label === 'Last 7 Days')).toBe(true)
+    expect(rangePresets.some((p) => p.label === 'This Month')).toBe(true)
+  })
+
+  it('correctly identifies when a year exceeds current year', () => {
+    const currentYear = new Date().getFullYear()
+    expect(isYearGreaterThanCurrent(`25/10/${currentYear}`)).toBe(false)
+    expect(isYearGreaterThanCurrent(`25/10/${currentYear + 1}`)).toBe(true)
+    expect(isYearGreaterThanCurrent(`25/10/${currentYear - 1}`)).toBe(false)
+    expect(isYearGreaterThanCurrent('25/10/20')).toBe(false)
+    expect(isYearGreaterThanCurrent(new Date(currentYear, 0, 1))).toBe(false)
+    expect(isYearGreaterThanCurrent(new Date(currentYear + 1, 0, 1))).toBe(true)
+    expect(isYearGreaterThanCurrent({ from: new Date(currentYear, 0, 1), to: new Date(currentYear + 1, 0, 1) })).toBe(
+      true
+    )
+    expect(isYearGreaterThanCurrent({ from: new Date(currentYear, 0, 1), to: new Date(currentYear, 5, 1) })).toBe(false)
+    expect(isYearGreaterThanCurrent(null)).toBe(false)
+    expect(isYearGreaterThanCurrent(undefined)).toBe(false)
+  })
+  it('validates human date entry rules including DD <= 31, MM <= 12, days per month, and leap years', () => {
+    expect(isDateInputInvalid('98/76/YYYY')).toBe(true)
+    expect(isDateInputInvalid('98/76/')).toBe(true)
+    expect(isDateInputInvalid('98/')).toBe(true)
+    expect(isDateInputInvalid('32/10/2026')).toBe(true)
+    expect(isDateInputInvalid('00/10/2026')).toBe(true)
+
+    expect(isDateInputInvalid('15/76/')).toBe(true)
+    expect(isDateInputInvalid('15/13/2026')).toBe(true)
+    expect(isDateInputInvalid('15/00/2026')).toBe(true)
+
+    expect(isDateInputInvalid('31/04/2026')).toBe(true)
+    expect(isDateInputInvalid('31/06/2026')).toBe(true)
+    expect(isDateInputInvalid('31/09/2026')).toBe(true)
+    expect(isDateInputInvalid('31/11/2026')).toBe(true)
+
+    expect(isDateInputInvalid('30/02/2026')).toBe(true)
+    expect(isDateInputInvalid('31/02/2026')).toBe(true)
+    expect(isDateInputInvalid('29/02/2026')).toBe(true)
+    expect(isDateInputInvalid('29/02/2024')).toBe(false)
+    expect(isDateInputInvalid('28/02/2026')).toBe(false)
+
+    expect(isDateInputInvalid('11/11/0002')).toBe(true)
+    expect(isDateInputInvalid('25/10/2026')).toBe(false)
+    expect(isDateInputInvalid('25/10/')).toBe(false)
+    expect(isDateInputInvalid('25')).toBe(false)
+    expect(isDateInputInvalid('')).toBe(false)
+
+    expect(isSingleDateStringInvalid('98/76/YYYY')).toBe(true)
+    expect(isSingleDateStringInvalid('25/10/2026')).toBe(false)
+  })
+})
