@@ -22,6 +22,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added evenly and unevenly distributed stepped examples with labeled stops and snapping.
 - Simplified Slider event/style handling and brightness state updates; app filter cleanup now runs when the brightness demo unmounts instead of resetting on each adjustment.
 
+### Changed (0.1.5)
+
+- Renamed the `InputAddonAlign` type to `InputAddonAlignment`, keep `InputAddonAlign` for compability.
+- Renamed the `SliderSelector` type of the `Carousel` primitive to `CarouselSlideSelector`, The `SliderSelector` type was removed to avoid confusion with the `Slider` component.
+- Renamed the `DurationObjType` of the `Toast` primitive to `ToastDurationMap`, keep `DurationObjType` for compability.
+
+### Fixed (0.1.5)
+
+### Removed (0.1.5)
+
 ## [0.1.4]
 
 ### Added (0.1.4)
