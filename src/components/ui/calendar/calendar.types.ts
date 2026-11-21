@@ -26,6 +26,51 @@ export interface DateRange {
  */
 export type CalendarValue = Date | null | Date[] | DateRange
 
+/** Day-of-week index starting at `0` for Sunday through `6` for Saturday. */
+export type CalendarFirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
+/** Date instance or numeric timestamp/day identifier marked as disabled. */
+export type CalendarDisabledDate = Date | number
+
+/** Associates a set of disabled dates with a highlight color. */
+export type CalendarDateColorGroup = {
+  /** Dates or day identifiers belonging to this color group. */
+  dates: CalendarDisabledDate[]
+
+  /** Highlight color applied to matching dates. */
+  color: HexColor | string
+}
+
+/** Custom class overrides for internal `Calendar` sub-elements. */
+export interface CalendarClasses {
+  /** Root container wrapper. */
+  container?: LithosClass
+
+  /** Top calendar header bar. */
+  header?: LithosClass
+
+  /** Previous/next navigation controls container. */
+  nav?: LithosClass
+
+  /** Month selector dropdown. */
+  monthSelect?: LithosClass
+
+  /** Year selector dropdown. */
+  yearSelect?: LithosClass
+
+  /** Weekday labels row. */
+  weekdays?: LithosClass
+
+  /** Days grid container. */
+  grid?: LithosClass
+
+  /** Individual calendar grid cell wrapper. */
+  cell?: LithosClass
+
+  /** Day button or label inside a cell. */
+  day?: LithosClass
+}
+
 /**
  * Props for the root `Calendar` component.
  */
@@ -79,7 +124,7 @@ export interface CalendarProps extends Omit<LithosElementProps<'div'>, 'defaultV
   /**
    * Array of disabled specific dates or day numbers.
    */
-  disabledDates?: (Date | number)[]
+  disabledDates?: CalendarDisabledDate[]
 
   /**
    * Custom validation function to determine if a specific date should be disabled.
@@ -89,13 +134,13 @@ export interface CalendarProps extends Omit<LithosElementProps<'div'>, 'defaultV
   /**
    * Mode='multiple' only — assigns distinct colors per group of selected dates (e.g. leave types).
    */
-  dateColors?: { dates: (Date | number)[]; color: HexColor | string }[]
+  dateColors?: CalendarDateColorGroup[]
 
   /**
    * Index of the first day of the week (0 for Sunday, 1 for Monday, etc.).
    * @default 0
    */
-  firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+  firstDayOfWeek?: CalendarFirstDayOfWeek
 
   /**
    * Locale string for formatting month and weekday labels.
@@ -110,15 +155,5 @@ export interface CalendarProps extends Omit<LithosElementProps<'div'>, 'defaultV
   /**
    * Granular custom CSS class overrides for internal calendar structural sub-elements.
    */
-  classes?: {
-    container?: LithosClass
-    header?: LithosClass
-    nav?: LithosClass
-    monthSelect?: LithosClass
-    yearSelect?: LithosClass
-    weekdays?: LithosClass
-    grid?: LithosClass
-    cell?: LithosClass
-    day?: LithosClass
-  }
+  classes?: CalendarClasses
 }

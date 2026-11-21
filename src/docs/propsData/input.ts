@@ -3,7 +3,8 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const inputPropsData: PropItem[] = [
   {
     name: 'size',
-    type: '"default" | "sm" | "md" | "lg"',
+    type: 'InputSize',
+    typeDefinition: "type InputSize = 'default' | 'sm' | 'md' | 'lg'",
     defaultValue: '"default"',
     required: false,
     description: 'Controls padding and height. sm=h-8, default=h-10, md=h-11, lg=h-12.',
@@ -90,7 +91,8 @@ export const inputGroupAddonPropsData: PropItem[] = [
   },
   {
     name: 'align',
-    type: '"inline-start" | "inline-end"',
+    type: 'InputAddonAlignment',
+    typeDefinition: "type InputAddonAlignment = 'inline-start' | 'inline-end'",
     defaultValue: '"inline-start"',
     required: false,
     description: 'Pins the addon to the leading or trailing edge of the group, independent of DOM order.',

@@ -55,6 +55,9 @@ export interface IconCheckboxProps extends CheckboxProps {
   checkedIcon?: ComponentType<IconProps>
 }
 
+/** Layout orientation mode for grouped checkboxes. */
+export type CheckboxGroupMode = 'horizontal' | 'vertical'
+
 /**
  * Props for the `CheckboxGroup` component.
  */
@@ -71,8 +74,8 @@ export interface CheckboxGroupProps {
   /** Optional description text displayed under the group label. */
   description?: ReactNode
 
-  /** Layout orientation mode for grouped checkboxes. */
-  mode?: 'horizontal' | 'vertical' | undefined
+  /** Layout orientation mode for grouped checkboxes. @default 'vertical' */
+  mode?: CheckboxGroupMode | undefined
 
   /** Disables all nested checkboxes in the group. */
   disabled?: boolean | undefined

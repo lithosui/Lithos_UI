@@ -1,20 +1,25 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const calendarValueDefinition = 'type CalendarValue = Date | null | Date[] | DateRange'
+
 export const calendarPropsData: PropItem[] = [
   {
     name: 'mode',
-    type: '"single" | "multiple" | "range" | "rainbow"',
+    type: 'CalendarMode',
+    typeDefinition: "type CalendarMode = 'single' | 'multiple' | 'range' | 'rainbow'",
     defaultValue: '"single"',
     description: 'Selection mode for the calendar.',
   },
   {
     name: 'value',
     type: 'CalendarValue',
+    typeDefinition: calendarValueDefinition,
     description: 'Controlled selected date(s).',
   },
   {
     name: 'defaultValue',
     type: 'CalendarValue',
+    typeDefinition: calendarValueDefinition,
     description: 'Initial selected date(s).',
   },
   {
@@ -49,7 +54,8 @@ export const calendarPropsData: PropItem[] = [
   },
   {
     name: 'disabledDates',
-    type: '(Date | number)[]',
+    type: 'CalendarDisabledDate[]',
+    typeDefinition: 'type CalendarDisabledDate = Date | number',
     description: 'Specific dates that cannot be selected.',
   },
   {
@@ -59,12 +65,17 @@ export const calendarPropsData: PropItem[] = [
   },
   {
     name: 'dateColors',
-    type: '{ dates: (Date | number)[], color: HexColor | string }[]',
+    type: 'CalendarDateColorGroup[]',
+    typeDefinition: `type CalendarDateColorGroup = {
+  dates: CalendarDisabledDate[]
+  color: HexColor | string
+}`,
     description: 'Assigns distinct colors per group of selected dates (e.g. leave types).',
   },
   {
     name: 'firstDayOfWeek',
-    type: '0 | 1 | 2 | 3 | 4 | 5 | 6',
+    type: 'CalendarFirstDayOfWeek',
+    typeDefinition: 'type CalendarFirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6',
     defaultValue: '0',
     description: 'First day of the week (0 = Sunday, 1 = Monday, etc).',
   },
@@ -85,7 +96,18 @@ export const calendarPropsData: PropItem[] = [
   },
   {
     name: 'classes',
-    type: '{ [key in "container" | "header" | "nav" | "monthSelect" | "yearSelect" | "weekdays" | "grid" | "cell" | "day"]?: LithosClass }',
+    type: 'CalendarClasses',
+    typeDefinition: `interface CalendarClasses {
+  container?: LithosClass
+  header?: LithosClass
+  nav?: LithosClass
+  monthSelect?: LithosClass
+  yearSelect?: LithosClass
+  weekdays?: LithosClass
+  grid?: LithosClass
+  cell?: LithosClass
+  day?: LithosClass
+}`,
     description: 'Custom class overrides for calendar internal elements.',
   },
 ]

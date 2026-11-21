@@ -100,7 +100,8 @@ export const checkboxGroupPropsData: PropItem[] = [
   },
   {
     name: 'mode',
-    type: "'horizontal' | 'vertical'",
+    type: 'CheckboxGroupMode',
+    typeDefinition: "type CheckboxGroupMode = 'horizontal' | 'vertical'",
     defaultValue: "'vertical'",
     required: false,
     description: 'Stacks items in a column or flows them in a row.',

@@ -11,6 +11,18 @@ import type { LithosElementProps } from '../../core/types'
 import { cn } from '../../utils/cn'
 import { getContrastText } from '../../utils/yiq'
 
+/** Step increment for a slider: a positive number or `'any'` for continuous movement. */
+export type SliderStep = number | 'any'
+
+/** Visual scale preset for the slider thumb. */
+export type SliderSize = 'sm' | 'md' | 'lg'
+
+/** Orientation axis of the slider. */
+export type SliderMode = 'horizontal' | 'vertical'
+
+/** Corner geometry for the slider track and thumb. */
+export type SliderShape = 'square' | 'round'
+
 /** Props for a single-value native range input. */
 export interface SliderProps extends Omit<
   LithosElementProps<'input'>,
@@ -24,14 +36,14 @@ export interface SliderProps extends Omit<
   min?: number
   /** Upper bound. @default 100 */
   max?: number
-  /** Allowed increment, or 'any' for continuous values. @default 1 */
-  step?: number | 'any'
-  /** Thumb size; the input keeps a 44px hit area across its axis. @default 'md' */
-  size?: 'sm' | 'md' | 'lg'
-  /** Slider axis. Vertical values increase from bottom to top. @default 'horizontal' */
-  mode?: 'horizontal' | 'vertical'
-  /** Track and thumb shape. Omit to follow the global radius token. */
-  shape?: 'square' | 'round'
+  /** Allowed increment between values. @default 1 */
+  step?: SliderStep
+  /** Thumb size; keeps a 44px hit area along the active axis. @default 'md' */
+  size?: SliderSize
+  /** Slider axis; vertical values increase from bottom to top. @default 'horizontal' */
+  mode?: SliderMode
+  /** Track and thumb shape; omits to inherit the global radius token. */
+  shape?: SliderShape
   /** Custom thumb color. Its border contrast is resolved by the YIQ engine. */
   color?: string
   /** Called with the native numeric value on every user change. */

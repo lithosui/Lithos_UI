@@ -1,5 +1,7 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const sizeDef = "type DialogSize = 'sm' | 'md' | 'lg' | 'xl'"
+
 export const dialogPropsData: PropItem[] = [
   {
     name: 'open',
@@ -15,7 +17,8 @@ export const dialogPropsData: PropItem[] = [
   },
   {
     name: 'variant',
-    type: "'default' | 'simple' | 'bare'",
+    type: 'DialogVariant',
+    typeDefinition: "type DialogVariant = 'default' | 'simple' | 'bare'",
     defaultValue: "'default'",
     required: false,
     description:
@@ -23,7 +26,8 @@ export const dialogPropsData: PropItem[] = [
   },
   {
     name: 'intent',
-    type: "'default' | 'success' | 'error' | 'warning' | 'info'",
+    type: 'DialogIntent',
+    typeDefinition: "type DialogIntent = 'default' | 'success' | 'error' | 'warning' | 'info'",
     defaultValue: "'default'",
     required: false,
     description:
@@ -31,7 +35,8 @@ export const dialogPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg' | 'xl'",
+    type: 'DialogSize',
+    typeDefinition: sizeDef,
     defaultValue: "'md'",
     required: false,
     description: 'Panel max-width, MUI Dialog maxWidth-style scale.',
@@ -200,7 +205,8 @@ export const customDialogPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg' | 'xl'",
+    type: 'DialogSize',
+    typeDefinition: sizeDef,
     defaultValue: "'md'",
     required: false,
     description: 'Panel max-width, matching the underlying Dialog scale.',

@@ -16,7 +16,8 @@ export const spinnerProps: PropItem[] = [
   },
   {
     name: 'variant',
-    type: '"default" | "accent" | "inverse"',
+    type: 'SpinnerVariant',
+    typeDefinition: "type SpinnerVariant = 'default' | 'accent' | 'inverse'",
     defaultValue: '"default"',
     required: false,
     description: 'Dynamic color variant. Default uses primary text color.',

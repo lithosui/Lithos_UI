@@ -1,5 +1,9 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const placementDef = "type SidebarPlacement = 'left' | 'right'"
+const roleDef = "type SidebarRole = 'complementary' | 'region' | 'navigation'"
+const modeDef = "type SidebarMode = 'permanent' | 'mini'"
+
 export const sidebarPropsData: PropItem[] = [
   {
     name: 'open',
@@ -15,19 +19,22 @@ export const sidebarPropsData: PropItem[] = [
   },
   {
     name: 'mode',
-    type: "SidebarMode ('permanent' | 'mini')",
+    type: 'SidebarMode',
+    typeDefinition: modeDef,
     defaultValue: "'permanent'",
     description: 'Layout mode of the sidebar.',
   },
   {
     name: 'role',
-    type: "SidebarRole ('complementary' | 'region' | 'navigation')",
+    type: 'SidebarRole',
+    typeDefinition: roleDef,
     defaultValue: "'complementary'",
     description: 'ARIA landmark role that defines the semantic container tag.',
   },
   {
     name: 'placement',
-    type: "SidebarPlacement ('left' | 'right')",
+    type: 'SidebarPlacement',
+    typeDefinition: placementDef,
     defaultValue: "'left'",
     description:
       'Layout side where the sidebar is positioned in the application. Controls the directional orientation of default chevron icons and tooltips.',
@@ -215,12 +222,14 @@ export const sidebarItemPropsData: PropItem[] = [
 export const useSidebarReturnPropsData: PropItem[] = [
   {
     name: 'mode',
-    type: "SidebarMode ('permanent' | 'mini')",
+    type: 'SidebarMode',
+    typeDefinition: modeDef,
     description: 'The structural mode of the sidebar. Determines layout behavior and responsive characteristics.',
   },
   {
     name: 'role',
-    type: "SidebarRole ('complementary' | 'region' | 'navigation')",
+    type: 'SidebarRole',
+    typeDefinition: roleDef,
     description: 'Accessibility ARIA role applied to the main sidebar container.',
   },
   {
@@ -236,7 +245,8 @@ export const useSidebarReturnPropsData: PropItem[] = [
   },
   {
     name: 'placement',
-    type: "SidebarPlacement ('left' | 'right')",
+    type: 'SidebarPlacement',
+    typeDefinition: placementDef,
     description:
       "Layout side where the sidebar is positioned in the application ('left' or 'right'). Used by child components to adapt icon orientations, borders, and tooltip alignments.",
   },

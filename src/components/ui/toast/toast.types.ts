@@ -9,7 +9,10 @@ import type { LithosClass } from '../../../utils/cn'
 import type { IconProps } from '../icons/icons.types'
 
 /** Visual intent or status variant for a toast notification. */
-export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'default' | 'accent'
+export type ToastIntent = 'success' | 'error' | 'warning' | 'info' | 'default' | 'accent'
+
+/** @deprecated Use {@link ToastIntent}. */
+export type ToastType = ToastIntent
 
 /** Screen corner placement where toast notifications are positioned. */
 export type ToastPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
@@ -22,7 +25,7 @@ export type ToastTransition = 'slide-up' | 'slide-down' | 'fade' | 'scale' | 'no
 
 /** Optional options that can be passed when aborting/cancelling an action */
 export interface ToastCancelOptions {
-  intent?: ToastType
+  intent?: ToastIntent
   message?: ReactNode
   title?: string
   duration?: number
@@ -60,7 +63,7 @@ export interface ToastSharedOptions {
    * Visual style variant representing the status or intent.
    * @default 'default'
    */
-  intent?: ToastType | undefined
+  intent?: ToastIntent | undefined
 
   /** Global default icon configuration used by every toast. */
   icon?: ToastIconConfig
@@ -157,8 +160,8 @@ export interface ToastItemProps {
   className?: LithosClass
 }
 
-/** Custom auto-dismiss duration configuration mapping specific toast intents to display times in milliseconds. */
-export type DurationObjType = {
+/** Custom auto-dismiss duration configuration mapped by toast intent. */
+export type ToastDurationMap = {
   success?: number
   error?: number
   warning?: number
@@ -166,6 +169,11 @@ export type DurationObjType = {
   default?: number
   accent?: number
 }
+
+/** @deprecated Use {@link ToastDurationMap}. */
+export type DurationObjType = ToastDurationMap
+
+export type ToastDuration = number | ToastDurationMap
 
 /** Props for the `ToastProvider` wrapper component. */
 export interface ToastProviderProps extends ToastSharedOptions, LithosElementProps<'div'> {
@@ -177,7 +185,7 @@ export interface ToastProviderProps extends ToastSharedOptions, LithosElementPro
    * Accepts a single number for all toasts or an object specifying per-intent durations.
    * @default 5000
    */
-  duration?: DurationObjType | number
+  duration?: ToastDuration
 
   /**
    * Screen position where toast notifications will appear.

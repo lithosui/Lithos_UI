@@ -3,7 +3,8 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const buttonPropsData: PropItem[] = [
   {
     name: 'variant',
-    type: "'primary' | 'secondary' | 'accent' | 'text' | 'solid' | 'inverse'",
+    type: 'ButtonVariant',
+    typeDefinition: "type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'text' | 'solid' | 'inverse'",
     defaultValue: "'primary'",
     required: false,
     description: 'Visual emphasis variant.',
@@ -23,7 +24,8 @@ export const buttonPropsData: PropItem[] = [
   },
   {
     name: 'type',
-    type: "'button' | 'submit' | 'reset'",
+    type: 'ButtonType',
+    typeDefinition: "type ButtonType = 'button' | 'submit' | 'reset'",
     defaultValue: "'button'",
     required: false,
     description: 'Native HTML button type.',
@@ -57,7 +59,8 @@ export const buttonPropsData: PropItem[] = [
 export const buttonGroupPropsData: PropItem[] = [
   {
     name: 'mode',
-    type: "'horizontal' | 'vertical'",
+    type: 'ButtonGroupMode',
+    typeDefinition: "type ButtonGroupMode = 'horizontal' | 'vertical'",
     defaultValue: "'horizontal'",
     required: false,
     description: 'Lays buttons out side by side or stacked.',

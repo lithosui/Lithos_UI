@@ -3,19 +3,22 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const textareaPropsData: PropItem[] = [
   {
     name: 'variant',
-    type: '"plain" | "outlined" | "soft" | "solid"',
+    type: 'TextareaVariant',
+    typeDefinition: "type TextareaVariant = 'plain' | 'outlined' | 'soft' | 'solid'",
     defaultValue: '"outlined"',
     description: 'Visual treatment, independent of validation, disabled, or required states.',
   },
   {
     name: 'size',
-    type: '"sm" | "default" | "md" | "lg"',
+    type: 'TextareaSize',
+    typeDefinition: "type TextareaSize = 'sm' | 'default' | 'md' | 'lg'",
     defaultValue: '"default"',
     description: 'Shared Input typography and padding scale; one-row minimum heights are 32/40/44/48px.',
   },
   {
     name: 'resize',
-    type: '"none" | "vertical" | "horizontal" | "both"',
+    type: 'TextareaResize',
+    typeDefinition: "type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both'",
     defaultValue: '"vertical"',
     description:
       'Controls the native resize handle. Defaults to none with autoSize, otherwise vertical. Explicit resize works with autoSize.',

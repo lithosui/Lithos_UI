@@ -3,7 +3,7 @@
  * - Provides type-safe access to carousel state (`currentIndex`, `totalSlides`, `mode`) and action dispatchers (`scroll`).
  */
 import { useContext, createContext, type RefObject, type UIEvent } from 'react'
-import type { ScrollFunc, CarouselMode, SliderSelector } from './carousel.types'
+import type { ScrollFunc, CarouselMode, CarouselSlideSelector } from './carousel.types'
 import type { useCarouselDragReturn } from './useCarouselDrag'
 
 /**
@@ -44,7 +44,7 @@ export interface CarouselContextValue {
   loop: boolean
 
   /** Selector style for slide indicators (dots or numbers). */
-  slideSelector: SliderSelector
+  slideSelector: CarouselSlideSelector
 
   /** Displays the numeric slide counter. */
   showCounter: boolean

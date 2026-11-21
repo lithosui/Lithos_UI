@@ -3,7 +3,8 @@ import type { PropItem } from '../../components/ui/PropsTable'
 const sharedProps: PropItem[] = [
   {
     name: 'animation',
-    type: 'boolean | "pulse" | "shimmer"',
+    type: 'SkeletonAnimation',
+    typeDefinition: "type SkeletonAnimation = boolean | 'shimmer' | 'pulse'",
     defaultValue: 'true',
     description:
       'Use true for the default animation, "pulse" for pulse, or false to disable animation. "shimmer" is also accepted. Forced colors disable animation.',
@@ -17,7 +18,8 @@ const sharedProps: PropItem[] = [
   },
   {
     name: 'tone',
-    type: '"neutral" | "accent"',
+    type: 'SkeletonTone',
+    typeDefinition: "type SkeletonTone = 'neutral' | 'accent'",
     defaultValue: '"neutral"',
     description: 'Theme-token-based fill, including Obsidian mode and custom accents.',
   },
@@ -32,7 +34,8 @@ const sharedProps: PropItem[] = [
 export const skeletonPropsData: PropItem[] = [
   {
     name: 'variant',
-    type: '"text" | "rectangular" | "rounded" | "circular"',
+    type: 'SkeletonVariant',
+    typeDefinition: "type SkeletonVariant = 'text' | 'rectangular' | 'rounded' | 'circular'",
     defaultValue: '"text"',
     description:
       'Text is 1em tall; rectangles are 8rem tall; circles are 3rem wide with a 1:1 aspect ratio. Set equal dimensions if overriding both circle dimensions.',

@@ -9,19 +9,13 @@ import { useAccentColor } from '../../core/useAccentColor'
 import type { HexColor, LithosElementProps } from '../../core/types'
 import { cn } from '../../utils/cn'
 
-/**
- * Size scale variant determining padding and typography dimensions for the badge.
- */
+/** Size scale variant determining padding and typography dimensions for the badge. */
 export type BadgeSizes = 'default' | 'sm' | 'md' | 'lg'
 
-/**
- * Semantic tone or intent variant for the badge background color.
- */
+/** Semantic tone or intent variant for the badge background color. */
 export type BadgeIntents = 'default' | 'accent' | 'success' | 'error' | 'warning' | 'info'
 
-/*
- * Props for the `Badge` component.
- */
+/** Props for the `Badge` component. */
 export interface BadgeProps extends LithosElementProps<'span'> {
   /**
    * Semantic style intent variant.

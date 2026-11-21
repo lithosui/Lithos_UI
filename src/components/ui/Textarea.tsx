@@ -13,17 +13,30 @@ interface FieldContextValue {
 
 const FieldContext = createContext<FieldContextValue | null>(null)
 
+/** Visual style treatment for the textarea surface. */
+export type TextareaVariant = 'plain' | 'outlined' | 'soft' | 'solid'
+
+/** Scale preset for textarea typography and spacing. */
+export type TextareaSize = 'sm' | 'default' | 'md' | 'lg'
+
+/** Allowed resize axes for the textarea element. */
+export type TextareaResize = 'none' | 'vertical' | 'horizontal' | 'both'
+
 export interface TextareaProps extends LithosElementProps<'textarea'> {
   /** Visual treatment; validation is independent of the variant. */
-  variant?: 'plain' | 'outlined' | 'soft' | 'solid'
+  variant?: TextareaVariant
+
   /** Applies the shared error border and exposes the invalid state to assistive technology. */
   invalid?: boolean
+
   /** Controls typography and padding; use native rows to control height. */
-  size?: 'sm' | 'default' | 'md' | 'lg'
+  size?: TextareaSize
+
   /** Starts at one row and grows with content, up to the CSS max-height. */
   autoSize?: boolean
+
   /** Native resize affordance. */
-  resize?: 'none' | 'vertical' | 'horizontal' | 'both'
+  resize?: TextareaResize
 }
 
 // Match Input's one-row heights: 32, 40, 44 and 48px, including borders.

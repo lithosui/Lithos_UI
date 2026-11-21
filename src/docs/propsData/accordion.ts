@@ -28,7 +28,12 @@ export const accordionPropsData: PropItem[] = [
   },
   {
     name: 'classes',
-    type: '{ container?: LithosClass; header?: LithosClass; content?: LithosClass }',
+    type: 'AccordionClasses',
+    typeDefinition: `interface AccordionClasses {
+  container?: LithosClass
+  header?: LithosClass
+  content?: LithosClass
+}`,
     required: false,
     description: 'Custom class overrides for container, header, and content elements.',
   },

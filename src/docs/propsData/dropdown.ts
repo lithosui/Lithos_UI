@@ -3,7 +3,8 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const dropdownPropsData: PropItem[] = [
   {
     name: 'placement',
-    type: '"bottom-start" | "bottom-end"',
+    type: 'DropdownPlacement',
+    typeDefinition: "type DropdownPlacement = 'bottom-start' | 'bottom-end'",
     defaultValue: '"bottom-end"',
     required: false,
     description: 'Placement edge where the dropdown is anchored.',
@@ -11,6 +12,7 @@ export const dropdownPropsData: PropItem[] = [
   {
     name: '...props',
     type: 'PopoverProps',
+    definitionPath: 'popover',
     required: false,
     description: 'Same props as Popover.',
   },
@@ -20,6 +22,7 @@ export const dropdownTriggerPropsData: PropItem[] = [
   {
     name: '...props',
     type: 'PopoverTriggerProps',
+    definitionPath: { path: 'popover', label: 'PopoverTrigger' },
     required: false,
     description: 'Same props as PopoverTrigger.',
   },
@@ -43,6 +46,7 @@ export const dropdownContentPropsData: PropItem[] = [
   {
     name: '...props',
     type: 'PopoverContentProps',
+    definitionPath: { path: 'popover', label: 'PopoverContent' },
     required: false,
     description: 'Same props as PopoverContent.',
   },
@@ -81,6 +85,7 @@ export const dropdownSubPropsData: PropItem[] = [
   {
     name: '...props',
     type: 'PopoverProps',
+    definitionPath: 'popover',
     required: false,
     description: 'Same props as Popover.',
   },

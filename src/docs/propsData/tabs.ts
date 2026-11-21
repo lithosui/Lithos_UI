@@ -22,7 +22,8 @@ export const tabsPropsData: PropItem[] = [
   },
   {
     name: 'variant',
-    type: '"default" | "underline" | "vertical"',
+    type: 'TabsVariant',
+    typeDefinition: "type TabsVariant = 'default' | 'underline' | 'vertical'",
     defaultValue: '"default"',
     required: false,
     description: 'The visual variant of the tabs component.',

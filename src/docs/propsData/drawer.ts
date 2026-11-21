@@ -1,5 +1,7 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const drawerMode = "type DrawerMode = 'default' | 'responsive'"
+
 export const drawerPropsData: PropItem[] = [
   {
     name: 'open',
@@ -39,21 +41,24 @@ export const drawerPropsData: PropItem[] = [
   },
   {
     name: 'mode',
-    type: "DrawerMode ('default' | 'responsive')",
+    type: 'DrawerMode',
+    typeDefinition: drawerMode,
     defaultValue: "'default'",
     required: false,
     description: 'Drawer rendering mode. Responsive mode automatically converts to a Dialog on desktop.',
   },
   {
     name: 'placement',
-    type: "DrawerPlacement ('left' | 'right' | 'top' | 'bottom')",
+    type: 'DrawerPlacement',
+    typeDefinition: "type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'",
     defaultValue: "mode === 'responsive' ? 'bottom' : 'right'",
     required: false,
     description: 'Placement edge where the drawer enters from.',
   },
   {
     name: 'transition',
-    type: "DrawerTransition ('slide' | 'fade' | 'zoom')",
+    type: 'DrawerTransition',
+    typeDefinition: "type DrawerTransition = 'slide' | 'fade' | 'zoom'",
     defaultValue: "'slide'",
     required: false,
     description: 'Transition effect applied when opening or closing the drawer.',
@@ -61,13 +66,15 @@ export const drawerPropsData: PropItem[] = [
   {
     name: 'transformOrigin',
     type: 'DrawerTransformOrigin',
+    typeDefinition: `type DrawerTransformOrigin = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`,
     defaultValue: "'center'",
     required: false,
     description: 'Origin point for CSS transform animations.',
   },
   {
     name: 'transitionDuration',
-    type: 'DrawerTransitionDuration (number | { enter: number; exit: number })',
+    type: 'DrawerTransitionDuration',
+    typeDefinition: 'type DrawerTransitionDuration = number | { enter: number; exit: number }',
     defaultValue: '150',
     required: false,
     description: 'Transition duration in milliseconds. Can be a single number or an object with enter and exit values.',
@@ -217,6 +224,7 @@ export const useDrawerReturnData: PropItem[] = [
     name: 'mode',
     type: 'DrawerMode',
     defaultValue: "'default'",
+    typeDefinition: drawerMode,
     description: 'Rendering mode of the drawer.',
   },
   {
