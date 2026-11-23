@@ -3,7 +3,7 @@
  * - Displays a standard table of component properties, types, defaults, and descriptions.
  * - Used exclusively in documentation; excluded from the public package.
  */
-import { Fragment, useId, useState } from 'react'
+import { Fragment, useId, useState, useEffect, useRef } from 'react'
 import { Accordion, type AccordionProps } from './Accordion'
 import { Badge } from './Badge'
 import { cn } from '../../utils/cn'
@@ -59,11 +59,51 @@ export interface PropsTableProps {
   isHook?: boolean | undefined
 }
 
+const sanitizePropName = (propName: string) => {
+  let newName = ''
+
+  for (const char of propName) {
+    // removes the "..." from prop names like "...props"
+    if (propName.startsWith('...')) {
+      newName = propName.replace('...', '')
+      break
+    }
+
+    // add a underscore before an uppercased leter
+    if (char >= 'A' && char <= 'Z') {
+      newName += `_${char.toLowerCase()}`
+      continue
+    }
+
+    newName += char
+  }
+
+  return newName
+}
+
+const getExpandedPropNames = (data: PropItem[]) =>
+  new Set(
+    data
+      .filter((prop) => prop.required)
+      // remove the '...' from names like "...props"
+      .map((prop) => sanitizePropName(prop.name))
+  )
+
 export const PropsTable = ({ data, isHook }: PropsTableProps) => {
   const tableId = useId()
-  const [expandedProps, setExpandedProps] = useState<Set<string>>(
-    () => new Set(data.filter((prop) => prop.required).map((prop) => prop.name))
-  )
+  const [expandedProps, setExpandedProps] = useState(() => getExpandedPropNames(data))
+  const lastExpandedProps = useRef(expandedProps.size)
+
+  console.log(expandedProps)
+
+  useEffect(() => {
+    const newExpandedProps = getExpandedPropNames(data)
+
+    if (lastExpandedProps.current != newExpandedProps.size) {
+      setExpandedProps(newExpandedProps)
+      lastExpandedProps.current = newExpandedProps.size
+    }
+  }, [data])
 
   const toggleProp = (name: string) => {
     setExpandedProps((current) => {
@@ -86,11 +126,12 @@ export const PropsTable = ({ data, isHook }: PropsTableProps) => {
         </thead>
         <tbody>
           {data.map((prop) => {
-            const isExpanded = expandedProps.has(prop.name)
-            const detailsId = `${tableId}-prop-details-${prop.name}`
+            const sanitizedName = sanitizePropName(prop.name)
+            const isExpanded = expandedProps.has(sanitizedName)
+            const detailsId = `${tableId}-prop-details-${sanitizedName}`
 
             return (
-              <Fragment key={prop.name}>
+              <Fragment key={sanitizedName}>
                 <tr className="border-b border-(--lithos-border)/40">
                   <td className="p-3 font-mono font-bold text-(--lithos-text) whitespace-nowrap">
                     <button
@@ -98,8 +139,8 @@ export const PropsTable = ({ data, isHook }: PropsTableProps) => {
                       className="inline-flex min-h-10 cursor-pointer items-center text-left"
                       aria-expanded={isExpanded}
                       aria-controls={detailsId}
-                      aria-label={`Toggle ${prop.name} details`}
-                      onClick={() => toggleProp(prop.name)}
+                      aria-label={`Toggle ${sanitizedName.replaceAll('_', ' ')} details`}
+                      onClick={() => toggleProp(sanitizedName)}
                     >
                       <IconChevronDown
                         size={20}
@@ -144,7 +185,9 @@ export const PropsTable = ({ data, isHook }: PropsTableProps) => {
                           typeof prop.definitionPath === 'object' &&
                           !('label' in prop.definitionPath && 'path' in prop.definitionPath)
                         )
-                          return
+                          throw Error(
+                            `[LITHOS-UI]: Invalid definitionPath object ${JSON.stringify(prop.definitionPath)}. Must contain "label" and "path" entries.`
+                          )
 
                         const path =
                           typeof prop.definitionPath === 'object' ? prop.definitionPath.path : prop.definitionPath
@@ -154,7 +197,10 @@ export const PropsTable = ({ data, isHook }: PropsTableProps) => {
                             ? prop.definitionPath?.label
                             : componentData?.label
 
-                        if (!componentData) return
+                        if (!componentData)
+                          throw Error(
+                            `[LITHOS-UI]: Invalid definitionPath string or object "path" entry: ${JSON.stringify(prop.definitionPath)}. The string must match a valid path on the array "DOC_PAGES" at src/core/lithos.utils.ts`
+                          )
 
                         return (
                           <div className="mt-4 flex">
@@ -214,10 +260,8 @@ const isLithosType = (type: string) => {
     'unknown',
     'void',
     'Date',
-    /^\(.*\)/, // inline functions
+    /^\(.*\) => void/, // void functions
     /^\[.*\]/, // inline arrays
-    /^(Ref|RefObject)<.+>?/i, // added ? because the split below may remove the last >
-    'ReactNode',
   ])
 
   const alternatives = type.split('|').map((part) => part.trim())
@@ -231,17 +275,8 @@ const isLithosType = (type: string) => {
       if (typeOrRegex instanceof RegExp && typeOrRegex.test(part)) {
         noHighlightRegExpType = true
       }
-
-      // this can be a splitted part of a Ref/RefObject... e.g: Ref<Something |
-      // null> will return the parts -> 'RefObject<Something' and 'null>'
-      if (typeof typeOrRegex === 'string' && part.endsWith('>')) {
-        noHighlightRegExpType = true
-      }
     }
 
-    // noHighlightRegExpType has priority because some types like Ref<Something | null>.
-    // noHighlightType will take it as a valid type to highlight just because
-    // one of it's parts match (null)
     return noHighlightRegExpType ?? noHighlightType
   })
 }
