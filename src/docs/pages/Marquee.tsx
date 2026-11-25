@@ -3,8 +3,6 @@ import { PropsAccordion } from '../../components/ui/PropsTable'
 import { SetupGuide } from '../layout/SetupGuide'
 import { DocCallout, DocExample, DocHeader, DocHeading, DocLeadText, DocSection } from '../layout/DocPage'
 import { marqueePropsData } from '../propsData/marquee'
-import { Marquee } from '../../components/ui/Marquee'
-import { getUnreleasedComponentInfo } from '../../core/unreleasedRegistry'
 import { removeImports } from '../examples/removeImports'
 import { getComponentGithubUrl } from '../utils/githubUrl'
 
@@ -26,7 +24,6 @@ import { MarqueeInteractiveExample } from '../examples/marquee/interactive'
 import interactiveSource from '../examples/marquee/interactive.tsx?raw'
 
 const githubUrl = getComponentGithubUrl('marquee')
-const unreleasedInfo = getUnreleasedComponentInfo('marquee')
 const marqueeCode = (source: string) => ({
   body: removeImports(source),
   componentNames: ['Marquee'],
@@ -35,13 +32,6 @@ const marqueeCode = (source: string) => ({
 
 export const MarqueeDoc = () => (
   <div className="max-w-5xl mx-auto px-6">
-    {/* Unreleased Alert Banner */}
-    {unreleasedInfo && (
-      <Marquee variant="warning" className="mb-6">
-        <span className="font-mono font-black text-xs uppercase tracking-wider">{unreleasedInfo.warningMessage}</span>
-      </Marquee>
-    )}
-
     <DocHeader
       title="Marquee"
       description="An infinite-loop scrolling ticker ribbon with pause-on-hover interaction, bidirectional motion, and neo-brutalist styling."

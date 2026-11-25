@@ -24,20 +24,11 @@ import { RangeSliderExample } from '../examples/slider/range'
 import { SliderOrientationExample } from '../examples/slider/orientation'
 import orientationSource from '../examples/slider/orientation.tsx?raw'
 import rangeSource from '../examples/slider/range.tsx?raw'
-import { Marquee } from '../../components/ui/Marquee'
-import { getUnreleasedComponentInfo } from '../../core/unreleasedRegistry'
 
 const githubUrl = 'https://github.com/lithosui/Lithos_UI/blob/main/src/components/ui/Slider.tsx'
-const unreleasedInfo = getUnreleasedComponentInfo('slider')
 
 export const SliderDoc = () => (
   <div className="max-w-5xl mx-auto px-6">
-    {unreleasedInfo && (
-      <Marquee variant="warning" className="mb-6">
-        <span className="font-mono font-black text-xs uppercase tracking-wider">{unreleasedInfo.warningMessage}</span>
-      </Marquee>
-    )}
-
     <DocHeader title="Slider" description="A draggable input for picking a value or range." />
     <DocSection>
       <DocHeading id="installation">Installation</DocHeading>
