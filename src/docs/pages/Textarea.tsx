@@ -1,6 +1,8 @@
 import { PreviewBlock } from '../../components/ui/PreviewBlock'
 import { CodeViewer } from '../../components/ui/CodeViewer'
 import { PropsAccordion } from '../../components/ui/PropsTable'
+import { Marquee } from '../../components/ui/Marquee'
+import { getUnreleasedComponentInfo } from '../../core/unreleasedRegistry'
 import { DocHeader, DocHeading, DocSection, DocExample, DocList } from '../layout/DocPage'
 import { SetupGuide } from '../layout/SetupGuide'
 import { removeImports } from '../examples/removeImports'
@@ -35,6 +37,7 @@ import wordCountSource from '../examples/textarea/wordCount.tsx?raw'
 
 const manualPath = '../../components/ui/Textarea'
 const githubUrl = getComponentGithubUrl('textarea')
+const unreleasedInfo = getUnreleasedComponentInfo('textarea')
 const examples = [
   {
     id: 'basic',
@@ -131,6 +134,11 @@ const examples = [
 
 export const TextareaDoc = () => (
   <div className="mx-auto max-w-5xl px-6">
+    {unreleasedInfo && (
+      <Marquee variant="warning" className="mb-6">
+        <span className="font-mono font-black text-xs uppercase tracking-wider">{unreleasedInfo.warningMessage}</span>
+      </Marquee>
+    )}
     <DocHeader
       title="Textarea"
       description="A multiline form primitive that wraps the native textarea element with theme awareness."
