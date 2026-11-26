@@ -103,6 +103,9 @@ export interface PopoverContentProps extends LithosElementProps<'div'> {
 
   /** Animation transition duration in milliseconds. */
   transitionDuration?: number
+
+  /** Enables focus management via FloatingFocusManager. @default true */
+  focusManager?: boolean
 }
 
 /**

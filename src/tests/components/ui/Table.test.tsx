@@ -170,9 +170,10 @@ describe('Table primitives', () => {
       </TableContainer>
     )
     await user.tab()
-    expect(screen.getByRole('region')).toHaveFocus()
-    expect(screen.getByRole('region')).toHaveClass('shadow-none')
-    expect(screen.getByRole('region').className).not.toContain('shadow-[4px')
+    const region = screen.getByRole('region', { name: 'Wide table' })
+    expect(region).toHaveFocus()
+    expect(region).toHaveClass('shadow-none')
+    expect(region.className).not.toContain('shadow-[4px')
     expect(screen.getByRole('cell')).toHaveClass('px-8')
     expect(screen.getByRole('cell').className).not.toContain('px-(--table-cell-x)')
   })

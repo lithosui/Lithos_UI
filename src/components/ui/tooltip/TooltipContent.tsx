@@ -43,6 +43,7 @@ export const TooltipContent = ({ className, variant = 'default', children, ...re
 
   return (
     <PopoverContent
+      focusManager={false}
       className={cn('min-w-[unset] px-3 py-1.5 text-sm font-bold', currentVariant.container, className)}
       {...rest}
     >

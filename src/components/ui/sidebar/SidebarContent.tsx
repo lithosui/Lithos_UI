@@ -5,7 +5,7 @@
  * - Integrated resizer gesture control using the dedicated `useResizer` hook.
  */
 import { useMemo, useEffect, type ElementType } from 'react'
-import type { SidebarContentProps } from './sidebar.types'
+import type { SidebarContainerElement, SidebarContentProps } from './sidebar.types'
 import { useSidebar } from './useSidebar'
 import { cn } from '../../../utils/cn'
 import { useResizer } from '../../../core/hooks/useResizer'
@@ -23,7 +23,7 @@ const containersMap = {
  * @param props - Configuration props for gestures, resizer handles, and styling. - {@link SidebarContentProps}
  * @returns Semantic landmark container wrapping sidebar content.
  */
-export const SidebarContent = <T extends ElementType = 'aside'>({
+export const SidebarContent = <T extends SidebarContainerElement = 'aside'>({
   allowSwipeOnContent = true,
   resizerAriaLabel = 'Resize sidebar',
   resizerClass,

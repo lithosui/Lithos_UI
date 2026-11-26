@@ -82,7 +82,7 @@ export interface SidebarProps extends LithosElementProps<'div'> {
 /**
  * Props for the main structural container of the sidebar.
  */
-export type SidebarContentProps<T extends ElementType = 'aside'> = {
+export type SidebarContentProps<T extends SidebarContainerElement = 'aside'> = {
   /**
    * Whether swipe/drag gesture is allowed directly on the sidebar content.
    * If `false`, interactive elements won't capture pointer drag events.
