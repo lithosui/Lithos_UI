@@ -20,6 +20,7 @@ export const PopoverContent = ({
   portaled = true,
   ref: propRef,
   transitionDuration = 0,
+  focusManager = true,
   ...props
 }: PopoverContentProps) => {
   const {
@@ -39,23 +40,29 @@ export const PopoverContent = ({
 
   if (!isMounted) return null
 
-  const content = (
+  const surface = (
+    <div
+      ref={ref}
+      style={{ ...floatingStyles, ...style }}
+      data-status={status}
+      aria-labelledby={labelId}
+      aria-describedby={descriptionId}
+      className={cn(
+        'z-(--lithos-z-popover) min-w-40 border-2 border-(--lithos-border) bg-(--lithos-surface) p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)] text-(--lithos-text) outline-none rounded-(--lithos-radius)',
+        className
+      )}
+      {...getFloatingProps(props)}
+    >
+      {props.children}
+    </div>
+  )
+
+  const content = focusManager ? (
     <FloatingFocusManager context={floatingContext} modal={modal}>
-      <div
-        ref={ref}
-        style={{ ...floatingStyles, ...style }}
-        data-status={status}
-        aria-labelledby={labelId}
-        aria-describedby={descriptionId}
-        className={cn(
-          'z-(--lithos-z-popover) min-w-40 border-2 border-(--lithos-border) bg-(--lithos-surface) p-4 shadow-[4px_4px_0_0_var(--lithos-shadow)] text-(--lithos-text) outline-none rounded-(--lithos-radius)',
-          className
-        )}
-        {...getFloatingProps(props)}
-      >
-        {props.children}
-      </div>
+      {surface}
     </FloatingFocusManager>
+  ) : (
+    surface
   )
 
   if (!portaled) return content

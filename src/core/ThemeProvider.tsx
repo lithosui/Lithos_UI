@@ -165,7 +165,6 @@ export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
 
     const applyChange = () => {
       applyThemeClasses(nextMode)
-      syncThemeProperty('lithos-theme-mode', nextMode ? 'dark' : 'light', 'lithos-theme-mode-changed')
       setIsDarkMode(nextMode)
     }
 

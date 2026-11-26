@@ -175,12 +175,18 @@ describe('Dropdown Component Suite', () => {
     const nextButton = screen.getByRole('button', { name: 'Next element' })
 
     await user.click(trigger)
-    expect(screen.getByRole('menuitem', { name: 'Profile' })).toBeInTheDocument()
+    const profileItem = screen.getByRole('menuitem', { name: 'Profile' })
+    await waitFor(() => {
+      expect(profileItem).toHaveFocus()
+    })
 
     await user.keyboard('{Tab}')
-    await user.tab()
+    await waitFor(() => {
+      expect(screen.queryByRole('menuitem', { name: 'Profile' })).not.toBeInTheDocument()
+      expect(trigger).toHaveFocus()
+    })
 
-    expect(screen.queryByRole('menuitem', { name: 'Profile' })).not.toBeInTheDocument()
+    await user.tab()
     expect(nextButton).toHaveFocus()
   })
 })

@@ -4,8 +4,9 @@
  * - Copies the current code block to the clipboard with toast feedback.
  * - Uses explicit spacing only; no gap utilities are allowed.
  */
+import { useContext } from 'react'
 import { useToast } from './toast/useToast'
-import { useTheme } from '../../core/hooks/useTheme'
+import { ThemeContext } from '../../core/ThemeProviderContext'
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
@@ -44,7 +45,7 @@ export const CodeViewer = ({
   cliCommand,
 }: CodeViewerProps) => {
   const toast = useToast()
-  const { accentColor } = useTheme()
+  const accentColor = useContext(ThemeContext)?.accentColor
 
   const handleCopy = async () => {
     const addToastExists = typeof toast?.addToast === 'function'
