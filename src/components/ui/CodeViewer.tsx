@@ -128,7 +128,7 @@ export const CodeViewer = ({
           <div className="absolute inset-0 flex justify-center items-center pointer-events-none hidden md:flex">
             <button
               onClick={handleCliCopy}
-              className="pointer-events-auto flex items-center bg-(--lithos-bg) border-2 border-(--lithos-border) rounded-full px-5 py-1.5 text-sm font-code font-bold hover:bg-(--lithos-accent) hover:text-(--lithos-accent-text) transition-colors lithos-click"
+              className="pointer-events-auto flex items-center bg-(--lithos-bg) border-2 border-(--lithos-border) rounded-full px-5 py-1.5 text-sm font-code font-bold hover:bg-(--lithos-accent) hover:text-(--lithos-accent-text) lithos-click"
               title="Copy CLI command"
             >
               <span className="opacity-90">{cliCommand}</span>

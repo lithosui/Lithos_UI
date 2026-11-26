@@ -298,7 +298,7 @@ export const ComponentPlayground = () => {
         <div className="mt-14 text-center">
           <Link
             to="/components"
-            className="inline-flex items-center space-x-2 border-2 border-(--lithos-border) bg-(--lithos-bg) hover:bg-(--lithos-accent) hover:text-(--lithos-accent-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click transition-colors"
+            className="inline-flex items-center space-x-2 border-2 border-(--lithos-border) bg-(--lithos-bg) hover:bg-(--lithos-accent) hover:text-(--lithos-accent-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click"
           >
             <span>Explore All 27+ UI Components</span>
             <IconArrowRight size={14} />

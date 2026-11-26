@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '../../core/hooks/useTheme'
 import { Button } from './Button'
@@ -9,6 +9,7 @@ import { IconMoon } from './icons/IconMoon'
 import { IconSun } from './icons/IconSun'
 import { IconArrowRight } from './icons/IconArrowRight'
 import type { HexColor } from '../../core/types'
+import type { LithosEffect, LithosMotion } from '../../core/ThemeProviderContext'
 
 const ARTISTIC_PALETTES = [
   { label: 'Lime', hex: '#00ff00' },
@@ -33,9 +34,110 @@ const RADII = [
   { label: 'Lg', value: 24, variant: 'lg' },
 ] as const
 
+const MOTIONS: readonly { label: string; value: LithosMotion }[] = [
+  { label: 'Spring', value: 'spring' },
+  { label: 'Pop', value: 'pop' },
+  { label: 'Sink', value: 'sink' },
+  { label: 'Lift', value: 'lift' },
+  { label: 'Stamp', value: 'stamp' },
+  { label: 'Flip', value: 'flip' },
+  { label: 'Flat', value: 'flat' },
+]
+
+const EFFECTS: readonly { label: string; value: LithosEffect }[] = [
+  { label: 'None', value: 'none' },
+  { label: 'Gradient', value: 'gradient' },
+  { label: 'Glint', value: 'glint' },
+  { label: 'Stripes', value: 'stripes' },
+  { label: 'Dots', value: 'dots' },
+]
+
+interface SegmentedOption<T extends string | number> {
+  value: T
+  label: string
+  ariaLabel: string
+  title?: string
+  content: ReactNode
+}
+
+const SegmentedSection = <T extends string | number>({
+  heading,
+  badge,
+  value,
+  options,
+  rowSizes,
+  onSelect,
+}: {
+  heading: string
+  badge: string
+  value: T
+  options: readonly SegmentedOption<T>[]
+  rowSizes?: readonly number[]
+  onSelect: (value: T) => void
+}) => {
+  const rows: SegmentedOption<T>[][] = []
+  if (rowSizes?.length) {
+    let cursor = 0
+    for (const size of rowSizes) {
+      rows.push(options.slice(cursor, cursor + size))
+      cursor += size
+    }
+  } else {
+    rows.push([...options])
+  }
+
+  return (
+    <div className="px-3.5 py-2.5 border-t-2 border-(--lithos-border) bg-(--lithos-surface)">
+      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-(--lithos-text) opacity-70 mb-2">
+        <span>{heading}</span>
+        <span className="font-mono text-[9px] uppercase">{badge}</span>
+      </div>
+
+      <div className="w-full border-2 border-(--lithos-border) rounded-(--lithos-radius) overflow-hidden shadow-[2px_2px_0px_0px_var(--lithos-shadow)]">
+        {rows.map((row, rowIdx) => (
+          <div key={rowIdx} className={`flex w-full ${rowIdx !== 0 ? 'border-t-2 border-(--lithos-border)' : ''}`}>
+            {row.map((option, colIdx) => {
+              const isSelected = value === option.value
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => onSelect(option.value)}
+                  aria-label={option.ariaLabel}
+                  title={option.title}
+                  className={`flex-1 h-8 flex items-center justify-center text-[11px] font-bold font-mono transition-colors cursor-pointer ${
+                    colIdx !== 0 ? 'border-l-2 border-(--lithos-border)' : ''
+                  } ${
+                    isSelected
+                      ? 'bg-(--lithos-accent) text-(--lithos-accent-text)'
+                      : 'bg-(--lithos-bg) text-(--lithos-text) hover:bg-(--lithos-surface)'
+                  }`}
+                >
+                  {option.content}
+                </button>
+              )
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export const MiniThemeEngine = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const { accentColor, radius, isDarkMode, updateAccentColor, updateRadius, toggleObsidian } = useTheme()
+  const {
+    accentColor,
+    radius,
+    isDarkMode,
+    motion,
+    effect,
+    updateAccentColor,
+    updateRadius,
+    updateMotion,
+    updateEffect,
+    toggleObsidian,
+  } = useTheme()
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -97,7 +199,7 @@ export const MiniThemeEngine = () => {
           ref={panelRef}
           role="dialog"
           aria-label="Theme Engine"
-          className="absolute bottom-16 right-0 w-72 bg-(--lithos-surface) text-(--lithos-text) border-2 border-(--lithos-border) shadow-[6px_6px_0px_0px_var(--lithos-shadow)] flex flex-col overflow-hidden animate-[brutalist-pop_0.12s_ease-out] rounded-(--lithos-radius)"
+          className="absolute bottom-16 right-0 w-72 max-h-[calc(100vh-6.5rem)] overflow-y-auto bg-(--lithos-surface) text-(--lithos-text) border-2 border-(--lithos-border) shadow-[6px_6px_0px_0px_var(--lithos-shadow)] flex flex-col animate-[brutalist-pop_0.12s_ease-out] rounded-(--lithos-radius)"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-3.5 py-2.5 border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
@@ -136,7 +238,7 @@ export const MiniThemeEngine = () => {
               <span className="font-mono text-[9px]">{accentColor.toUpperCase()}</span>
             </div>
 
-            <div className="flex flex-col space-y-1 max-h-56 overflow-y-auto pr-1">
+            <div className="flex flex-col space-y-1 max-h-40 overflow-y-auto pr-1">
               {ARTISTIC_PALETTES.map((palette) => {
                 const selected = isPaletteSelected(palette.hex)
                 return (
@@ -186,37 +288,47 @@ export const MiniThemeEngine = () => {
             </div>
           </div>
 
-          {/* Radius Segmented Bar */}
-          <div className="px-3.5 py-2.5 border-t-2 border-(--lithos-border) bg-(--lithos-surface)">
-            <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-(--lithos-text) opacity-70 mb-2">
-              <span>Radius</span>
-              <span className="font-mono text-[9px]">{radius}PX</span>
-            </div>
+          <SegmentedSection
+            heading="Radius"
+            badge={`${radius}PX`}
+            value={radius}
+            onSelect={updateRadius}
+            options={RADII.map((r) => ({
+              value: r.value,
+              label: r.label,
+              ariaLabel: `Set border radius to ${r.label}`,
+              title: `${r.label} (${r.value}px)`,
+              content: <IconRadius variant={r.variant} size={14} />,
+            }))}
+          />
 
-            <div className="flex w-full border-2 border-(--lithos-border) rounded-(--lithos-radius) overflow-hidden shadow-[2px_2px_0px_0px_var(--lithos-shadow)]">
-              {RADII.map((r, idx) => {
-                const isSelected = radius === r.value
-                return (
-                  <button
-                    key={r.label}
-                    type="button"
-                    onClick={() => updateRadius(r.value)}
-                    aria-label={`Set border radius to ${r.label}`}
-                    title={`${r.label} (${r.value}px)`}
-                    className={`flex-1 h-8 flex items-center justify-center text-xs font-bold font-mono transition-colors cursor-pointer ${
-                      idx !== 0 ? 'border-l-2 border-(--lithos-border)' : ''
-                    } ${
-                      isSelected
-                        ? 'bg-(--lithos-accent) text-(--lithos-accent-text)'
-                        : 'bg-(--lithos-bg) text-(--lithos-text) hover:bg-(--lithos-surface)'
-                    }`}
-                  >
-                    <IconRadius variant={r.variant} size={14} />
-                  </button>
-                )
-              })}
-            </div>
-          </div>
+          <SegmentedSection
+            heading="Motion"
+            badge={motion}
+            value={motion}
+            rowSizes={[4, 3]}
+            onSelect={updateMotion}
+            options={MOTIONS.map((item) => ({
+              value: item.value,
+              label: item.label,
+              ariaLabel: `Set click motion to ${item.label}`,
+              content: item.label,
+            }))}
+          />
+
+          <SegmentedSection
+            heading="Effect"
+            badge={effect}
+            value={effect}
+            rowSizes={[3, 2]}
+            onSelect={updateEffect}
+            options={EFFECTS.map((item) => ({
+              value: item.value,
+              label: item.label,
+              ariaLabel: `Set surface effect to ${item.label}`,
+              content: item.label,
+            }))}
+          />
 
           {/* Bottom Action: Open Full Theme Builder via Lithos UI Button primitive */}
           <div className="p-3 border-t-2 border-(--lithos-border) bg-(--lithos-surface)">

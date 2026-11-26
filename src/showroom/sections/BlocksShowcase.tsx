@@ -105,13 +105,13 @@ export const BlocksShowcase = () => {
         <div className="mt-14 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Link
             to="/blocks"
-            className="w-full sm:w-auto text-center border-2 border-(--lithos-border) bg-(--lithos-accent) text-(--lithos-accent-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click transition-colors"
+            className="w-full sm:w-auto text-center border-2 border-(--lithos-border) bg-(--lithos-accent) text-(--lithos-accent-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click"
           >
             Explore All Blocks Catalog
           </Link>
           <Link
             to="/templates"
-            className="w-full sm:w-auto text-center border-2 border-(--lithos-border) bg-(--lithos-surface) hover:bg-(--lithos-bg) text-(--lithos-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click transition-colors"
+            className="w-full sm:w-auto text-center border-2 border-(--lithos-border) bg-(--lithos-surface) hover:bg-(--lithos-bg) text-(--lithos-text) text-xs font-black uppercase tracking-wider px-6 py-3 rounded-(--lithos-radius) lithos-click"
           >
             Explore Full Templates
           </Link>
