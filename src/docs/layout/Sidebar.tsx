@@ -24,6 +24,9 @@ export const Sidebar = () => {
         <h3 className="text-xs font-display opacity-50 mb-3 px-4 uppercase">Getting Started</h3>
         <nav className="flex flex-col w-full pl-4 space-y-1">
           {gettingStartedPages.map((page) => {
+            const unreleasedInfo = getUnreleasedComponentInfo(page.path)
+            const isActive = location.pathname === page.to
+
             return (
               <RouteLink
                 key={page.to}
@@ -32,7 +35,18 @@ export const Sidebar = () => {
                 rootMargin="50px"
                 className="group/sidebar-item flex items-center w-full"
               >
-                <span className={getPillClass(page.to)}>{page.label}</span>
+                <span className={getPillClass(page.to)}>
+                  <span>{page.label}</span>
+                  {unreleasedInfo && (
+                    <Badge
+                      size="sm"
+                      intent={isActive ? 'default' : 'accent'}
+                      className="ml-2 py-0 px-1 text-[9px] font-mono font-black uppercase tracking-wider"
+                    >
+                      {unreleasedInfo.badgeLabel}
+                    </Badge>
+                  )}
+                </span>
               </RouteLink>
             )
           })}

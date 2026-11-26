@@ -1,8 +1,11 @@
 import { useMemo, useEffect, useState, useRef, useCallback, type ReactNode } from 'react'
 import { flushSync } from 'react-dom'
-import { ThemeContext } from './ThemeProviderContext'
+import { ThemeContext, type LithosMotion, type LithosEffect } from './ThemeProviderContext'
 import { getContrastText } from '../utils/yiq'
 import { isHexColor, type HexColor } from './types'
+
+const VALID_MOTIONS: readonly LithosMotion[] = ['pop', 'sink', 'lift', 'stamp', 'flip', 'spring', 'flat']
+const VALID_EFFECTS: readonly LithosEffect[] = ['none', 'gradient', 'glint', 'stripes', 'dots']
 
 /** Props for the {@link ThemeProvider} component. */
 export interface LithosThemeProps {
@@ -78,6 +81,16 @@ export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
 
   const [radius, setRadius] = useState(() => parseInt(localStorage.getItem('lithos-theme-radius') || '0', 10))
 
+  const [motion, setMotion] = useState<LithosMotion>(() => {
+    const stored = localStorage.getItem('lithos-theme-motion') as LithosMotion | null
+    return stored && VALID_MOTIONS.includes(stored) ? stored : 'spring'
+  })
+
+  const [effect, setEffect] = useState<LithosEffect>(() => {
+    const stored = localStorage.getItem('lithos-theme-effect') as LithosEffect | null
+    return stored && VALID_EFFECTS.includes(stored) ? stored : 'none'
+  })
+
   const prevConfig = useRef({
     accentColor: config?.accentColor,
     radius: config?.radius,
@@ -127,12 +140,14 @@ export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
   useEffect(() => {
     syncThemeProperty('lithos-theme-color', accentColor, 'lithos-theme-color-changed')
     syncThemeProperty('lithos-theme-radius', radius.toString())
+    syncThemeProperty('lithos-theme-motion', motion)
+    syncThemeProperty('lithos-theme-effect', effect)
 
     const mode = isDarkMode ? 'dark' : 'light'
     syncThemeProperty('lithos-theme-mode', mode, 'lithos-theme-mode-changed')
 
     applyThemeClasses(isDarkMode)
-  }, [accentColor, radius, isDarkMode, applyThemeClasses])
+  }, [accentColor, radius, motion, effect, isDarkMode, applyThemeClasses])
 
   // One-time setup for global selection styles & view transitions
   useEffect(() => {
@@ -148,15 +163,17 @@ export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
     }
   }, [])
 
-  // Direct CSS custom properties update on root
+  // Direct CSS custom properties and motion attributes update on root
   useEffect(() => {
-    const rootStyle = document.documentElement.style
+    const root = document.documentElement
     const contrastText = getContrastText(accentColor)
 
-    rootStyle.setProperty('--lithos-accent', accentColor)
-    rootStyle.setProperty('--lithos-accent-text', contrastText)
-    rootStyle.setProperty('--lithos-radius', `${radius}px`)
-  }, [accentColor, radius])
+    root.style.setProperty('--lithos-accent', accentColor)
+    root.style.setProperty('--lithos-accent-text', contrastText)
+    root.style.setProperty('--lithos-radius', `${radius}px`)
+    root.dataset['lithosMotion'] = motion
+    root.dataset['lithosEffect'] = effect
+  }, [accentColor, radius, motion, effect])
 
   const toggleObsidian = useCallback(() => {
     if (isTransitioningRef.current) return
@@ -227,11 +244,15 @@ export const ThemeProvider = ({ children, config }: LithosThemeProps) => {
       accentColor,
       radius,
       isDarkMode,
+      motion,
+      effect,
       updateAccentColor,
       toggleObsidian,
       updateRadius: (newRadius: number) => setRadius(newRadius),
+      updateMotion: (nextMotion: LithosMotion) => setMotion(nextMotion),
+      updateEffect: (nextEffect: LithosEffect) => setEffect(nextEffect),
     }),
-    [accentColor, updateAccentColor, radius, isDarkMode, toggleObsidian]
+    [accentColor, updateAccentColor, radius, isDarkMode, motion, effect, toggleObsidian]
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

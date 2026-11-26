@@ -83,4 +83,27 @@ describe('ThemeProvider & useTheme integration', () => {
 
     window.removeEventListener('lithos-theme-mode-changed', listener)
   })
+
+  it('syncs motion and effect presets with localStorage and document root attributes', () => {
+    const wrapper = ({ children }: { children: ReactNode }) => <ThemeProvider>{children}</ThemeProvider>
+
+    const { result } = renderHook(() => useTheme(), { wrapper })
+
+    expect(result.current.motion).toBe('spring')
+    expect(result.current.effect).toBe('none')
+    expect(document.documentElement.dataset['lithosMotion']).toBe('spring')
+    expect(document.documentElement.dataset['lithosEffect']).toBe('none')
+
+    act(() => {
+      result.current.updateMotion('stamp')
+      result.current.updateEffect('dots')
+    })
+
+    expect(result.current.motion).toBe('stamp')
+    expect(result.current.effect).toBe('dots')
+    expect(document.documentElement.dataset['lithosMotion']).toBe('stamp')
+    expect(document.documentElement.dataset['lithosEffect']).toBe('dots')
+    expect(localStorage.setItem).toHaveBeenCalledWith('lithos-theme-motion', 'stamp')
+    expect(localStorage.setItem).toHaveBeenCalledWith('lithos-theme-effect', 'dots')
+  })
 })

@@ -67,6 +67,13 @@ export const DOC_PAGES: readonly DocPageConfig[] = [
     category: 'Getting Started',
     loader: () => import('../docs/pages/Installation').then((m) => ({ default: m.Installation })),
   },
+  {
+    path: 'animations',
+    to: '/docs/animations',
+    label: 'Animations',
+    category: 'Getting Started',
+    loader: () => import('../docs/pages/Animations').then((m) => ({ default: m.AnimationsDoc })),
+  },
 
   {
     path: 'accordion',
