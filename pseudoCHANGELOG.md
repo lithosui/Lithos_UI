@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added (0.1.5)
 
+- **Label:** Added a native form label with token-based typography, three sizes, required markers, disabled styling, and native attributes/ref support. Includes documentation without Anatomy, standalone examples, navigation, showcase, package exports, CLI installation, and behavior/accessibility tests. Registered as unreleased.
+
 - **Textarea:** Added a native multiline field matching Input sizing, with plain, outlined, soft, and solid variants, accessible validation, automatic sizing, and manual resize controls.
 - Added Textarea documentation, code-only Anatomy, props reference, lazy route, navigation, component showcase, package exports, CLI installation, and behavior/accessibility tests.
 - Added Field, FieldLabel, and FieldDescription helpers within Textarea for connected labels and descriptions, plus examples with submit buttons, local attachments, emoji insertion, and separate character-count and word-count samples showing used/total and remaining counts with enforced limits.

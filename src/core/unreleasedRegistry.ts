@@ -16,7 +16,7 @@ export const DEFAULT_UNRELEASED_BADGE_LABEL = 'NEW'
 export const DEFAULT_UNRELEASED_WARNING_MESSAGE =
   'UNRELEASED COMPONENT · DO NOT USE YET · THIS COMPONENT IS YET TO BE RELEASED ⚠'
 
-const UNRELEASED_SLUGS = new Set(['slider', 'marquee', 'textarea'])
+const UNRELEASED_SLUGS = new Set(['label', 'slider', 'marquee', 'textarea'])
 
 const normalizeSlug = (identifier?: string): string =>
   identifier ? identifier.toLowerCase().trim().replaceAll(' ', '-') : ''

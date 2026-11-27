@@ -32,6 +32,12 @@ To prevent Tailwind class bloat ("DRY" architecture), Lithos UI packages its mec
 
 ## Components
 
+### Component Status
+
+| Component | Status                  | Documentation                             |
+| --------- | ----------------------- | ----------------------------------------- |
+| Label     | Implemented; unreleased | [Usage and API](src/docs/pages/Label.tsx) |
+
 [See the component tracker issue for all existing and planned components.](https://github.com/lithosui/Lithos_UI/issues/311)
 
 ---

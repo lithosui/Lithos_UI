@@ -47,6 +47,7 @@ import {
 } from '../components/ui/icons'
 import { Input } from '../components/ui/Input'
 import { Textarea } from '../components/ui/Textarea'
+import { Label } from '../components/ui/Label'
 import { Kbd, KbdGroup } from '../components/ui/Kbd'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/Table'
@@ -319,6 +320,12 @@ const getComponentPreview = (name: string) => {
           resize="none"
           className="w-48 pointer-events-none"
         />
+      )
+    case 'Label':
+      return (
+        <Label size="sm" required>
+          Full name
+        </Label>
       )
     case 'Kbd':
       return (
