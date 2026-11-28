@@ -3,21 +3,24 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const alertPropsData: PropItem[] = [
   {
     name: 'intent',
-    type: "'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
+    type: 'AlertIntent',
+    typeDefinition: "type AlertIntent = 'default' | 'success' | 'error' | 'warning' | 'info' | 'accent'",
     defaultValue: "'default'",
     required: false,
     description: 'Status color palette drawn from the shared color tokens.',
   },
   {
     name: 'variant',
-    type: "'filled' | 'outlined'",
+    type: 'AlertVariant',
+    typeDefinition: "type AlertVariant = 'filled' | 'outlined'",
     defaultValue: "'filled'",
     required: false,
     description: 'Solid fill vs. outline-only border/shadow on the accent color.',
   },
   {
     name: 'size',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'AlertSize',
+    typeDefinition: "type AlertSize = 'sm' | 'md' | 'lg'",
     defaultValue: "'lg'",
     required: false,
     description: 'Scales padding and typography together.',

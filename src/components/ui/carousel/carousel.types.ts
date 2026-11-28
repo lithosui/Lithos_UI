@@ -23,7 +23,7 @@ export type ScrollFunc = (direction: ScrollFuncProp) => void
 /**
  * Selector style for slide pagination indicators.
  */
-export type SliderSelector = 'dots' | 'numbers'
+export type CarouselSlideSelector = 'dots' | 'numbers'
 
 /**
  * Scroll layout orientation mode for the carousel track.
@@ -66,7 +66,7 @@ export interface CarouselProps extends LithosElementProps<'div'> {
    * Selector style for slide indicators.
    * @default 'dots'
    */
-  slideSelector?: SliderSelector
+  slideSelector?: CarouselSlideSelector
 
   /**
    * Displays the numeric slide counter.

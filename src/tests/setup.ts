@@ -21,6 +21,17 @@ window.ResizeObserver = ResizeObserverMock
 
 import { vi } from 'vitest'
 
+// Minimal mock to avoid ReferenceError and allow basic observation calls in tests
+class MockIntersectionObserver {
+  constructor(public callback: unknown) {}
+
+  observe: IntersectionObserver['observe'] = () => {}
+  unobserve: IntersectionObserver['unobserve'] = () => {}
+  disconnect(): void {}
+}
+
+vi.stubGlobal('IntersectionObserver', MockIntersectionObserver)
+
 Object.defineProperty(window, 'localStorage', {
   value: {
     getItem: vi.fn(),

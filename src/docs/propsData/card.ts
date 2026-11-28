@@ -1,9 +1,12 @@
 import type { PropItem } from '../../components/ui/PropsTable'
 
+const spacingDef = "type CardSpacing = 'sm' | 'md' | 'lg'"
+
 export const cardPropsData: PropItem[] = [
   {
     name: 'variant',
-    type: "'default' | 'accent' | 'image' | 'solid'",
+    type: 'CardVariants',
+    typeDefinition: "type CardVariants = 'default' | 'accent' | 'image' | 'solid'",
     defaultValue: "'default'",
     required: false,
     description:
@@ -11,7 +14,8 @@ export const cardPropsData: PropItem[] = [
   },
   {
     name: 'interactive',
-    type: "boolean | 'elevate'",
+    type: 'CardInteractive',
+    typeDefinition: "type CardInteractive = boolean | 'elevate'",
     defaultValue: 'false',
     required: false,
     description:
@@ -56,7 +60,8 @@ export const cardImagePropsData: PropItem[] = [
 export const cardContentPropsData: PropItem[] = [
   {
     name: 'spacing',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'CardSpacing',
+    typeDefinition: spacingDef,
     defaultValue: "'md'",
     required: false,
     description: 'Internal padding scale.',
@@ -90,7 +95,8 @@ export const cardDescriptionPropsData: PropItem[] = [
 export const cardFooterPropsData: PropItem[] = [
   {
     name: 'spacing',
-    type: "'sm' | 'md' | 'lg'",
+    type: 'CardSpacing',
+    typeDefinition: spacingDef,
     defaultValue: "'md'",
     required: false,
     description: 'Internal padding scale, matched to the adjacent CardContent.',

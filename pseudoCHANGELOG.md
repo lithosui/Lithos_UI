@@ -22,8 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Added evenly and unevenly distributed stepped examples with labeled stops and snapping.
 - Simplified Slider event/style handling and brightness state updates; app filter cleanup now runs when the brightness demo unmounts instead of resetting on each adjustment.
 
-### Changed (0.1.5)
-
 - Added new icons -> `IconAlertCircle`, `IconBell` and `IconInfo`.
 - Added new `Toast` features:
   - Choose between different transitions: `slide-up`, `slide-down`, `scale`, `face` or `none`.
@@ -35,11 +33,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Added a progress bar that can be enabled by passing `showProgress: true` to the `addToast` function. _(disabled if using an async `Toast`)_
   - `showProgress`, `transition`, `icon` props can be passed to the `ToastProvider` to use them globally. _(these props can also be passed to the `addToast` to override the global values)_
 
+### Changed (0.1.5)
+
+- Renamed the `InputAddonAlign` type to `InputAddonAlignment`, keep `InputAddonAlign` for compability.
+- Renamed the `SliderSelector` type of the `Carousel` primitive to `CarouselSlideSelector`, The `SliderSelector` type was removed to avoid confusion with the `Slider` component.
+- Renamed the `DurationObjType` of the `Toast` primitive to `ToastDurationMap`, keep `DurationObjType` for compability.
+
 ### Fixed (0.1.5)
 
 - `ToastItem` text color resolution failed if you passed a non hex color.
 
 ### Removed (0.1.5)
+
+- `SliderSelector` type (use `CarouselSlideSelector`).
 
 ## [0.1.4]
 

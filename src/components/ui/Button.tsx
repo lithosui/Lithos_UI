@@ -10,14 +10,16 @@ import type { LithosElementProps } from '../../core/types'
 import { cn } from '../../utils/cn'
 import { getContrastText } from '../../utils/yiq'
 
-/**
- * Visual styling variant for the button component.
- */
+/** Visual styling variant for the `Button`. */
 export type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'text' | 'solid' | 'inverse'
 
-/**
- * Props for the `Button` component.
- */
+/** Available `Button` types. */
+export type ButtonType = 'button' | 'submit' | 'reset'
+
+/** Available `ButtonGroup` component modes. */
+export type ButtonGroupMode = 'horizontal' | 'vertical'
+
+/** Props for the `Button` component. */
 export interface ButtonProps extends Omit<LithosElementProps<'button'>, 'type'> {
   /**
    * Visual variant determining the color palette and interaction style.
@@ -40,7 +42,7 @@ export interface ButtonProps extends Omit<LithosElementProps<'button'>, 'type'> 
    * HTML button type attribute.
    * @default 'button'
    */
-  type?: 'button' | 'submit' | 'reset' | undefined
+  type?: ButtonType | undefined
 
   /**
    * Optional icon node rendered before the button text.
@@ -117,7 +119,7 @@ export interface ButtonGroupProps extends LithosElementProps<'div'> {
    * Layout orientation mode for grouped buttons.
    * @default 'horizontal'
    */
-  mode?: 'horizontal' | 'vertical'
+  mode?: ButtonGroupMode
 
   /**
    * Fuses adjacent buttons together into a single attached strip with overlapping borders.

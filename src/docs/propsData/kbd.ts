@@ -9,14 +9,16 @@ export const kbdPropsData: PropItem[] = [
   },
   {
     name: 'size',
-    type: '"xs" | "sm" | "md" | "lg"',
+    type: 'KbdSize',
+    typeDefinition: "type KbdSize = 'xs' | 'sm' | 'md' | 'lg'",
     defaultValue: '"md"',
     required: false,
     description: 'Controls the proportional dimensions, font size, and padding of the keycap.',
   },
   {
     name: 'variant',
-    type: '"default" | "accent" | "outline" | "solid" | "subtle" | "inverse"',
+    type: 'KbdVariant',
+    typeDefinition: "type KbdVariant = 'default' | 'accent' | 'outline' | 'solid' | 'subtle' | 'inverse'",
     defaultValue: '"default"',
     required: false,
     description: 'Visual style variant representing keycap status, theme, or hierarchy.',

@@ -23,7 +23,7 @@ import { BreadcrumbEllipsis } from './BreacrumbEllipsis'
  */
 export const Breadcrumb = ({
   items,
-  mode,
+  mode = 'default',
   separator = <IconBreadcrumbSeparator />,
   showHomeIcon = true,
   humanPrefix,

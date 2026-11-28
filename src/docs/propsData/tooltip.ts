@@ -21,7 +21,8 @@ export const tooltipTriggerPropsData: PropItem[] = [
 export const tooltipContentPropsData: PropItem[] = [
   {
     name: 'variant',
-    type: '"default" | "primary" | "inverse"',
+    type: 'TooltipVariant',
+    typeDefinition: "type TooltipVariant = 'default' | 'primary' | 'inverse'",
     defaultValue: '"default"',
     description: 'The visual style variant of the tooltip surface.',
   },

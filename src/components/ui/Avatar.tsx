@@ -9,10 +9,10 @@ import { useAccentColor } from '../../core/useAccentColor'
 import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
-/** Available sizes for the Avatar component. */
+/** Available sizes for Avatar components. */
 export type AvatarSizes = 'sm' | 'md' | 'lg'
 
-/** Available visual variants for the Avatar component. */
+/** Available visual variants for Avatar components. */
 export type AvatarVariants = 'default' | 'solid'
 
 /** Props for the Avatar component. */

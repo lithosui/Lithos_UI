@@ -3,14 +3,16 @@ import type { PropItem } from '../../components/ui/PropsTable'
 export const sliderPropsData: PropItem[] = [
   {
     name: 'mode',
-    type: '"horizontal" | "vertical"',
+    type: 'SliderMode',
+    typeDefinition: "type SliderMode = 'horizontal' | 'vertical'",
     defaultValue: '"horizontal"',
     description:
       'Layout behavior: horizontal or vertical axis. Vertical values increase from bottom to top; customize height with className or style.',
   },
   {
     name: 'shape',
-    type: '"square" | "round"',
+    type: 'SliderShape',
+    typeDefinition: "type SliderShape = 'square' | 'round'",
     defaultValue: 'Global --lithos-radius token',
     description: 'Overrides the track and thumb radius with square corners or a pill track and circular thumb.',
   },
@@ -46,14 +48,16 @@ export const sliderPropsData: PropItem[] = [
   },
   {
     name: 'step',
-    type: 'number | "any"',
+    type: 'SliderStep',
+    typeDefinition: "type SliderStep = number | 'any'",
     defaultValue: '1',
     description:
       'Positive increment relative to min, or "any" for continuous values. With "any", keyboard increments follow native browser behavior.',
   },
   {
     name: 'size',
-    type: '"sm" | "md" | "lg"',
+    type: 'SliderSize',
+    typeDefinition: "type SliderSize = 'sm' | 'md' | 'lg'",
     defaultValue: '"md"',
     description: 'Thumb size. All sizes keep a 44px input hit area across the slider axis.',
   },

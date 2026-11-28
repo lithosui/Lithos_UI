@@ -6,6 +6,18 @@
 import { cn } from '../../utils/cn'
 import type { LithosElementProps } from '../../core/types'
 
+/** Size density scale variant controlling cell padding metrics. */
+export type TableSize = 'sm' | 'md' | 'lg'
+
+/** Visual header color theme variant mapping. */
+export type TableHeaderVariant = 'default' | 'accent'
+
+/** Defines the set of cells associated with a header cell for accessibility. */
+export type TableHeadScope = 'col' | 'row' | 'colgroup' | 'rowgroup'
+
+/** Indicates the sort direction state exposed to assistive technologies. */
+export type TableHeadSort = 'none' | 'ascending' | 'descending' | 'other'
+
 /**
  * Utility type mapping native table element attributes and injecting `LithosClass` support.
  */
@@ -22,7 +34,7 @@ export interface TableProps extends TableElementProps<'table'> {
    * Size density scale variant controlling cell padding metrics.
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg'
+  size?: TableSize
 
   /**
    * Applies alternating background striping styles to table body rows.
@@ -49,7 +61,7 @@ export interface TableHeaderProps extends TableElementProps<'thead'> {
    * Visual header color theme variant mapping.
    * @default 'default'
    */
-  variant?: 'default' | 'accent'
+  variant?: TableHeaderVariant
 }
 
 /** Props configuration interface for the `TableBody` component. */
@@ -68,7 +80,13 @@ export interface TableRowProps extends TableElementProps<'tr'> {
 }
 
 /** Props configuration interface for the `TableHead` header cell component. */
-export type TableHeadProps = TableElementProps<'th'>
+export type TableHeadProps = Omit<TableElementProps<'th'>, 'scope' | 'aria-sort'> & {
+  /** Associates the header cell with a column, row, or group of cells. */
+  scope?: TableHeadScope
+
+  /** Declares how column data is sorted; set when the column supports sorting. */
+  'aria-sort'?: TableHeadSort | undefined
+}
 
 /** Props configuration interface for the `TableCell` standard data cell component. */
 export type TableCellProps = TableElementProps<'td'>
