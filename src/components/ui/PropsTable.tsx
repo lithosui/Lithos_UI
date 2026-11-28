@@ -60,15 +60,12 @@ export interface PropsTableProps {
 }
 
 const sanitizePropName = (propName: string) => {
+  // removes the "..." from prop names like "...props"
+  const tempPropName = propName.startsWith('...') ? propName.replace('...', '') : propName
+
   let newName = ''
 
-  for (const char of propName) {
-    // removes the "..." from prop names like "...props"
-    if (propName.startsWith('...')) {
-      newName = propName.replace('...', '')
-      break
-    }
-
+  for (const char of tempPropName) {
     // add a underscore before an uppercased leter
     if (char >= 'A' && char <= 'Z') {
       newName += `_${char.toLowerCase()}`
@@ -89,156 +86,33 @@ const getExpandedPropNames = (data: PropItem[]) =>
       .map((prop) => sanitizePropName(prop.name))
   )
 
-export const PropsTable = ({ data, isHook }: PropsTableProps) => {
-  const tableId = useId()
-  const [expandedProps, setExpandedProps] = useState(() => getExpandedPropNames(data))
-  const lastExpandedProps = useRef(expandedProps.size)
+const getRequiredPropsSignature = (data: PropItem[]) => Array.from(getExpandedPropNames(data)).sort().join('|')
 
-  console.log(expandedProps)
+const resolveDefinitionPath = (definitionPath: PropItem['definitionPath']) => {
+  if (!definitionPath) return null
 
-  useEffect(() => {
-    const newExpandedProps = getExpandedPropNames(data)
-
-    if (lastExpandedProps.current != newExpandedProps.size) {
-      setExpandedProps(newExpandedProps)
-      lastExpandedProps.current = newExpandedProps.size
-    }
-  }, [data])
-
-  const toggleProp = (name: string) => {
-    setExpandedProps((current) => {
-      const next = new Set(current)
-      if (next.has(name)) next.delete(name)
-      else next.add(name)
-      return next
-    })
+  if (typeof definitionPath === 'object' && !('label' in definitionPath && 'path' in definitionPath)) {
+    throw Error(
+      `[LITHOS-UI]: Invalid definitionPath object ${JSON.stringify(definitionPath)}. Must contain "label" and "path" entries.`
+    )
   }
 
-  return (
-    <div className="overflow-x-auto my-2 rounded-(--lithos-radius) max-w-192">
-      <table className="w-full table-fixed text-left border-collapse font-body text-sm">
-        <thead>
-          <tr className="border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
-            <th className="p-3 font-black uppercase text-xs">Prop</th>
-            <th className="p-3 font-black uppercase text-xs">Type</th>
-            <th className="p-3 font-black uppercase text-xs">Default</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((prop) => {
-            const sanitizedName = sanitizePropName(prop.name)
-            const isExpanded = expandedProps.has(sanitizedName)
-            const detailsId = `${tableId}-prop-details-${sanitizedName}`
+  const path = typeof definitionPath === 'object' ? definitionPath.path : definitionPath
+  const componentData = componentPages.find((component) => component.path === path)
+  const label =
+    typeof definitionPath === 'object' && 'label' in definitionPath ? definitionPath.label : componentData?.label
 
-            return (
-              <Fragment key={sanitizedName}>
-                <tr className="border-b border-(--lithos-border)/40">
-                  <td className="p-3 font-mono font-bold text-(--lithos-text) whitespace-nowrap">
-                    <button
-                      type="button"
-                      className="inline-flex min-h-10 cursor-pointer items-center text-left"
-                      aria-expanded={isExpanded}
-                      aria-controls={detailsId}
-                      aria-label={`Toggle ${sanitizedName.replaceAll('_', ' ')} details`}
-                      onClick={() => toggleProp(sanitizedName)}
-                    >
-                      <IconChevronDown
-                        size={20}
-                        aria-hidden="true"
-                        className={cn('mr-2 shrink-0 transition-transform', isExpanded && 'rotate-180')}
-                      />
-                      {prop.name}
-                    </button>
+  if (!componentData) {
+    throw Error(
+      `[LITHOS-UI]: Invalid definitionPath string or object "path" entry: ${JSON.stringify(definitionPath)}. The string must match a valid path on the array "DOC_PAGES" at src/core/lithos.utils.ts`
+    )
+  }
 
-                    {!isHook &&
-                      (prop.required ? (
-                        <span className="ml-1.5 text-xs font-bold text-red-500" title="Required">
-                          *
-                        </span>
-                      ) : (
-                        <span className="ml-1.5 text-[10px] font-normal opacity-70" title="Optional">
-                          opt
-                        </span>
-                      ))}
-                  </td>
-                  <td
-                    className={cn(
-                      'p-3 font-mono text-xs wrap-break-word max-w-55',
-                      !isLithosType(prop.type) ? 'opacity-80' : 'text-(--lithos-accent)'
-                    )}
-                  >
-                    {prop.type}
-                  </td>
-                  <td className="p-3 font-mono text-xs opacity-70">{prop.defaultValue || '—'}</td>
-                </tr>
-                <tr hidden={!isExpanded}>
-                  <td
-                    id={detailsId}
-                    colSpan={3}
-                    className="p-4 border-b border-(--lithos-border)/40 overflow-hidden w-full"
-                  >
-                    <p className="m-0 opacity-90">{prop.description}</p>
-
-                    {prop.definitionPath &&
-                      (() => {
-                        if (
-                          typeof prop.definitionPath === 'object' &&
-                          !('label' in prop.definitionPath && 'path' in prop.definitionPath)
-                        )
-                          throw Error(
-                            `[LITHOS-UI]: Invalid definitionPath object ${JSON.stringify(prop.definitionPath)}. Must contain "label" and "path" entries.`
-                          )
-
-                        const path =
-                          typeof prop.definitionPath === 'object' ? prop.definitionPath.path : prop.definitionPath
-                        const componentData = componentPages.find((component) => component.path === path)
-                        const label =
-                          typeof prop.definitionPath === 'object' && 'label' in prop.definitionPath
-                            ? prop.definitionPath?.label
-                            : componentData?.label
-
-                        if (!componentData)
-                          throw Error(
-                            `[LITHOS-UI]: Invalid definitionPath string or object "path" entry: ${JSON.stringify(prop.definitionPath)}. The string must match a valid path on the array "DOC_PAGES" at src/core/lithos.utils.ts`
-                          )
-
-                        return (
-                          <div className="mt-4 flex">
-                            See the{' '}
-                            <RouteLink
-                              to={`${componentData.to}#api`}
-                              importRoute={componentData.loader}
-                              style={{ color: colors.info }}
-                              className="font-bold flex mx-1"
-                            >
-                              {label} <IconExternalLink className="ml-1" />
-                            </RouteLink>
-                            API
-                          </div>
-                        )
-                      })()}
-
-                    {prop.typeDefinition && (
-                      <div className="mt-4">
-                        <span className="block mb-1 text-xs font-bold uppercase opacity-70">Type definition</span>
-                        <CodeViewer
-                          language="ts"
-                          showLanguage
-                          code={prop.typeDefinition}
-                          embedded
-                          className="w-full max-w-full [&_pre]:w-full [&_pre]:max-w-full [&_pre]:overflow-x-auto"
-                        />
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              </Fragment>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
-  )
+  return {
+    path,
+    componentData,
+    label,
+  }
 }
 
 const isLithosType = (type: string) => {
@@ -279,6 +153,135 @@ const isLithosType = (type: string) => {
 
     return noHighlightRegExpType ?? noHighlightType
   })
+}
+
+export const PropsTable = ({ data, isHook }: PropsTableProps) => {
+  const tableId = useId()
+  const [expandedProps, setExpandedProps] = useState(() => getExpandedPropNames(data))
+  const lastRequiredSignature = useRef(getRequiredPropsSignature(data))
+
+  useEffect(() => {
+    const nextSignature = getRequiredPropsSignature(data)
+
+    // Sync expanded props whenever the exact set of required props changes
+    if (lastRequiredSignature.current !== nextSignature) {
+      setExpandedProps(getExpandedPropNames(data))
+      lastRequiredSignature.current = nextSignature
+    }
+  }, [data])
+
+  const toggleProp = (name: string) => {
+    setExpandedProps((current) => {
+      const next = new Set(current)
+      if (next.has(name)) next.delete(name)
+      else next.add(name)
+      return next
+    })
+  }
+
+  return (
+    <div className="overflow-x-auto my-2 rounded-(--lithos-radius) max-w-192">
+      <table className="w-full table-fixed text-left border-collapse font-body text-sm">
+        <thead>
+          <tr className="border-b-2 border-(--lithos-border) bg-(--lithos-surface)">
+            <th className="p-3 font-black uppercase text-xs">Prop</th>
+            <th className="p-3 font-black uppercase text-xs">Type</th>
+            <th className="p-3 font-black uppercase text-xs">Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((prop) => {
+            const sanitizedName = sanitizePropName(prop.name)
+            const isExpanded = expandedProps.has(sanitizedName)
+            const detailsId = `${tableId}-prop-details-${sanitizedName}`
+            const resolvedDefinition = resolveDefinitionPath(prop.definitionPath)
+            const ariaLabel = `Toggle ${sanitizedName.replaceAll('_', ' ')} details`
+
+            return (
+              <Fragment key={sanitizedName}>
+                <tr className="border-b border-(--lithos-border)/40">
+                  <td className="p-3 font-mono font-bold text-(--lithos-text) whitespace-nowrap">
+                    <button
+                      type="button"
+                      className="inline-flex min-h-10 cursor-pointer items-center text-left"
+                      aria-expanded={isExpanded}
+                      aria-controls={detailsId}
+                      aria-label={ariaLabel}
+                      onClick={() => toggleProp(sanitizedName)}
+                    >
+                      <IconChevronDown
+                        size={20}
+                        aria-hidden="true"
+                        className={cn('mr-2 shrink-0 transition-transform', isExpanded && 'rotate-180')}
+                      />
+                      {prop.name}
+                    </button>
+
+                    {!isHook &&
+                      (prop.required ? (
+                        <span className="ml-1.5 text-xs font-bold text-red-500" title="Required">
+                          *
+                        </span>
+                      ) : (
+                        <span className="ml-1.5 text-[10px] font-normal opacity-70" title="Optional">
+                          opt
+                        </span>
+                      ))}
+                  </td>
+                  <td
+                    className={cn(
+                      'p-3 font-mono text-xs wrap-break-word max-w-55',
+                      !isLithosType(prop.type) ? 'opacity-80' : 'text-(--lithos-accent)'
+                    )}
+                  >
+                    {prop.type}
+                  </td>
+                  <td className="p-3 font-mono text-xs opacity-70">{prop.defaultValue || '—'}</td>
+                </tr>
+                <tr hidden={!isExpanded}>
+                  <td
+                    id={detailsId}
+                    colSpan={3}
+                    className="p-4 border-b border-(--lithos-border)/40 overflow-hidden w-full"
+                  >
+                    <p className="m-0 opacity-90">{prop.description}</p>
+
+                    {resolvedDefinition && (
+                      <div className="mt-4 flex">
+                        See the{' '}
+                        <RouteLink
+                          to={`${resolvedDefinition.componentData.to}#api`}
+                          importRoute={resolvedDefinition.componentData.loader}
+                          className="font-bold flex mx-1"
+                          style={{ color: colors.info }}
+                        >
+                          {resolvedDefinition.label} <IconExternalLink className="ml-1" />
+                        </RouteLink>
+                        API
+                      </div>
+                    )}
+
+                    {prop.typeDefinition && (
+                      <div className="mt-4">
+                        <span className="block mb-1 text-xs font-bold uppercase opacity-70">Type definition</span>
+                        <CodeViewer
+                          language="ts"
+                          showLanguage
+                          code={prop.typeDefinition}
+                          embedded
+                          className="w-full max-w-full [&_pre]:w-full [&_pre]:max-w-full [&_pre]:overflow-x-auto"
+                        />
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              </Fragment>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export const PropsAccordion = ({
